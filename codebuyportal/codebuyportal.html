@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Scripts Portal</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- EasyInvoice for invoice generation -->
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+    <style>
+        /* Custom styles for a clean look */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* HTML: <div class="loader"></div> */
+        .loader {
+            display: inline-grid;
+            width: 80px;
+            aspect-ratio: 1;
+            animation: l12-0 3s linear infinite;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: "";
+            grid-area: 1/1;
+        }
+
+        .loader:before {
+            clip-path: polygon(100% 50%, 83.81% 59.06%, 93.3% 75%, 74.75% 74.75%, 75% 93.3%, 59.06% 83.81%, 50% 100%, 40.94% 83.81%, 25% 93.3%, 25.25% 74.75%, 6.7% 75%, 16.19% 59.06%, 0% 50%, 16.19% 40.94%, 6.7% 25%, 25.25% 25.25%, 25% 6.7%, 40.94% 16.19%, 50% 0%, 59.06% 16.19%, 75% 6.7%, 74.75% 25.25%, 93.3% 25%, 83.81% 40.94%);
+            background: #1B325F;
+            transform: rotate(0turn) translate(-12.5%) rotate(0turn);
+            animation:
+                l12-1 2s linear infinite,
+                l12-2 4s linear infinite alternate;
+        }
+
+        .loader:after {
+            margin: 12.5%;
+            clip-path: polygon(100% 50%, 78.19% 60.26%, 88.3% 82.14%, 65% 75.98%, 58.68% 99.24%, 44.79% 79.54%, 25% 93.3%, 27.02% 69.28%, 3.02% 67.1%, 20% 50%, 3.02% 32.9%, 27.02% 30.72%, 25% 6.7%, 44.79% 20.46%, 58.68% 0.76%, 65% 24.02%, 88.3% 17.86%, 78.19% 39.74%);
+            background: #9CC4E4;
+            animation: l12-3 4s linear infinite alternate;
+        }
+
+        @keyframes l12-0 {
+            to {
+                rotate: 1turn;
+            }
+        }
+
+        @keyframes l12-1 {
+            to {
+                transform: rotate(-1turn) translate(-12.5%) rotate(.75turn);
+            }
+        }
+
+        @keyframes l12-2 {
+
+            90%,
+            to {
+                clip-path: polygon(100% 50%, 98.3% 62.94%, 93.3% 75%, 85.36% 85.36%, 75% 93.3%, 62.94% 98.3%, 50% 100%, 37.06% 98.3%, 25% 93.3%, 14.64% 85.36%, 6.7% 75%, 1.7% 62.94%, 0% 50%, 1.7% 37.06%, 6.7% 25%, 14.64% 14.64%, 25% 6.7%, 37.06% 1.7%, 50% 0%, 62.94% 1.7%, 75% 6.7%, 85.36% 14.64%, 93.3% 25%, 98.3% 37.06%)
+            }
+        }
+
+        @keyframes l12-3 {
+
+            90%,
+            to {
+                clip-path: polygon(100% 50%, 96.98% 67.1%, 88.3% 82.14%, 75% 93.3%, 58.68% 99.24%, 41.32% 99.24%, 25% 93.3%, 11.7% 82.14%, 3.02% 67.1%, 0% 50%, 3.02% 32.9%, 11.7% 17.86%, 25% 6.7%, 41.32% 0.76%, 58.68% 0.76%, 75% 6.7%, 88.3% 17.86%, 96.98% 32.9%)
+            }
+        }
+
+        /* Style for the active tab */
+        .tab-active {
+            border-bottom: 2px solid #4f46e5;
+            /* indigo-600 */
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        .sub-tab-button.sub-tab-active {
+            color: #4f46e5;
+            border-bottom: 2px solid #4f46e5;
+            font-weight: 600;
+        }
+
+        /* Simple transition for UI elements */
+        .transition-all {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Styles for pagination buttons */
+        .pagination-btn {
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            /* gray-200 */
+            background-color: white;
+            color: #4b5563;
+            /* gray-600 */
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .pagination-btn:hover {
+            background-color: #f3f4f6;
+            /* gray-100 */
+        }
+
+        .pagination-btn.active {
+            background-color: #4f46e5;
+            /* indigo-600 */
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .pagination-btn:disabled {
+            background-color: #f9fafb;
+            /* gray-50 */
+            color: #9ca3af;
+            /* gray-400 */
+            cursor: not-allowed;
+        }
+
+        /* Styling for details/summary dropdown */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] summary .arrow {
+            transform: rotate(90deg);
+        }
+
+        .arrow {
+            transition: transform 0.2s;
+        }
+
+        /* Animation for the confirmation modal */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-animate {
+            animation: fadeInScale 0.2s ease-out forwards;
+        }
+
+        .project-folder:hover .folder-icon {
+            transform: scale(1.1);
+        }
+
+        .folder-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="w-full min-h-screen flex items-center justify-center p-4">
+        <!-- Loader (hidden by default) -->
+        <div class="loader" id="loader" style="display:none;"></div>
+        <!-- =========== Login Page =========== -->
+        <div id="login-page" class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+            <div>
+                <h1 class="text-3xl font-bold text-center text-gray-800">Secure Portal Login</h1>
+                <p class="text-center text-gray-500">Please enter your password to continue</p>
+            </div>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="password" class="text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" required
+                        class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <button type="submit"
+                        class="w-full px-4 py-2 font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all">
+                        Login
+                    </button>
+                </div>
+                <p id="error-message" class="text-center text-sm text-red-600 h-4"></p>
+            </form>
+        </div>
+
+        <!-- =========== Home Page / Project Selector (Initially hidden) =========== -->
+        <div id="home-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+            <header class="pb-4 border-b border-gray-200">
+                <h1 class="text-3xl font-bold text-gray-800">My Projects</h1>
+                <p class="text-gray-500">Select a project to manage its scripts and finances.</p>
+            </header>
+            <div id="project-folders-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-6">
+                <!-- Project folders will be dynamically inserted here -->
+            </div>
+        </div>
+
+
+        <!-- =========== Main Portal (Initially hidden) =========== -->
+        <div id="portal-main"
+            class="hidden w-full h-full md:h-auto md:max-w-6xl mx-auto bg-white rounded-xl shadow-2xl md:my-8 overflow-hidden">
+            <!-- New Advanced Header -->
+            <header id="main-header" class="bg-gray-50 border-b border-gray-200">
+                <div class="px-6 md:px-8 py-3 flex justify-between items-center">
+                    <!-- Left Side: User Info -->
+                    <div>
+                        <button id="back-to-projects-btn"
+                            class="text-sm font-medium text-indigo-600 hover:text-indigo-800 mb-1">&larr; All
+                            Projects</button>
+                        <h2 id="current-project-name" class="text-lg font-bold text-gray-800"></h2>
+                    </div>
+                    <!-- Right Side: Dropdown Menu -->
+                    <div class="relative">
+                        <button id="profile-menu-button"
+                            class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-800 focus:outline-none rounded-full p-2 hover:bg-gray-200">
+                            <span>Manage Profile</span>
+                            <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a 1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div id="profile-menu"
+                            class="hidden absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+                            role="menu">
+                            <div class="py-1">
+                                <a href="#" id="account-link"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Account</a>
+                                <a href="#" id="payments-link"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Payments</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Security</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Manage Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 md:p-8">
+                <header class="pb-4 border-b border-gray-200">
+                    <h1 class="text-3xl font-bold text-gray-800">Scripts Dashboard</h1>
+                    <p class="text-gray-500">Manage your development scripts and invoices for this project.</p>
+                </header>
+
+                <!-- Tab Navigation -->
+                <nav class="mt-6">
+                    <div class="flex border-b border-gray-200">
+                        <button data-tab="dev" class="tab-button px-6 py-3 text-gray-600">In Development
+                            Scripts</button>
+                        <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice Section</button>
+                        <button data-tab="get" class="tab-button px-6 py-3 text-gray-600">Get Scripts</button>
+                    </div>
+                </nav>
+
+                <!-- Tab Content -->
+                <main id="tab-content" class="pt-6">
+                    <!-- In Development Scripts -->
+                    <div id="dev-tab" class="tab-pane">
+                        <div
+                            class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 md:space-x-4 mb-4">
+                            <div class="flex items-center space-x-2"><label for="date-from"
+                                    class="text-sm font-medium text-gray-600">From:</label><input type="date"
+                                    id="date-from"
+                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><label
+                                    for="date-to" class="text-sm font-medium text-gray-600">To:</label><input
+                                    type="date" id="date-to"
+                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><button
+                                    id="filter-date-btn"
+                                    class="px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Filter</button><button
+                                    id="clear-filter-btn"
+                                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Clear</button>
+                            </div>
+                            <div class="flex items-center space-x-2"><label for="sort-scripts"
+                                    class="text-sm font-medium text-gray-600">Sort by:</label><select id="sort-scripts"
+                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="date-desc">Date (Newest First)</option>
+                                    <option value="date-asc">Date (Oldest First)</option>
+                                    <option value="price-desc">Price (High to Low)</option>
+                                    <option value="price-asc">Price (Low to High)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                </select></div>
+                        </div>
+                        <div id="dev-scripts-list" class="space-y-4"></div>
+                    </div>
+                    <!-- Invoice Section -->
+                    <div id="invoice-tab" class="tab-pane hidden">
+                        <div id="invoice-list" class="space-y-4"></div>
+                    </div>
+                    <!-- Get Scripts -->
+                    <div id="get-tab" class="tab-pane hidden">
+                        <div class="mb-4 border-b border-gray-200">
+                            <nav class="-mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
+                                <button data-subtab="frontend"
+                                    class="sub-tab-button sub-tab-active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Frontend
+                                    Code</button>
+                                <button data-subtab="backend"
+                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Backend
+                                    Code</button>
+                                <button data-subtab="ui"
+                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">UI
+                                    Essentials</button>
+                                <button data-subtab="database"
+                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Database
+                                    Essentials</button>
+                            </nav>
+                        </div>
+                        <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                        <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Other Pages -->
+        <div id="account-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h1 class="text-3xl font-bold text-gray-800">Account Details</h1><button
+                    id="back-to-portal-from-account"
+                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Personal Information</h2>
+                    <div class="space-y-4 text-sm">
+                        <div><label class="text-gray-500">Full Name</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">Nakul Singh</p>
+                        </div>
+                        <div><label class="text-gray-500">Developer ID</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">DEV-ID
+                                ery363dgb4h4ynf</p>
+                        </div>
+                        <div><label class="text-gray-500">Email Address</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">nakul.singh.dev@example.com</p>
+                        </div>
+                        <div><label class="text-gray-500">Phone Number</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">+91 98765 43210</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Bank & Payment Details</h2>
+                    <div class="space-y-4 text-sm">
+                        <div><label class="text-gray-500">Bank Name</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">State Bank of India</p>
+                        </div>
+                        <div><label class="text-gray-500">Account Number</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">XXXX-XXXX-XXXX-1234
+                            </p>
+                        </div>
+                        <div><label class="text-gray-500">Branch & IFSC Code</label>
+                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">New Delhi Main Branch /
+                                SBIN0000691</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg"
+                        role="alert">
+                        <p class="font-bold">Security Notice</p>
+                        <p class="text-sm">For your protection, personal and bank details are read-only. All payments
+                            and transactions are locked to this account to prevent fraud. Please contact support for any
+                            verification or updates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
+                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 pt-4">
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Order Summary</h2>
+                        <div class="space-y-3 mt-4">
+                            <div class="flex justify-between"><span class="text-gray-600">Item:</span><span
+                                    id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span></div>
+                            <div class="flex justify-between"><span class="text-gray-600">Price:</span><span
+                                    id="checkout-item-price" class="font-semibold text-gray-800"></span></div>
+                            <div class="flex justify-between text-sm" id="discount-row" style="display: none;"><span
+                                    class="text-green-600">Discount (10%):</span><span id="checkout-discount-amount"
+                                    class="font-semibold text-green-600"></span></div>
+                        </div>
+                        <div class="border-t mt-4 pt-4">
+                            <div class="flex justify-between font-bold text-lg"><span>Total:</span><span
+                                    id="checkout-total-price"></span></div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Payment Details</h2>
+                        <div class="mt-4 space-y-4">
+                            <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
+                                <div class="flex flex-col mt-2 space-y-2">
+                                    <div class="flex items-center p-3 border rounded-lg bg-white">
+                                        <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
+                                        <div>
+                                            <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
+                                            <div class="text-sm text-gray-600">Nakul Singh</div>
+                                            <div class="text-sm font-mono text-gray-700">1232 1233 1233</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo Code</label>
+                                <div class="flex mt-2"><input type="text" id="promo-code"
+                                        class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"><button
+                                        id="apply-promo"
+                                        class="px-4 py-2 font-semibold text-white bg-gray-700 rounded-r-lg hover:bg-gray-800">Apply</button>
+                                </div>
+                                <p id="promo-message" class="text-sm h-4 mt-1"></p>
+                            </div><button
+                                class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-900 transition-all"
+                                style="color:whitesmoke">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 bg-gray-50 p-6 rounded-lg border">
+                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Cost Breakdown & Analytics</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="w-full h-64"><canvas id="cost-pie-chart"></canvas></div>
+                        <div class="w-full h-64"><canvas id="cost-bar-chart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="payments-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
+                    id="back-to-portal-from-payments"
+                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
+                <div
+                    class="lg:col-span-1 bg-gray-50 p-6 rounded-lg border flex flex-col items-center justify-center text-center">
+                    <h2 class="text-xl font-semibold text-gray-700">Total Project Investment</h2>
+                    <p id="total-investment-amount" class="text-5xl font-bold text-indigo-600 my-4">$0.00</p>
+                    <p class="text-gray-500">This is the total amount you've spent on this project's scripts.</p>
+                </div>
+                <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg border">
+                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="w-full h-64"><canvas id="total-cost-pie-chart"></canvas></div>
+                        <div class="w-full h-64"><canvas id="total-cost-bar-chart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div id="exchange-modal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-2xl space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
+                        id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
+                    <div id="modal-version-list" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+        <div id="finalize-confirm-modal"
+            class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+            <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
+                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800">Are you absolutely sure?</h2>
+                <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action cannot
+                    be undone. You will be unable to exchange the code in case of any incompatibility or technical
+                    issues and will need to purchase a new script.</p>
+                <div class="flex justify-center space-x-4 pt-2"><button id="confirm-cancel-btn"
+                        class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 border border-gray-300">Cancel</button><button
+                        id="confirm-proceed-btn"
+                        class="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Proceed</button>
+                </div>
+            </div>
+        </div>
+        <div id="loading-overlay"
+            class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
+            <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                <p class="text-white text-lg font-medium">Processing payment, please wait...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA & HELPER FUNCTIONS ---
+
+        function getRandomDate(monthsInFuture = 0) {
+            const now = new Date();
+            if (monthsInFuture > 0) {
+                const futureDate = new Date();
+                futureDate.setMonth(futureDate.getMonth() + Math.floor(Math.random() * monthsInFuture) + 1);
+                return futureDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+            const start = new Date('2025-04-15T00:00:00');
+            const end = new Date('2025-09-02T23:59:59');
+            const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return randomDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        const fixedDates = [
+            'April 20, 2025', 'April 25, 2025', 'May 02, 2025', 'May 15, 2025', 'June 01, 2025',
+            'June 18, 2025', 'July 04, 2025', 'July 22, 2025', 'August 05, 2025', 'August 19, 2025',
+            'September 03, 2025', 'September 15, 2025', 'September 28, 2025', 'September 29, 2025', 'September 30, 2025'
+        ];
+        const purchasedPrice = [73, 83, 74, 82, 71, 125, 78, 80, 105, 71]
+        const vendors = ['Envato Codes', 'Codester', 'Template Hub', 'Oracle Servers', 'ScriptJet', 'CodeCanyon'];
+
+        const vendorDetails = {
+            'Envato Codes': {
+                company: 'Envato Codes',
+                address: 'Melbourne, Australia',
+                zip: '3004',
+                city: 'Melbourne',
+                country: 'Australia'
+            },
+            'Codester': {
+                company: 'Codester',
+                address: 'Amsterdam, Netherlands',
+                zip: '1012',
+                city: 'Amsterdam',
+                country: 'Netherlands'
+            },
+            'Template Hub': {
+                company: 'Template',
+                address: 'Ho Chi Minh City, Vietnam',
+                zip: '756000',
+                city: 'Ho Chi Minh City',
+                country: 'vietnam'
+            },
+            'Oracle Servers': {
+                company: 'OCI Servers',
+                address: 'Texas, USA',
+                zip: '78741',
+                city: 'Texas',
+                country: 'USA'
+            },
+            'ScriptJet': {
+                company: 'ScriptJet',
+                address: '101 Jet Way, Berlin, Germany',
+                zip: '10115',
+                city: 'Berlin',
+                country: 'Germany'
+            },
+            'CodeCanyon': {
+                company: 'CodeCanyon by Envato',
+                address: 'Melbourne, Australia',
+                zip: '3004',
+                city: 'Melbourne',
+                country: 'Australia'
+            }
+        };
+
+        const scriptBaseNames = ["User Authentication", "MEAN CRUD System v2.5", "Admin Dashboard", "Blog Platform", "Chat Application", "Payment Gateway", "File Upload Service", "Notification System", "Search Engine", "Analytics Tracker", "Subscription Manager", "Inventory System", "Booking Engine", "Content Management", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
+        const uiEssentialsBaseNames = ["Animated Button Pack", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
+        const databaseEssentialsBaseNames = ["MySQL Managed Instance", "PostgreSQL Cluster", "MongoDB Atlas Replica Set", "Redis In-Memory Cache", "Elasticsearch Cluster", "Firebase Realtime DB", "Amazon DynamoDB Instance", "Google Cloud Spanner", "Microsoft Azure Cosmos DB", "SQLite Embeddable DB", "Neo4j Graph Database", "InfluxDB Time-Series DB", "Cassandra Cluster", "MariaDB Server", "RethinkDB Instance", "CouchDB Server", "ClickHouse OLAP DB", "Oracle DB Instance", "SQL Server Express", "FaunaDB Serverless", "Supabase Postgres Instance", "PlanetScale MySQL", "CockroachDB Distributed SQL", "ScyllaDB NoSQL Cluster", "TiDB NewSQL Platform", "ArangoDB Multi-model", "Realm Mobile Database", "Datastax Astra (Cassandra)", "Heroku Postgres", "DigitalOcean Managed PostgreSQL", "Aiven for PostgreSQL", "Upstash Redis", "Memcached Cloud", "TimescaleDB Cloud", "QuestDB Instance", "Vector Database (Pinecone)", "Vector Database (Weaviate)", "SurrealDB Instance", "EdgeDB Instance", "YugabyteDB Distributed SQL"];
+
+        // const scriptBaseNames = ["User Authentication", "E-commerce Cart", "Admin Dashboard", "Blog Platform", "Chat Application", "Payment Gateway", "File Upload Service", "Notification System", "Search Engine", "Analytics Tracker", "Subscription Manager", "Inventory System", "Booking Engine", "Content Management", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
+        // const uiEssentialsBaseNames = ["Animated Button Pack", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
+        // const databaseEssentialsBaseNames = ["MySQL Managed Instance", "PostgreSQL Cluster", "MongoDB Atlas Replica Set", "Redis In-Memory Cache", "Elasticsearch Cluster", "Firebase Realtime DB", "Amazon DynamoDB Instance", "Google Cloud Spanner", "Microsoft Azure Cosmos DB", "SQLite Embeddable DB", "Neo4j Graph Database", "InfluxDB Time-Series DB", "Cassandra Cluster", "MariaDB Server", "RethinkDB Instance", "CouchDB Server", "ClickHouse OLAP DB", "Oracle DB Instance", "SQL Server Express", "FaunaDB Serverless", "Supabase Postgres Instance", "PlanetScale MySQL", "CockroachDB Distributed SQL", "ScyllaDB NoSQL Cluster", "TiDB NewSQL Platform", "ArangoDB Multi-model", "Realm Mobile Database", "Datastax Astra (Cassandra)", "Heroku Postgres", "DigitalOcean Managed PostgreSQL", "Aiven for PostgreSQL", "Upstash Redis", "Memcached Cloud", "TimescaleDB Cloud", "QuestDB Instance", "Vector Database (Pinecone)", "Vector Database (Weaviate)", "SurrealDB Instance", "EdgeDB Instance", "YugabyteDB Distributed SQL"];
+
+        function generateItems(baseNames, count, generatorFn) {
+            const items = [];
+            let id = 1;
+            while (items.length < count) {
+                const name = baseNames[items.length % baseNames.length];
+                items.push(generatorFn(name, id++));
+            }
+            return items;
+        }
+
+        let getScripts = [];
+        let idCounter = 1;
+        const frontendNames = generateItems(scriptBaseNames, 120, (name, id) => ({
+            id: idCounter++,
+            name: `${name} - Frontend`,
+            type: 'Frontend',
+            vendor: vendors[Math.floor(Math.random() * vendors.length)],
+            versions: generateVersionTiers()
+        }));
+        const backendNames = generateItems(scriptBaseNames, 120, (name, id) => ({
+            id: idCounter++,
+            name: `${name} - Backend`,
+            type: 'Backend',
+            vendor: vendors[Math.floor(Math.random() * vendors.length)],
+            versions: generateVersionTiers()
+        }));
+        getScripts = [...frontendNames, ...backendNames];
+
+        let uiScripts = generateItems(uiEssentialsBaseNames, 120, (name, id) => ({
+            id: idCounter++,
+            name: name,
+            type: 'ui',
+            price: Math.floor(Math.random() * (170 - 92 + 1)) + 92,
+            expiryDate: getRandomDate(12),
+            vendor: vendors[Math.floor(Math.random() * vendors.length)]
+        }));
+
+        let databaseScripts = generateItems(databaseEssentialsBaseNames, 120, (name, id) => ({
+            id: idCounter++,
+            name: name,
+            type: 'database',
+            setupPrice: Math.floor(Math.random() * (180 - 93 + 1)) + 93,
+            hourlyRate: (Math.random() * (4.9 - 0.9) + 0.9).toFixed(2),
+            vendor: vendors[Math.floor(Math.random() * vendors.length)]
+        }));
+
+        function generateProjectScripts(count) {
+            let scripts = [];
+            const targetTotal = 842.00;
+            const usedNames = new Set();
+
+            let currentTotal = 0;
+            for (let i = 0; i < count - 1; i++) {
+                let baseName;
+                do { baseName = scriptBaseNames[i] } while (usedNames.has(baseName));
+                usedNames.add(baseName);
+
+
+                const remainingScripts = count - i;
+                const remainingBudget = targetTotal - currentTotal;
+                const avgPrice = remainingBudget / remainingScripts;
+                const minPrice = Math.max(40, avgPrice * 0.75);
+                const maxPrice = Math.min(avgPrice * 1.25, remainingBudget - (remainingScripts - 1) * 40);
+
+                let price = purchasedPrice[i]
+                currentTotal += price;
+                const allVersions = generateVersionTiers().map(v => v.name);
+                const version = `v1.${Math.floor(Math.random() * 9)}`;
+                const exchangeVersions = allVersions.filter(v => v !== version);
+
+                scripts.push({
+                    id: i + 1,
+                    name: baseName,
+                    purchaseDate: fixedDates[i % fixedDates.length],
+                    status: 'paid',
+                    type: 'Backend',
+                    version: version,
+                    price: price,
+                    vendor: vendors[Math.floor(Math.random() * vendors.length)],
+                    code: `// Code for ${baseName}`,
+                    exchangeVersions: exchangeVersions // <-- store fixed versions
+                });
+            }
+            let lastName;
+            do { lastName = scriptBaseNames[Math.floor(Math.random() * scriptBaseNames.length)]; } while (usedNames.has(lastName));
+            const lastPrice = targetTotal - currentTotal;
+
+            const lastVersion = `v1.${Math.floor(Math.random() * 9)}`;
+            const lastExchangeVersions = generateVersionTiers().map(v => v.name).filter(v => v !== lastVersion);
+
+            scripts.push({
+                id: count,
+                name: lastName,
+                status: 'paid',
+                type: 'Backend',
+                version: lastVersion,
+                purchaseDate: getRandomDate(),
+                price: lastPrice > 0 ? lastPrice : 40,
+                vendor: vendors[Math.floor(Math.random() * vendors.length)],
+                code: `// Code for ${lastName}`,
+                exchangeVersions: lastExchangeVersions // <-- store fixed versions
+            });
+
+            return scripts;
+        }
+
+        const projectsData = {
+            "blinkbag.com": { scripts: generateProjectScripts(10) },
+            "invoicely.co": { scripts: generateProjectScripts(8) },
+            "dev-api.io": { scripts: generateProjectScripts(15) }
+        };
+
+        function generateRandomVersionName() {
+            const names = ['Community', 'Standard', 'Business', 'Ultimate', 'Lite', 'Pro', 'Atomic', 'Quantum'];
+            const v1 = Math.floor(Math.random() * 3) + 1;
+            const v2 = Math.floor(Math.random() * 10);
+            const v3 = Math.floor(Math.random() * 10);
+            const name = names[Math.floor(Math.random() * names.length)];
+            return `v${v1}.${v2}.${v3} (${name})`;
+        }
+
+        function generateVersionTiers() {
+            let price1 = Math.floor(Math.random() * (150 - 95 + 1)) + 95;
+            let price2 = Math.floor(Math.random() * (280 - (price1 + 20) + 1)) + (price1 + 20);
+            let price3 = Math.floor(Math.random() * (395 - (price2 + 20) + 1)) + (price2 + 20);
+            return [{ name: generateRandomVersionName(), price: price1 }, { name: generateRandomVersionName(), price: price2 }, { name: generateRandomVersionName(), price: price3 }].sort((a, b) => a.price - b.price);
+        }
+
+        // --- DOM ELEMENTS & STATE (full list) ---
+        const allPages = {
+            loginPage: document.getElementById('login-page'),
+            homePage: document.getElementById('home-page'),
+            portalMain: document.getElementById('portal-main'),
+            checkoutPage: document.getElementById('checkout-page'),
+            paymentsPage: document.getElementById('payments-page'),
+            accountPage: document.getElementById('account-page')
+        };
+        const loginForm = document.getElementById('login-form');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('error-message');
+        const projectFoldersContainer = document.getElementById('project-folders-container');
+        const backToProjectsBtn = document.getElementById('back-to-projects-btn');
+        const currentProjectName = document.getElementById('current-project-name');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        const subTabButtons = document.querySelectorAll('.sub-tab-button');
+        const exchangeModal = document.getElementById('exchange-modal');
+        const closeModalButton = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalVersionList = document.getElementById('modal-version-list');
+        const devScriptsList = document.getElementById('dev-scripts-list');
+        const invoiceList = document.getElementById('invoice-list');
+        const getScriptsList = document.getElementById('get-scripts-list');
+        const paginationControls = document.getElementById('pagination-controls');
+        const profileMenuButton = document.getElementById('profile-menu-button');
+        const profileMenu = document.getElementById('profile-menu');
+        const finalizeConfirmModal = document.getElementById('finalize-confirm-modal');
+        const confirmProceedBtn = document.getElementById('confirm-proceed-btn');
+        const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+        const sortScriptsDropdown = document.getElementById('sort-scripts');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const accountLink = document.getElementById('account-link');
+        const paymentsLink = document.getElementById('payments-link');
+        const backToPortalFromAccountBtn = document.getElementById('back-to-portal-from-account');
+        const backToPortalFromPaymentsBtn = document.getElementById('back-to-portal-from-payments');
+        const totalInvestmentAmount = document.getElementById('total-investment-amount');
+        const dateFromInput = document.getElementById('date-from');
+        const dateToInput = document.getElementById('date-to');
+        const filterDateBtn = document.getElementById('filter-date-btn');
+        const clearFilterBtn = document.getElementById('clear-filter-btn');
+        const backToPortalBtn = document.getElementById('back-to-portal');
+        const checkoutItemName = document.getElementById('checkout-item-name');
+        const checkoutItemPrice = document.getElementById('checkout-item-price');
+        const checkoutTotalPrice = document.getElementById('checkout-total-price');
+        const applyPromoBtn = document.getElementById('apply-promo');
+        const promoCodeInput = document.getElementById('promo-code');
+        const promoMessage = document.getElementById('promo-message');
+        const discountRow = document.getElementById('discount-row');
+        const loader = document.getElementById('loader');
+
+        let currentProject = null, currentPage = 1, activeSubTab = 'frontend', currentCheckout = { price: 0, discountApplied: false }, scriptIdToFinalize = null, currentSort = 'date-desc', costPieChart = null, costBarChart = null, totalCostPieChart = null, totalCostBarChart = null, dateFromFilter = null, dateToFilter = null;
+        const itemsPerPage = 9;
+
+        // --- HELPER FUNCTIONS ---
+        function formatCurrency(usdAmount) {
+            return `$${(usdAmount || 0).toFixed(2)}`;
+        }
+
+        // --- CHARTING FUNCTIONS ---
+        function renderTotalCostAnalytics() {
+            if (!currentProject) return;
+            if (totalCostPieChart) totalCostPieChart.destroy();
+            if (totalCostBarChart) totalCostBarChart.destroy();
+            let breakdown = { frontend: 0, backend: 0, cms: 0, server: 0 };
+            projectsData[currentProject].scripts.forEach(script => {
+                let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
+                let beP = (script.type === 'Backend') ? 0.6 : 0.15;
+                breakdown.frontend += script.price * feP;
+                breakdown.backend += script.price * beP;
+                breakdown.cms += script.price * 0.15;
+                breakdown.server += script.price * 0.10;
+            });
+            const dataValues = [breakdown.frontend.toFixed(2), breakdown.backend.toFixed(2), breakdown.cms.toFixed(2), breakdown.server.toFixed(2)];
+            const chartData = { labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], datasets: [{ data: dataValues, backgroundColor: ['#4bc0c0', '#ff6384', '#ffcd56', '#36a2eb'] }] };
+            const pieCtx = document.getElementById('total-cost-pie-chart').getContext('2d');
+            totalCostPieChart = new Chart(pieCtx, { type: 'pie', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Overall Spending (Pie)' } } } });
+            const barCtx = document.getElementById('total-cost-bar-chart').getContext('2d');
+            totalCostBarChart = new Chart(barCtx, { type: 'bar', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'Overall Spending (Bar)' } } } });
+        }
+
+        function renderPaymentsPage() {
+            if (!currentProject) return;
+            const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => sum + parseFloat(script.price || 0), 0);
+            totalInvestmentAmount.textContent = formatCurrency(totalInvestment);
+            renderTotalCostAnalytics();
+        }
+
+        // --- LOGIN & PAGE NAVIGATION ---
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (passwordInput.value === 'password123') {
+                // Show loader, hide login page
+                loader.style.display = 'inline-grid';
+                allPages.loginPage.style.display = 'none';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    showPage(allPages.homePage);
+                    renderHomePage();
+                }, 1500);
+            } else {
+                errorMessage.textContent = 'Invalid password.';
+                setTimeout(() => { errorMessage.textContent = ''; }, 3000);
+            }
+        });
+        profileMenuButton.addEventListener('click', () => profileMenu.classList.toggle('hidden'));
+        window.addEventListener('click', (e) => {
+            if (profileMenuButton && !profileMenuButton.contains(e.target) && profileMenu && !profileMenu.contains(e.target)) {
+                profileMenu.classList.add('hidden');
+            }
+        });
+        function showPage(pageToShow) {
+            Object.values(allPages).forEach(page => page.classList.add('hidden'));
+            if (pageToShow) pageToShow.classList.remove('hidden');
+        }
+        accountLink.addEventListener('click', (e) => { e.preventDefault(); profileMenu.classList.add('hidden'); showPage(allPages.accountPage); });
+        paymentsLink.addEventListener('click', (e) => { e.preventDefault(); profileMenu.classList.add('hidden'); if (currentProject) { showPage(allPages.paymentsPage); renderPaymentsPage(); } else { alert('Please select a project first.'); } });
+        backToProjectsBtn.addEventListener('click', () => { currentProject = null; showPage(allPages.homePage); });
+        backToPortalFromAccountBtn.addEventListener('click', () => currentProject ? showPage(allPages.portalMain) : showPage(allPages.homePage));
+        backToPortalFromPaymentsBtn.addEventListener('click', () => showPage(allPages.portalMain));
+        backToPortalBtn.addEventListener('click', () => showPage(allPages.portalMain));
+
+        // --- TAB & RENDER FUNCTIONS ---
+        function initializeTabs() {
+            tabButtons.forEach(btn => btn.classList.remove('tab-active'));
+            tabPanes.forEach(pane => pane.classList.add('hidden'));
+            if (tabButtons.length > 0) {
+                tabButtons[0].classList.add('tab-active');
+                document.getElementById(`${tabButtons[0].dataset.tab}-tab`).classList.remove('hidden');
+            }
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('tab-active'));
+                tabPanes.forEach(pane => pane.classList.add('hidden'));
+                button.classList.add('tab-active');
+                document.getElementById(`${button.dataset.tab}-tab`).classList.remove('hidden');
+            });
+        });
+
+        subTabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                activeSubTab = button.dataset.subtab;
+                subTabButtons.forEach(btn => btn.classList.remove('sub-tab-active'));
+                button.classList.add('sub-tab-active');
+                currentPage = 1;
+                renderGetScriptsPage(currentPage);
+                renderPagination();
+            });
+        });
+
+        function renderHomePage() {
+            projectFoldersContainer.innerHTML = '';
+            Object.keys(projectsData).forEach(projectName => {
+                projectFoldersContainer.insertAdjacentHTML('beforeend', `
+                    <div class="project-folder modern-card-hover flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 hover:border-indigo-500 hover:bg-white cursor-pointer" data-project="${projectName}">
+                        <svg class="w-16 h-16 text-gray-400 folder-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+                        <p class="mt-2 text-sm font-semibold text-gray-700">${projectName}</p>
+                        <p class="text-xs text-gray-500">${projectsData[projectName].scripts.length} scripts</p>
+                    </div>`);
+            });
+        }
+
+        function renderDevScripts() {
+            if (!currentProject) return;
+
+            let scripts = projectsData[currentProject].scripts;
+            let filteredAndSortedScripts = getFilteredAndSortedScripts(scripts);
+
+            devScriptsList.innerHTML = '';
+            if (filteredAndSortedScripts.length === 0) {
+                devScriptsList.innerHTML = `<div class="text-center py-10 bg-gray-50 rounded-lg"><p class="text-gray-500">No scripts found for the selected criteria.</p></div>`;
+                return;
+            }
+
+            filteredAndSortedScripts.forEach(script => {
+                const isFinalized = script.status === 'finalized';
+                devScriptsList.insertAdjacentHTML('beforeend', `
+                    <div class="bg-white border border-gray-200 rounded-lg">
+                        <details>
+                            <summary class="flex flex-col md:flex-row items-center justify-between p-4 cursor-pointer">
+                                <div class="flex items-center"><span class="arrow mr-3 text-gray-400">&#9654;</span><p class="font-semibold text-gray-700">${script.name}</p></div>
+                                <div class="flex items-center space-x-3 mt-3 md:mt-0">
+                                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg">Paid</button>
+                                    <button class="exchange-btn px-4 py-2 text-sm font-medium text-white rounded-lg ${isFinalized ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-600 hover:bg-gray-700'}" data-script-id="${script.id}" ${isFinalized ? 'disabled' : ''}>Exchange</button>
+                                </div>
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 space-y-3 text-sm text-gray-600">
+                               <div class="space-y-1"><p><strong>Type:</strong> ${script.type}</p><p><strong>Vendor:</strong> ${script.vendor}</p><p><strong>Version:</strong> ${script.version}</p><p><strong>Price:</strong> ${formatCurrency(script.price)}</p><p><strong>Purchase Date:</strong> ${script.purchaseDate}</p></div>
+                               <div class="mt-2"><label class="font-semibold text-gray-700">Code Snippet:</label><div class="flex items-center space-x-2 mt-1"><textarea id="code-${script.id}" rows="4" class="w-full p-2 font-mono text-xs bg-white border border-gray-300 rounded-lg resize-none" readonly>${script.code}</textarea><button class="copy-code-btn self-start px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" data-script-id="${script.id}">Copy</button></div></div>
+                            </div>
+                        </details>
+                    </div>`);
+            });
+        }
+
+
+        function getFilteredAndSortedScripts(scripts) {
+            let filteredScripts = [...scripts];
+
+            if (dateFromFilter) { filteredScripts = filteredScripts.filter(s => new Date(s.purchaseDate) >= dateFromFilter); }
+            if (dateToFilter) { filteredScripts = filteredScripts.filter(s => new Date(s.purchaseDate) <= dateToFilter); }
+
+            switch (currentSort) {
+                case 'date-desc': filteredScripts.sort((a, b) => new Date(b.purchaseDate) - new Date(a.purchaseDate)); break;
+                case 'date-asc': filteredScripts.sort((a, b) => new Date(a.purchaseDate) - new Date(b.purchaseDate)); break;
+                case 'price-desc': filteredScripts.sort((a, b) => b.price - a.price); break;
+                case 'price-asc': filteredScripts.sort((a, b) => a.price - b.price); break;
+                case 'name-asc': filteredScripts.sort((a, b) => a.name.localeCompare(b.name)); break;
+                case 'name-desc': filteredScripts.sort((a, b) => b.name.localeCompare(a.name)); break;
+            }
+            return filteredScripts;
+        }
+
+        function renderContent() {
+            if (!currentProject) return;
+
+            renderDevScripts();
+
+            invoiceList.innerHTML = '';
+            const filteredAndSortedScripts = getFilteredAndSortedScripts(projectsData[currentProject].scripts);
+            const paidScripts = filteredAndSortedScripts.filter(s => s.status === 'paid' || s.status === 'finalized');
+
+            if (paidScripts.length === 0) {
+                invoiceList.innerHTML = `<div class="flex items-center justify-center h-64 bg-gray-50 rounded-lg"><p class="text-lg text-gray-500">No paid items to show.</p></div>`;
+            } else {
+                paidScripts.forEach(script => {
+                    let invoiceStatusHTML = script.status === 'paid'
+                        ? `<div class="text-center md:text-right"><p class="text-sm text-yellow-600 font-semibold">Status: Code is not finalized</p></div><button class="finalize-btn mt-3 md:mt-0 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg" data-script-id="${script.id}">Finalize Code</button>`
+                        : `<div class="text-center md:text-right"><p class="text-sm text-green-600 font-semibold">Status: Code has been finalized</p></div><button class="px-4 py-2 text-sm text-white bg-gray-500 rounded-lg cursor-not-allowed" disabled>Finalized</button>`;
+                    invoiceList.insertAdjacentHTML('beforeend', `
+                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                            <div class="text-center md:text-left mb-3 md:mb-0">
+                               <p class="font-semibold text-gray-700">Invoice for: ${script.name}</p>
+                               <p class="text-sm text-gray-500">Version: ${script.version} | Price: ${formatCurrency(script.price)} | Vendor: ${script.vendor}</p>
+                               <p class="text-sm text-gray-500">Purchased: ${script.purchaseDate}</p>
+                            </div>
+                            <div class="flex flex-col md:flex-row items-center md:space-x-4">${invoiceStatusHTML}</div>
+                        </div>`);
+                });
+            }
+        }
+
+        function renderGetScriptsPage(page) {
+            getScriptsList.innerHTML = '';
+            let scriptsToDisplay;
+            switch (activeSubTab) {
+                case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
+                case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
+                case 'ui': scriptsToDisplay = uiScripts; break;
+                case 'database': scriptsToDisplay = databaseScripts; break;
+            }
+
+            const totalPages = Math.ceil(scriptsToDisplay.length / itemsPerPage);
+            currentPage = Math.max(1, Math.min(page, totalPages));
+            const paginatedScripts = scriptsToDisplay.slice((currentPage - 1) * itemsPerPage, page * itemsPerPage);
+
+            paginatedScripts.forEach(script => {
+                let pricingHTML = '';
+                if (script.type === 'ui') {
+                    pricingHTML = `<div class="text-lg font-bold text-indigo-600">${formatCurrency(script.price)}</div><div class="text-xs text-gray-500">Expires: ${script.expiryDate}</div>`;
+                } else if (script.type === 'database') {
+                    pricingHTML = `
+                        <div>
+                            <div class="text-lg font-bold text-indigo-600">${formatCurrency(script.setupPrice)} <span class="text-sm font-normal text-gray-500">Setup Fee</span></div>
+                            <div class="text-md font-semibold text-gray-700">$${script.hourlyRate}/hr <span class="text-sm font-normal text-gray-500">Usage Rate</span></div>
+                        </div>`;
+                } else {
+                    const versionOptions = script.versions.map((v, index) => `<option value="${index}">${v.name} - ${formatCurrency(v.price)}</option>`).join('');
+                    pricingHTML = `<div><label class="text-sm">Select Version:</label><select id="version-${script.id}" class="w-full mt-1 p-2 border rounded-md">${versionOptions}</select></div>`;
+                }
+
+                const buttonText = script.type === 'database' ? 'Pay & Setup' : 'Pay Now';
+
+                getScriptsList.insertAdjacentHTML('beforeend', `
+                    <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
+                        <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
+                        <p class="text-xs text-gray-500">by ${script.vendor}</p>
+                        <div class="mt-3 space-y-3">
+                            ${pricingHTML}
+                            <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
+                        </div>
+                    </div>`);
+            });
+        }
+
+        function renderPagination() {
+            let scriptsToDisplay;
+            switch (activeSubTab) {
+                case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
+                case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
+                case 'ui': scriptsToDisplay = uiScripts; break;
+                case 'database': scriptsToDisplay = databaseScripts; break;
+            }
+            const totalPages = Math.ceil(scriptsToDisplay.length / itemsPerPage);
+            paginationControls.innerHTML = '';
+            if (totalPages <= 1) return;
+
+            // Previous button
+            paginationControls.insertAdjacentHTML('beforeend', `<button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">&laquo;</button>`);
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationControls.insertAdjacentHTML('beforeend', `<button class="pagination-btn${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</button>`);
+            }
+            // Next button
+            paginationControls.insertAdjacentHTML('beforeend', `<button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">&raquo;</button>`);
+        }
+
+        paginationControls.addEventListener('click', function (e) {
+            const btn = e.target.closest('.pagination-btn');
+            if (btn && btn.dataset.page) {
+                const page = parseInt(btn.dataset.page);
+                if (!isNaN(page)) {
+                    renderGetScriptsPage(page);
+                    renderPagination();
+                }
+            }
+        });
+
+        function showCheckout(script, selectedVersionOrPrice) {
+            showPage(allPages.checkoutPage);
+            let price, itemName;
+
+            if (typeof selectedVersionOrPrice === 'object') { // Frontend/Backend script
+                price = selectedVersionOrPrice.price;
+                itemName = `${script.name} <br> <span class="text-sm text-gray-500">${selectedVersionOrPrice.name}</span>`;
+            } else { // UI or Database script
+                price = selectedVersionOrPrice;
+                itemName = script.name;
+            }
+
+            currentCheckout = { price, discountApplied: false, type: script.type };
+            checkoutItemName.innerHTML = `${itemName}<br><span class="text-xs text-gray-400">by ${script.vendor}</span>`;
+
+            if (script.type === 'database') {
+                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr`;
+            } else {
+                checkoutItemPrice.textContent = formatCurrency(price);
+            }
+
+            // Show total price in the total area
+            checkoutTotalPrice.textContent = formatCurrency(price);
+
+            promoCodeInput.value = '';
+            promoMessage.textContent = '';
+            discountRow.style.display = 'none';
+        }
+        function updateTotal() { /* ... */ }
+        applyPromoBtn.addEventListener('click', () => { /* ... */ });
+
+        sortScriptsDropdown.addEventListener('change', (event) => { currentSort = event.target.value; renderContent(); });
+        filterDateBtn.addEventListener('click', () => {
+            dateFromFilter = dateFromInput.value ? new Date(dateFromInput.value) : null;
+            dateToFilter = dateToInput.value ? new Date(dateToInput.value) : null;
+            if (dateToFilter) { dateToFilter.setHours(23, 59, 59, 999); }
+            renderContent();
+        });
+        clearFilterBtn.addEventListener('click', () => {
+            dateFromInput.value = ''; dateToInput.value = '';
+            dateFromFilter = null; dateToFilter = null;
+            renderContent();
+        });
+
+        document.body.addEventListener('click', function (event) {
+            const target = event.target;
+            const projectFolder = target.closest('.project-folder');
+
+            if (projectFolder) {
+                currentProject = projectFolder.dataset.project;
+                currentProjectName.textContent = currentProject;
+                showPage(allPages.portalMain);
+                initializeTabs();
+                renderContent();
+                renderGetScriptsPage(currentPage);
+                renderPagination();
+            }
+            if (target.classList.contains('exchange-btn')) {
+                const scriptId = parseInt(target.getAttribute('data-script-id'));
+                const script = projectsData[currentProject].scripts.find(s => s.id === scriptId);
+                if (script) openModal(script);
+            }
+            if (target.classList.contains('exchange-version-link')) {
+                event.preventDefault();
+                const scriptId = parseInt(target.dataset.scriptId);
+                const newVersion = target.dataset.newVersion;
+                const script = projectsData[currentProject].scripts.find(s => s.id === scriptId);
+                if (script) {
+                    script.version = newVersion;
+                    script.code = `// Code for ${script.name} ${newVersion}`;
+                    closeModal();
+                    renderContent();
+                }
+            }
+            if (target.classList.contains('copy-code-btn')) { /* ... */ }
+            if (target.classList.contains('finalize-btn')) {
+                scriptIdToFinalize = parseInt(target.getAttribute('data-script-id'));
+                finalizeConfirmModal.classList.remove('hidden');
+            }
+            if (target.classList.contains('pay-btn')) {
+                loadingOverlay.classList.remove('hidden');
+                const scriptId = parseInt(target.getAttribute('data-script-id'));
+                let scriptToBuy = getScripts.find(s => s.id === scriptId) || uiScripts.find(s => s.id === scriptId) || databaseScripts.find(s => s.id === scriptId);
+
+                if (scriptToBuy) {
+                    let selectedVersionOrPrice;
+                    if (scriptToBuy.versions) {
+                        const versionDropdown = document.getElementById(`version-${scriptId}`);
+                        selectedVersionOrPrice = scriptToBuy.versions[versionDropdown.value];
+                    } else if (scriptToBuy.type === 'database') {
+                        selectedVersionOrPrice = scriptToBuy.setupPrice;
+                    } else {
+                        selectedVersionOrPrice = scriptToBuy.price;
+                    }
+
+                    const randomDelay = Math.random() * 2000 + 500;
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('hidden');
+                        showCheckout(scriptToBuy, selectedVersionOrPrice);
+                    }, randomDelay);
+                } else {
+                    loadingOverlay.classList.add('hidden');
+                }
+            }
+        });
+
+        function openModal(script) {
+            modalTitle.textContent = `Exchange: ${script.name}`;
+            modalVersionList.innerHTML = '';
+            const availableVersions = script.exchangeVersions || [];
+            if (availableVersions.length > 0) {
+                availableVersions.forEach(v => {
+                    modalVersionList.insertAdjacentHTML('beforeend', `<a href="#" class="exchange-version-link block p-3 bg-gray-100 rounded-lg hover:bg-gray-200" data-new-version="${v}" data-script-id="${script.id}">${v}</a>`);
+                });
+            } else {
+                modalVersionList.innerHTML = '<p class="text-gray-500">No other versions available for exchange.</p>';
+            }
+            exchangeModal.classList.remove('hidden');
+        }
+        function closeModal() { exchangeModal.classList.add('hidden'); }
+        closeModalButton.addEventListener('click', closeModal);
+        exchangeModal.addEventListener('click', (e) => { if (e.target === exchangeModal) closeModal(); });
+
+        function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
+        confirmCancelBtn.addEventListener('click', closeFinalizeModal);
+
+        confirmProceedBtn.addEventListener('click', () => {
+            if (scriptIdToFinalize !== null && currentProject) {
+                const scriptToFinalize = projectsData[currentProject].scripts.find(s => s.id === scriptIdToFinalize);
+                if (scriptToFinalize) {
+                    if (scriptToFinalize) {
+
+                        const senderInfo = vendorDetails[scriptToFinalize.vendor] || { // Fallback
+                            company: "Developers Portal by DevScripts LLC"
+
+                        };
+                        // 1. Prepare invoice data
+                        const invoiceData = {
+                            "documentTitle": "Developer Portal Payment Receipt",
+                            "currency": "USD",
+                            "marginTop": 25,
+                            "marginRight": 25,
+                            "marginLeft": 25,
+                            "marginBottom": 25,
+                            // "images": {
+                            //     "background": "bginvoice.png"
+                            // },
+                            "sender": senderInfo,
+                            "client": {
+                                "company": "Nakul Singh",
+                                "address": "Client Address, Madhya Pradesh",
+                                "zip": "464993",
+                                "city": "obaidullahganj",
+                                "country": "India"
+                            },
+                            "information": {
+                                "number": `INV-${scriptToFinalize.id}-${new Date().getFullYear()}`,
+                                "date": scriptToFinalize.purchaseDate,
+                            },
+                            "products": [
+                                {
+                                    "quantity": "1",
+                                    "description": `${scriptToFinalize.name} - Version: ${scriptToFinalize.version} (by ${scriptToFinalize.vendor})`,
+                                    "tax-rate": 0,
+                                    "price": scriptToFinalize.price
+                                }
+                            ],
+                            "bottom-notice": "This Receipt confirms the finalization of the script.Now You cannot Exchange The Code Version.\nIn order to Get Another Version Buy The New One From The Portal.\nAll The Price Amount Is in US Dollar($). ",
+                            "settings": {
+                                "locale": "en-US",
+                                "currency": "USD",
+                            }
+                        }
+
+
+                        // 2. Create and download invoice
+                        easyinvoice.createInvoice(invoiceData, function (result) {
+                            easyinvoice.download(`invoice-${scriptToFinalize.id}.pdf`, result.pdf);
+                        });
+
+                        // 3. Finalize script status and update UI
+                        scriptToFinalize.status = 'finalized';
+                        renderContent();
+
+                    }
+                }
+            }
+            closeFinalizeModal();
+        });
+
+    </script>
+</body>
+
+</html>
