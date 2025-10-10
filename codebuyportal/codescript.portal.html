@@ -1137,7 +1137,7 @@
             const isAnyScriptNotFinalized = scripts.some(script => script.status !== 'finalized');
 
             if (isAnyScriptNotFinalized) {
-                updateScriptsContent.innerHTML = `<p class="text-lg text-yellow-600 font-semibold">ALl Updates will only appear after the Finalization of this whole Project</p>`;
+                updateScriptsContent.innerHTML = `<p class="text-lg text-yellow-600 font-semibold">All Updates will only appear after the Finalization of this whole Project</p>`;
             } else {
                 updateScriptsContent.innerHTML = `<p class="text-lg text-green-600 font-semibold">All Scripts Has Been Up to Date. Nothing To Update Here</p>`;
             }
