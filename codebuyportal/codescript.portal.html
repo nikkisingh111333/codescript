@@ -173,352 +173,369 @@
 </head>
 
 <body class="bg-gray-100">
-    <div class="w-full min-h-screen flex items-center justify-center p-4">
-        <!-- Loader (hidden by default) -->
-        <div class="loader" id="loader" style="display:none;"></div>
-        <!-- =========== Login Page =========== -->
-        <div id="login-page" class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
-            <div>
-                <h1 class="text-3xl font-bold text-center text-gray-800">Secure Portal Login</h1>
-                <p class="text-center text-gray-500">Please enter your password to continue</p>
-            </div>
-            <form id="login-form" class="space-y-6">
-                <div>
-                    <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <button type="submit"
-                        class="w-full px-4 py-2 font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all">
-                        Login
-                    </button>
-                </div>
-                <p id="error-message" class="text-center text-sm text-red-600 h-4"></p>
-            </form>
-        </div>
-
-        <!-- =========== Home Page / Project Selector (Initially hidden) =========== -->
-        <div id="home-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
-            <header class="pb-4 border-b border-gray-200">
-                <h1 class="text-3xl font-bold text-gray-800">My Projects</h1>
-                <p class="text-gray-500">Select a project to manage its scripts and finances.</p>
-            </header>
-            <div id="project-folders-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-6">
-                <!-- Project folders will be dynamically inserted here -->
-            </div>
-        </div>
-
-
-        <!-- =========== Main Portal (Initially hidden) =========== -->
-        <div id="portal-main"
-            class="hidden w-full h-full md:h-auto md:max-w-6xl mx-auto bg-white rounded-xl shadow-2xl md:my-8 overflow-hidden">
-            <!-- New Advanced Header -->
-            <header id="main-header" class="bg-gray-50 border-b border-gray-200">
-                <div class="px-6 md:px-8 py-3 flex justify-between items-center">
-                    <!-- Left Side: User Info -->
-                    <div>
-                        <button id="back-to-projects-btn"
-                            class="text-sm font-medium text-indigo-600 hover:text-indigo-800 mb-1">&larr; All
-                            Projects</button>
-                        <h2 id="current-project-name" class="text-lg font-bold text-gray-800"></h2>
-                    </div>
-                    <!-- Right Side: Dropdown Menu -->
-                    <div class="relative">
-                        <button id="profile-menu-button"
-                            class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-800 focus:outline-none rounded-full p-2 hover:bg-gray-200">
-                            <span>Manage Profile</span>
-                            <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a 1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div id="profile-menu"
-                            class="hidden absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
-                            role="menu">
-                            <div class="py-1">
-                                <a href="#" id="account-link"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Account Profile</a>
-                                <a href="#" id="payments-link"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Payments</a>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="p-6 md:p-8">
-                <header class="pb-4 border-b border-gray-200">
-                    <h1 class="text-3xl font-bold text-gray-800">Scripts Dashboard</h1>
-                    <p class="text-gray-500">Manage your development scripts and invoices for this project.</p>
-                </header>
-
-                <!-- Tab Navigation -->
-                <nav class="mt-6">
-                    <div class="flex border-b border-gray-200">
-                        <button data-tab="dev" class="tab-button px-6 py-3 text-gray-600">In Development
-                            Scripts</button>
-                        <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice Section</button>
-                        <button data-tab="get" class="tab-button px-6 py-3 text-gray-600">Get Scripts</button>
-                        <button data-tab="update" class="tab-button px-6 py-3 text-gray-600">Update Scripts</button>
-                    </div>
-                </nav>
-
-                <!-- Tab Content -->
-                <main id="tab-content" class="pt-6">
-                    <!-- In Development Scripts -->
-                    <div id="dev-tab" class="tab-pane">
-                        <div
-                            class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 md:space-x-4 mb-4">
-                            <div class="flex items-center space-x-2"><label for="date-from"
-                                    class="text-sm font-medium text-gray-600">From:</label><input type="date"
-                                    id="date-from"
-                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><label
-                                    for="date-to" class="text-sm font-medium text-gray-600">To:</label><input
-                                    type="date" id="date-to"
-                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><button
-                                    id="filter-date-btn"
-                                    class="px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Filter</button><button
-                                    id="clear-filter-btn"
-                                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Clear</button>
-                            </div>
-                            <div class="flex items-center space-x-2"><label for="sort-scripts"
-                                    class="text-sm font-medium text-gray-600">Sort by:</label><select id="sort-scripts"
-                                    class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    <option value="date-desc">Date (Newest First)</option>
-                                    <option value="date-asc">Date (Oldest First)</option>
-                                    <option value="price-desc">Price (High to Low)</option>
-                                    <option value="price-asc">Price (Low to High)</option>
-                                    <option value="name-asc">Name (A-Z)</option>
-                                    <option value="name-desc">Name (Z-A)</option>
-                                </select></div>
-                        </div>
-                        <div id="dev-scripts-list" class="space-y-4"></div>
-                    </div>
-                    <!-- Invoice Section -->
-                    <div id="invoice-tab" class="tab-pane hidden">
-                        <div id="invoice-list" class="space-y-4"></div>
-                    </div>
-                    <!-- Get Scripts -->
-                    <div id="get-tab" class="tab-pane hidden">
-                        <div class="mb-4 border-b border-gray-200">
-                            <nav class="-mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
-                                <button data-subtab="frontend"
-                                    class="sub-tab-button sub-tab-active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Frontend
-                                    Code</button>
-                                <button data-subtab="backend"
-                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Backend
-                                    Code</button>
-                                <button data-subtab="nodejs"
-                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Node.js
-                                    Backend</button>
-                                <button data-subtab="ui"
-                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">UI
-                                    Essentials</button>
-                                <button data-subtab="database"
-                                    class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Database
-                                    Essentials</button>
-                            </nav>
-                        </div>
-                        <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-                        <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
-                    </div>
-                     <!-- Update Scripts -->
-                     <div id="update-tab" class="tab-pane hidden">
-                        <div id="update-scripts-content" class="text-center py-10 bg-gray-50 rounded-lg">
-                            <!-- Content will be dynamically inserted here -->
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-
-        <!-- Other Pages -->
-        <div id="account-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
-            <div class="flex justify-between items-center border-b pb-4">
-                <h1 class="text-3xl font-bold text-gray-800">Account Details</h1><button
-                    id="back-to-portal-from-account"
-                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-                <div class="bg-gray-50 p-6 rounded-lg border">
-                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Personal Information</h2>
-                    <div class="space-y-4 text-sm">
-                        <div><label class="text-gray-500">Full Name</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">Nakul Singh</p>
-                        </div>
-                        <div><label class="text-gray-500">Developer ID</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">DEV-ID
-                                ery363dgb4h4ynf</p>
-                        </div>
-                        <div><label class="text-gray-500">Email Address</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">nikkikkc04@gmail.com</p>
-                        </div>
-                        <div><label class="text-gray-500">Phone Number</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">+91 8319032699</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-lg border">
-                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Bank & Payment Details</h2>
-                    <div class="space-y-4 text-sm">
-                        <div><label class="text-gray-500">Bank Name</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">UCO BANK INDIA</p>
-                        </div>
-                        <div><label class="text-gray-500">Account Number</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">XXXX-XXXX-XXXX-6673
-                            </p>
-                        </div>
-                        <div><label class="text-gray-500">Branch & IFSC Code</label>
-                            <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch /
-                                UCBA0000259</p>
-                        </div>
-                    </div>
-                    <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg"
-                        role="alert">
-                        <p class="font-bold">Security Notice</p>
-                        <p class="text-sm">For your protection, personal and bank details are read-only and cannot be change or alter. All payments
-                            and transactions are locked to this account to prevent fraud. Please contact support for any
-                            verification or updates.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
-            <div class="flex justify-between items-center border-b pb-4">
-                <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
-                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 pt-4">
-                <div class="lg:col-span-2 space-y-8">
-                    <div class="bg-gray-50 p-6 rounded-lg border">
-                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Order Summary</h2>
-                        <div class="space-y-3 mt-4">
-                            <div class="flex justify-between"><span class="text-gray-600">Item:</span><span
-                                    id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span></div>
-                            <div class="flex justify-between"><span class="text-gray-600">Price:</span><span
-                                    id="checkout-item-price" class="font-semibold text-gray-800"></span></div>
-                            <div class="flex justify-between text-sm" id="discount-row" style="display: none;"><span
-                                    class="text-green-600">Discount (10%):</span><span id="checkout-discount-amount"
-                                    class="font-semibold text-green-600"></span></div>
-                        </div>
-                        <div class="border-t mt-4 pt-4">
-                            <div class="flex justify-between font-bold text-lg"><span>Total:</span><span
-                                    id="checkout-total-price"></span></div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-lg border">
-                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Payment Details</h2>
-                        <div class="mt-4 space-y-4">
-                            <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
-                                <div class="flex flex-col mt-2 space-y-2">
-                                    <div class="flex items-center p-3 border rounded-lg bg-white">
-                                        <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
-                                        <div>
-                                            <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
-                                            <div class="text-sm text-gray-600">Nakul Singh</div>
-                                            <div class="text-sm font-mono text-gray-700">XXXX XXXX XXXX 0781</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                            <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo Code</label>
-                                <div class="flex mt-2"><input type="text" id="promo-code"
-                                        class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"><button
-                                        id="apply-promo"
-                                        class="px-4 py-2 font-semibold text-white bg-gray-700 rounded-r-lg hover:bg-gray-800">Apply</button>
-                                </div>
-                                <p id="promo-message" class="text-sm h-4 mt-1"></p>
-                            </div><button id="final-pay-btn"
-                                class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-900 transition-all"
-                                style="color:whitesmoke">Pay Now</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="lg:col-span-3 bg-gray-50 p-6 rounded-lg border">
-                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Cost Breakdown & Analytics</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                        <div class="w-full h-64"><canvas id="cost-pie-chart"></canvas></div>
-                        <div class="w-full h-64"><canvas id="cost-bar-chart"></canvas></div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-        <div id="payments-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
-            <div class="flex justify-between items-center border-b pb-4">
-                <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
-                    id="back-to-portal-from-payments"
-                    class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
-                <div
-                    class="lg:col-span-1 bg-gray-50 p-6 rounded-lg border flex flex-col items-center justify-center text-center">
-                    <h2 class="text-xl font-semibold text-gray-700">Total Project Investment</h2>
-                    <p id="total-investment-amount" class="text-5xl font-bold text-indigo-600 my-4">$0.00</p>
-                    <p class="text-gray-500">This is the total amount you've spent on this project's scripts.</p>
-                </div>
-                <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg border">
-                    <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                        <div class="w-full h-64"><canvas id="total-cost-pie-chart"></canvas></div>
-                        <div class="w-full h-64"><canvas id="total-cost-bar-chart"></canvas></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modals -->
-        <div id="exchange-modal"
-            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-2xl space-y-4">
-                <div class="flex justify-between items-center">
-                    <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
-                        id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
-                </div>
-                <div class="border-t border-gray-200 pt-4">
-                    <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
-                    <div id="modal-version-list" class="space-y-2"></div>
-                </div>
-            </div>
-        </div>
-        <div id="finalize-confirm-modal"
-            class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
-            <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
-                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                    <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                </div>
-                <h2 class="text-xl font-bold text-gray-800">Are you absolutely sure?</h2>
-                <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action cannot
-                    be undone. You will be unable to exchange the code in case of any incompatibility or technical
-                    issues and will need to purchase a new script.</p>
-                <div class="flex justify-center space-x-4 pt-2"><button id="confirm-cancel-btn"
-                        class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 border border-gray-300">Cancel</button><button
-                        id="confirm-proceed-btn"
-                        class="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Proceed</button>
-                </div>
-            </div>
-        </div>
-        <div id="loading-overlay"
-            class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
-            <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                </svg>
-                <p class="text-white text-lg font-medium">Processing payment, please wait...</p>
-            </div>
+    <!-- Message for mobile/tablet -->
+    <div class="lg:hidden w-full min-h-screen flex items-center justify-center p-4 text-center">
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md mx-auto">
+            <h1 class="text-2xl font-bold text-gray-800">Unsupported Device</h1>
+            <p class="mt-4 text-gray-600">This portal cannot be opened on phone or tablet. Can only access on PC browser.</p>
         </div>
     </div>
+
+    <!-- Main content for desktop -->
+    <div class="hidden lg:block">
+        <div class="w-full min-h-screen flex items-center justify-center p-4">
+            <!-- Loader (hidden by default) -->
+            <div class="loader" id="loader" style="display:none;"></div>
+            <!-- =========== Login Page =========== -->
+            <div id="login-page" class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+                <div>
+                    <h1 class="text-3xl font-bold text-center text-gray-800">Secure Portal Login</h1>
+                    <p class="text-center text-gray-500">Please enter your password to continue</p>
+                </div>
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="password" class="text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" required
+                            class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <button type="submit"
+                            class="w-full px-4 py-2 font-semibold text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all">
+                            Login
+                        </button>
+                    </div>
+                    <p id="error-message" class="text-center text-sm text-red-600 h-4"></p>
+                </form>
+            </div>
+
+            <!-- =========== Home Page / Project Selector (Initially hidden) =========== -->
+            <div id="home-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+                <header class="pb-4 border-b border-gray-200">
+                    <h1 class="text-3xl font-bold text-gray-800">My Projects</h1>
+                    <p class="text-gray-500">Select a project to manage its scripts and finances.</p>
+                </header>
+                <div id="project-folders-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-6">
+                    <!-- Project folders will be dynamically inserted here -->
+                </div>
+            </div>
+
+
+            <!-- =========== Main Portal (Initially hidden) =========== -->
+            <div id="portal-main"
+                class="hidden w-full h-full md:h-auto md:max-w-6xl mx-auto bg-white rounded-xl shadow-2xl md:my-8 overflow-hidden">
+                <!-- New Advanced Header -->
+                <header id="main-header" class="bg-gray-50 border-b border-gray-200">
+                    <div class="px-6 md:px-8 py-3 flex justify-between items-center">
+                        <!-- Left Side: User Info -->
+                        <div>
+                            <button id="back-to-projects-btn"
+                                class="text-sm font-medium text-indigo-600 hover:text-indigo-800 mb-1">&larr; All
+                                Projects</button>
+                            <h2 id="current-project-name" class="text-lg font-bold text-gray-800"></h2>
+                        </div>
+                        <!-- Right Side: Dropdown Menu -->
+                        <div class="relative">
+                            <button id="profile-menu-button"
+                                class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-800 focus:outline-none rounded-full p-2 hover:bg-gray-200">
+                                <span>Manage Profile</span>
+                                <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a 1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div id="profile-menu"
+                                class="hidden absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+                                role="menu">
+                                <div class="py-1">
+                                    <a href="#" id="account-link"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem">Account Profile</a>
+                                    <a href="#" id="payments-link"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem">Payments</a>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="p-6 md:p-8">
+                    <header class="pb-4 border-b border-gray-200">
+                        <h1 class="text-3xl font-bold text-gray-800">Scripts Dashboard</h1>
+                        <p class="text-gray-500">Manage your development scripts and invoices for this project.</p>
+                    </header>
+
+                    <!-- Tab Navigation -->
+                    <nav class="mt-6">
+                        <div class="flex border-b border-gray-200">
+                            <button data-tab="dev" class="tab-button px-6 py-3 text-gray-600">In Development
+                                Scripts</button>
+                            <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice Section</button>
+                            <button data-tab="get" class="tab-button px-6 py-3 text-gray-600">Get Scripts</button>
+                            <button data-tab="update" class="tab-button px-6 py-3 text-gray-600">Update Scripts</button>
+                        </div>
+                    </nav>
+
+                    <!-- Tab Content -->
+                    <main id="tab-content" class="pt-6">
+                        <!-- In Development Scripts -->
+                        <div id="dev-tab" class="tab-pane">
+                            <div
+                                class="flex flex-col md:flex-row justify-end items-center space-y-3 md:space-y-0 md:space-x-4 mb-4">
+                                <div class="flex items-center space-x-2"><label for="date-from"
+                                        class="text-sm font-medium text-gray-600">From:</label><input type="date"
+                                        id="date-from"
+                                        class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><label
+                                        for="date-to" class="text-sm font-medium text-gray-600">To:</label><input
+                                        type="date" id="date-to"
+                                        class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"><button
+                                        id="filter-date-btn"
+                                        class="px-3 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Filter</button><button
+                                        id="clear-filter-btn"
+                                        class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Clear</button>
+                                </div>
+                                <div class="flex items-center space-x-2"><label for="sort-scripts"
+                                        class="text-sm font-medium text-gray-600">Sort by:</label><select id="sort-scripts"
+                                        class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="date-desc">Date (Newest First)</option>
+                                        <option value="date-asc">Date (Oldest First)</option>
+                                        <option value="price-desc">Price (High to Low)</option>
+                                        <option value="price-asc">Price (Low to High)</option>
+                                        <option value="name-asc">Name (A-Z)</option>
+                                        <option value="name-desc">Name (Z-A)</option>
+                                    </select></div>
+                            </div>
+                            <div id="dev-scripts-list" class="space-y-4"></div>
+                        </div>
+                        <!-- Invoice Section -->
+                        <div id="invoice-tab" class="tab-pane hidden">
+                            <div id="invoice-list" class="space-y-4"></div>
+                        </div>
+                        <!-- Get Scripts -->
+                        <div id="get-tab" class="tab-pane hidden">
+                            <div class="mb-4 border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
+                                    <button data-subtab="frontend"
+                                        class="sub-tab-button sub-tab-active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Frontend
+                                        Code</button>
+                                    <button data-subtab="backend"
+                                        class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Backend
+                                        Code</button>
+                                    <button data-subtab="nodejs"
+                                        class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Node.js
+                                        Backend</button>
+                                    <button data-subtab="ui"
+                                        class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">UI
+                                        Essentials</button>
+                                    <button data-subtab="database"
+                                        class="sub-tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm">Database
+                                        Essentials</button>
+                                </nav>
+                            </div>
+                            <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                            <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
+                        </div>
+                         <!-- Update Scripts -->
+                         <div id="update-tab" class="tab-pane hidden">
+                            <div id="update-scripts-content" class="text-center py-10 bg-gray-50 rounded-lg">
+                                <!-- Content will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+
+            <!-- Other Pages -->
+            <div id="account-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">Account Details</h1><button
+                        id="back-to-portal-from-account"
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Personal Information</h2>
+                        <div class="space-y-4 text-sm">
+                            <div><label class="text-gray-500">Full Name</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">Nakul Singh</p>
+                            </div>
+                            <div><label class="text-gray-500">Developer ID</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">DEV-ID
+                                    ery363dgb4h4ynf</p>
+                            </div>
+                            <div><label class="text-gray-500">Email Address</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">nikkikkc04@gmail.com</p>
+                            </div>
+                            <div><label class="text-gray-500">Phone Number</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">+91 8319032699</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Bank & Payment Details</h2>
+                        <div class="space-y-4 text-sm">
+                            <div><label class="text-gray-500">Bank Name</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">UCO BANK INDIA</p>
+                            </div>
+                            <div><label class="text-gray-500">Account Number</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">XXXX-XXXX-XXXX-6673
+                                </p>
+                            </div>
+                            <div><label class="text-gray-500">Branch & IFSC Code</label>
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch /
+                                    UCBA0000259</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg"
+                            role="alert">
+                            <p class="font-bold">Security Notice</p>
+                            <p class="text-sm">For your protection, personal and bank details are read-only and cannot be change or alter. All payments
+                                and transactions are locked to this account to prevent fraud. Please contact support for any
+                                verification or updates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 pt-4">
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="bg-gray-50 p-6 rounded-lg border">
+                            <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Order Summary</h2>
+                            <div class="space-y-3 mt-4">
+                                <div class="flex justify-between"><span class="text-gray-600">Item:</span><span
+                                        id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span></div>
+                                <div class="flex justify-between"><span class="text-gray-600">Price:</span><span
+                                        id="checkout-item-price" class="font-semibold text-gray-800"></span></div>
+                                <div class="flex justify-between text-sm" id="discount-row" style="display: none;"><span
+                                        class="text-green-600">Discount (10%):</span><span id="checkout-discount-amount"
+                                        class="font-semibold text-green-600"></span></div>
+                            </div>
+                            <div class="border-t mt-4 pt-4">
+                                <div class="flex justify-between font-bold text-lg"><span>Total:</span><span
+                                        id="checkout-total-price"></span></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border">
+                            <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Payment Details</h2>
+                            <div class="mt-4 space-y-4">
+                                <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
+                                    <div class="flex flex-col mt-2 space-y-2">
+                                        <div class="flex items-center p-3 border rounded-lg bg-white">
+                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
+                                            <div>
+                                                <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
+                                                <div class="text-sm text-gray-600">Nakul Singh</div>
+                                                <div class="text-sm font-mono text-gray-700">XXXX XXXX XXXX 0781</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo Code</label>
+                                    <div class="flex mt-2"><input type="text" id="promo-code"
+                                            class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"><button
+                                            id="apply-promo"
+                                            class="px-4 py-2 font-semibold text-white bg-gray-700 rounded-r-lg hover:bg-gray-800">Apply</button>
+                                    </div>
+                                    <p id="promo-message" class="text-sm h-4 mt-1"></p>
+                                </div><button id="final-pay-btn"
+                                    class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-900 transition-all"
+                                    style="color:whitesmoke">Pay Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="lg:col-span-3 bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Cost Breakdown & Analytics</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div class="w-full h-64"><canvas id="cost-pie-chart"></canvas></div>
+                            <div class="w-full h-64"><canvas id="cost-bar-chart"></canvas></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div id="payments-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
+                        id="back-to-portal-from-payments"
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
+                    <div
+                        class="lg:col-span-1 bg-gray-50 p-6 rounded-lg border flex flex-col items-center justify-center text-center">
+                        <h2 class="text-xl font-semibold text-gray-700">Total Project Investment</h2>
+                        <p id="total-investment-amount" class="text-5xl font-bold text-indigo-600 my-4">$0.00</p>
+                        <p class="text-gray-500">This is the total amount you've spent on this project's scripts.</p>
+                    </div>
+                    <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg border">
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div class="w-full h-64"><canvas id="total-cost-pie-chart"></canvas></div>
+                            <div class="w-full h-64"><canvas id="total-cost-bar-chart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modals -->
+            <div id="exchange-modal"
+                class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-2xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
+                            id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
+                        <div id="modal-version-list" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="finalize-confirm-modal"
+                class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+                <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Are you absolutely sure?</h2>
+                    <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action cannot
+                        be undone. You will be unable to exchange the code in case of any incompatibility or technical
+                        issues and will need to purchase a new script.</p>
+                    <div class="flex justify-center space-x-4 pt-2"><button id="confirm-cancel-btn"
+                            class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 border border-gray-300">Cancel</button><button
+                            id="confirm-proceed-btn"
+                            class="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Proceed</button>
+                    </div>
+                </div>
+            </div>
+            <div id="loading-overlay"
+                class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
+                <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    <p class="text-white text-lg font-medium">Processing payment, please wait...</p>
+                </div>
+            </div>
+        </div>
+        <footer class="w-full text-center p-4">
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 All Rights Reserved. | Made in Israel 🇮🇱
+            </p>
+        </footer>
+    </div>
+
 
     <script>
         // --- DATA & HELPER FUNCTIONS ---
@@ -958,10 +975,8 @@
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
                 var newip=JSON.parse(ip)
-                console.log(newip)
-                // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=='Asia'
-                // ||newip.ipAddress=='117.217.34.9'&&newip.continentName=='Asia'||
-                // newip.ipAddress=='152.59.46.14'&&newip.continentName=='Asia'){
+             
+                // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
                                     // Show loader, hide login page
                         loader.style.display = 'inline-grid';
                         allPages.loginPage.style.display = 'none';
@@ -970,11 +985,11 @@
                             showPage(allPages.homePage);
                             renderHomePage();
                         }, 1500);
-              //  }
-                else{
-                    errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
-                setTimeout(() => { errorMessage.textContent = ''; }, 3000);
-                }
+               // }
+                // else{
+                //     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
+                // setTimeout(() => { errorMessage.textContent = ''; }, 3000);
+                // }
 
             } else {
                 errorMessage.textContent = 'Invalid Password';
@@ -1138,7 +1153,7 @@
             const isAnyScriptNotFinalized = scripts.some(script => script.status !== 'finalized');
 
             if (isAnyScriptNotFinalized) {
-                updateScriptsContent.innerHTML = `<p class="text-lg text-yellow-600 font-semibold">All Updates will only appear after the Finalization of this whole Project</p>`;
+                updateScriptsContent.innerHTML = `<p class="text-lg text-yellow-600 font-semibold">Updates will be appear after Finalize Your whole Project</p>`;
             } else {
                 updateScriptsContent.innerHTML = `<p class="text-lg text-green-600 font-semibold">All Scripts Has Been Up to Date. Nothing To Update Here</p>`;
             }
@@ -1384,11 +1399,9 @@
                 "images": {
                     "background": "https://nikkisingh111333.github.io/codescript/codebuyportal/bginvoice.jpg"                 },
                 "client": {
-                    "company": "Nakul Singh",
-                    "address": "Mahaveer Colony ,Obeidullahganj,Madhya Pradesh",
-                    "zip": "464993",
-                    "city": "Obeidullahganj",
-                    "country": "India"
+                    "company": "Mr Nakul Singh",
+                    "address": "VISA - xxxx xxxx xxxx 0781",
+                    "country": "Country Of Origin- India"
                 },
                 "information": {
                     "number": `INV-${script.id}-${new Date().getFullYear()}`,
@@ -1443,11 +1456,6 @@
         });
 
     </script>
-    <footer class="w-full text-center p-4">
-        <p class="text-gray-500 text-sm">
-            &copy; 2025 All Rights Reserved. | Made in Israel 
-        </p>
-    </footer>
 </body>
 
 </html>
