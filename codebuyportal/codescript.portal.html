@@ -958,9 +958,10 @@
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
                 var newip=JSON.parse(ip)
-                //console.log(newip,'117.217.85.56')
-                if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"
-                ||newip.ipAddress=='117.217.34.9'&&newip.continentName=="Asia"){
+                console.log(newip)
+                if(newip.ipAddress=='117.217.85.56'&&newip.continentName=='Asia'
+                ||newip.ipAddress=='117.217.34.9'&&newip.continentName=='Asia'||
+                newip.ipAddress=='152.59.46.14'&&newip.continentName=='Asia'){
                                     // Show loader, hide login page
                         loader.style.display = 'inline-grid';
                         allPages.loginPage.style.display = 'none';
@@ -1450,4 +1451,3 @@
 </body>
 
 </html>
-
