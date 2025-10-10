@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
-  <link rel="icon" type="image/x-icon" href="https://github.com/nikkisingh111333/codescript/blob/main/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
+  <link rel="icon" type="image/x-icon" href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
     <title>Developer Scripts Portal</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -620,7 +620,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Frontend',
-                vendor: vendors[Math.floor(Math.random() * vendors.length)],
+               // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
         });
@@ -630,7 +630,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Backend',
-                vendor: vendors[Math.floor(Math.random() * vendors.length)],
+                //vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
         });
@@ -652,7 +652,7 @@
             type: 'ui',
             price: getDeterministicPrice(name, 70, 180),
             expiryDate: getRandomDate(12),
-            vendor: vendors[Math.floor(Math.random() * vendors.length)]
+           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
         let databaseScripts = generateItems(databaseEssentialsBaseNames, 120, (name, id) => ({
@@ -661,7 +661,7 @@
             type: 'database',
             setupPrice: getDeterministicPrice(name, 90, 300),
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
-            vendor: vendors[Math.floor(Math.random() * vendors.length)]
+           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
 
@@ -1148,7 +1148,7 @@
                 getScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
                         <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
-                        <p class="text-xs text-gray-500">by ${script.vendor}</p>
+                        
                         <div class="mt-3 space-y-3">
                             ${pricingHTML}
                             <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
@@ -1350,7 +1350,7 @@
                 "marginBottom": 25,
                 "sender": senderInfo,
                 "images": {
-                    "background": "https://github.com/nikkisingh111333/codescript/edit/main/codebuyportal/bginvoice.jpg"                 },
+                    "background": "https://nikkisingh111333.github.io/codescript/codebuyportal/bginvoice.jpg"                 },
                 "client": {
                     "company": "Nakul Singh",
                     "address": "Mahaveer Colony ,Obeidullahganj,Madhya Pradesh",
