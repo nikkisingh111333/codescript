@@ -959,9 +959,9 @@
             if (passwordInput.value === '831903pass') {
                 var newip=JSON.parse(ip)
                 console.log(newip)
-                if(newip.ipAddress=='117.217.85.56'&&newip.continentName=='Asia'
-                ||newip.ipAddress=='117.217.34.9'&&newip.continentName=='Asia'||
-                newip.ipAddress=='152.59.46.14'&&newip.continentName=='Asia'){
+                // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=='Asia'
+                // ||newip.ipAddress=='117.217.34.9'&&newip.continentName=='Asia'||
+                // newip.ipAddress=='152.59.46.14'&&newip.continentName=='Asia'){
                                     // Show loader, hide login page
                         loader.style.display = 'inline-grid';
                         allPages.loginPage.style.display = 'none';
@@ -970,7 +970,7 @@
                             showPage(allPages.homePage);
                             renderHomePage();
                         }, 1500);
-                }
+              //  }
                 else{
                     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
                 setTimeout(() => { errorMessage.textContent = ''; }, 3000);
@@ -1451,3 +1451,4 @@
 </body>
 
 </html>
+
