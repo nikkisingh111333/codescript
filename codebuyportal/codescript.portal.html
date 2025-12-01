@@ -428,7 +428,7 @@
                                 <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
                                     <div class="flex flex-col mt-2 space-y-2">
                                         <div class="flex items-center p-3 border rounded-lg bg-white">
-                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
+                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png';" />
                                             <div>
                                                 <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
                                                 <div class="text-sm text-gray-600">Nakul Singh</div>
@@ -488,6 +488,21 @@
                     <div class="flex justify-between items-center">
                         <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
                             id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                    </div>
+                    <!-- Added Warning Popup for Exchange Charges -->
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-2">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-700">
+                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee" class="font-bold"></span> will be applied to your final invoice when you finalize this code.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="border-t border-gray-200 pt-4">
                         <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
@@ -644,6 +659,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Frontend',
+                exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate between $11 and $20
                // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -654,6 +670,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Backend',
+                exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
                 //vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -664,6 +681,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'nodejs',
+                exchangeRate: (Math.random() * (50 - 31) + 11).toFixed(2), // Random rate
                 vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -675,6 +693,7 @@
             name: name,
             type: 'ui',
             price: getDeterministicPrice(name, 70, 180),
+            exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
             expiryDate: getRandomDate(12),
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
@@ -684,6 +703,7 @@
             name: name,
             type: 'database',
             setupPrice: getDeterministicPrice(name, 90, 300),
+            exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
@@ -974,7 +994,15 @@
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
-                var newip=JSON.parse(ip)
+                // FIXED: Wrapped JSON parsing in a try-catch to prevent crashes if IP fetch fails
+                let newip = {};
+                try {
+                    if(ip) {
+                        newip = JSON.parse(ip);
+                    }
+                } catch(e) {
+                    console.log("IP fetch failed or parsing error", e);
+                }
              
                 // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
                                     // Show loader, hide login page
@@ -1195,7 +1223,7 @@
                 getScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
                         <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
-                        
+                        <p class="text-xs text-orange-600 font-medium mt-1">Exchange Rate: $${script.exchangeRate}</p>
                         <div class="mt-3 space-y-3">
                             ${pricingHTML}
                             <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
@@ -1360,6 +1388,11 @@
         function openModal(script) {
             modalTitle.textContent = `Exchange: ${script.name}`;
             modalVersionList.innerHTML = '';
+            
+            // Randomly calculate exchange fee
+            const exchangeFee = (Math.random() * (20 - 11) + 11).toFixed(2);
+            document.getElementById('modal-exchange-fee').textContent = '$' + exchangeFee;
+
             const availableVersions = script.exchangeVersions || [];
             if (availableVersions.length > 0) {
                 availableVersions.forEach(v => {
@@ -1459,5 +1492,3 @@
 </body>
 
 </html>
-
-
