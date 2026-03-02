@@ -1407,9 +1407,15 @@
         closeModalButton.addEventListener('click', closeModal);
         exchangeModal.addEventListener('click', (e) => { if (e.target === exchangeModal) closeModal(); });
 
+         function generateInvoiceNumber(date) {
+            const purchaseDateVal = date;
+            const year = purchaseDateVal ? new Date(purchaseDateVal).getFullYear() : new Date().getFullYear();
+            const randomDigits = Math.floor(10000 + Math.random() * 90000);
+            return `${year}${randomDigits}`;
+        }
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
-         async function generatePDF(script) {
+        async function generatePDF(script) {
             const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
 
             if (!jspdfLib) {
@@ -1687,6 +1693,7 @@
 </body>
 
 </html>
+
 
 
 
