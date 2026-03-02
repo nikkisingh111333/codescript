@@ -1410,11 +1410,10 @@
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
          async function generatePDF(script) {
-            const statusMsg = document.getElementById('statusMsg');
             const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
 
             if (!jspdfLib) {
-                statusMsg.innerText = "Error: Library not loaded.";
+                console.log("Lirary not loaded1")
                 return;
             }
 
@@ -1688,6 +1687,7 @@
 </body>
 
 </html>
+
 
 
 
