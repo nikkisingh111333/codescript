@@ -1413,6 +1413,26 @@
             const randomDigits = Math.floor(10000 + Math.random() * 90000);
             return `${year}${randomDigits}`;
         }
+
+        function updateExpiryDate(date) {
+            const purchaseDateVal = date;
+            if (purchaseDateVal) {
+                const date = new Date(purchaseDateVal);
+                date.setFullYear(date.getFullYear() + 1);
+                let exdate=new Date(date)
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = exdate.toLocaleDateString('en-US', options)
+                return formattedDate;
+            }
+        }
+        function drawBackground(doc) {
+            doc.setDrawColor(245, 245, 245);
+            doc.setLineWidth(0.1);
+            for (let i = 0; i < 400; i += 15) {
+                doc.line(0, i, i, 0);
+                doc.line(210 - i, 297, 210, 297 - i);
+            }
+        
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
         async function generatePDF(script) {
@@ -1693,6 +1713,7 @@
 </body>
 
 </html>
+
 
 
 
