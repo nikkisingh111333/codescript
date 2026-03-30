@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/x-icon"
-        href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
-    <title>Codescript Portal</title>
+   
+  <link rel="icon" type="image/x-icon" href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
+    <title>Code Buy Script Portal | Codlokon</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- EasyInvoice for invoice generation -->
-    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <style>
         /* Custom styles for a clean look */
         body {
@@ -178,8 +177,7 @@
     <div class="lg:hidden w-full min-h-screen flex items-center justify-center p-4 text-center">
         <div class="bg-white p-8 rounded-xl shadow-lg max-w-md mx-auto">
             <h1 class="text-2xl font-bold text-gray-800">Unsupported Device</h1>
-            <p class="mt-4 text-gray-600">This portal cannot be opened on phone or tablet. Can only access on PC
-                browser.</p>
+            <p class="mt-4 text-gray-600">This portal cannot be opened on phone or tablet. Can only access on PC browser.</p>
         </div>
     </div>
 
@@ -257,7 +255,7 @@
                                     <a href="#" id="payments-link"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Payments</a>
-
+                                   
                                 </div>
                             </div>
                         </div>
@@ -275,8 +273,7 @@
                         <div class="flex border-b border-gray-200">
                             <button data-tab="dev" class="tab-button px-6 py-3 text-gray-600">In Development
                                 Scripts</button>
-                            <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice
-                                Section</button>
+                            <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice Section</button>
                             <button data-tab="get" class="tab-button px-6 py-3 text-gray-600">Get Scripts</button>
                             <button data-tab="update" class="tab-button px-6 py-3 text-gray-600">Update Scripts</button>
                         </div>
@@ -301,8 +298,7 @@
                                         class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Clear</button>
                                 </div>
                                 <div class="flex items-center space-x-2"><label for="sort-scripts"
-                                        class="text-sm font-medium text-gray-600">Sort by:</label><select
-                                        id="sort-scripts"
+                                        class="text-sm font-medium text-gray-600">Sort by:</label><select id="sort-scripts"
                                         class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <option value="date-desc">Date (Newest First)</option>
                                         <option value="date-asc">Date (Oldest First)</option>
@@ -339,12 +335,11 @@
                                         Essentials</button>
                                 </nav>
                             </div>
-                            <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            </div>
+                            <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                             <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
                         </div>
-                        <!-- Update Scripts -->
-                        <div id="update-tab" class="tab-pane hidden">
+                         <!-- Update Scripts -->
+                         <div id="update-tab" class="tab-pane hidden">
                             <div id="update-scripts-content" class="text-center py-10 bg-gray-50 rounded-lg">
                                 <!-- Content will be dynamically inserted here -->
                             </div>
@@ -358,8 +353,7 @@
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Account Details</h1><button
                         id="back-to-portal-from-account"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
-                        Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                     <div class="bg-gray-50 p-6 rounded-lg border">
@@ -387,23 +381,19 @@
                                 <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">UCO BANK INDIA</p>
                             </div>
                             <div><label class="text-gray-500">Account Number</label>
-                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">
-                                    XXXX-XXXX-XXXX-6673
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">XXXX-XXXX-XXXX-6673
                                 </p>
                             </div>
                             <div><label class="text-gray-500">Branch & IFSC Code</label>
-                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch
-                                    /
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch /
                                     UCBA0000259</p>
                             </div>
                         </div>
                         <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg"
                             role="alert">
                             <p class="font-bold">Security Notice</p>
-                            <p class="text-sm">For your protection, personal and bank details are read-only and cannot
-                                be change or alter. All payments
-                                and transactions are locked to this account to prevent fraud. Please contact support for
-                                any
+                            <p class="text-sm">For your protection, personal and bank details are read-only and cannot be change or alter. All payments
+                                and transactions are locked to this account to prevent fraud. Please contact support for any
                                 verification or updates.</p>
                         </div>
                     </div>
@@ -412,8 +402,7 @@
             <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
-                        Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 pt-4">
                     <div class="lg:col-span-2 space-y-8">
@@ -421,8 +410,7 @@
                             <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Order Summary</h2>
                             <div class="space-y-3 mt-4">
                                 <div class="flex justify-between"><span class="text-gray-600">Item:</span><span
-                                        id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span>
-                                </div>
+                                        id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span></div>
                                 <div class="flex justify-between"><span class="text-gray-600">Price:</span><span
                                         id="checkout-item-price" class="font-semibold text-gray-800"></span></div>
                                 <div class="flex justify-between text-sm" id="discount-row" style="display: none;"><span
@@ -448,9 +436,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo
-                                        Code</label>
+                                </div>                            <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo Code</label>
                                     <div class="flex mt-2"><input type="text" id="promo-code"
                                             class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"><button
                                             id="apply-promo"
@@ -476,8 +462,7 @@
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
                         id="back-to-portal-from-payments"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
-                        Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
                     <div
@@ -487,8 +472,7 @@
                         <p class="text-gray-500">This is the total amount you've spent on this project's scripts.</p>
                     </div>
                     <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg border">
-                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown
-                        </h2>
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                             <div class="w-full h-64"><canvas id="total-cost-pie-chart"></canvas></div>
                             <div class="w-full h-64"><canvas id="total-cost-bar-chart"></canvas></div>
@@ -505,6 +489,21 @@
                         <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
                             id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
                     </div>
+                    <!-- Added Warning Popup for Exchange Charges -->
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-2">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-700">
+                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee" class="font-bold"></span> will be applied to your final invoice when you finalize this code.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="border-t border-gray-200 pt-4">
                         <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
                         <div id="modal-version-list" class="space-y-2"></div>
@@ -514,17 +513,15 @@
             <div id="finalize-confirm-modal"
                 class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
                 <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
-                    <div
-                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800">Are you absolutely sure?</h2>
-                    <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action
-                        cannot
+                    <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action cannot
                         be undone. You will be unable to exchange the code in case of any incompatibility or technical
                         issues and will need to purchase a new script.</p>
                     <div class="flex justify-center space-x-4 pt-2"><button id="confirm-cancel-btn"
@@ -538,8 +535,7 @@
                 class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
                 <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor"
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                         </path>
@@ -550,7 +546,7 @@
         </div>
         <footer class="w-full text-center p-4">
             <p class="text-gray-500 text-sm">
-                &copy; 2025 All Rights Reserved. | Made in Israel 🇮🇱
+                &copy; 2025-2026 All Rights Reserved.
             </p>
         </footer>
     </div>
@@ -585,10 +581,10 @@
             const price = Math.abs(hash) % (max - min + 1) + min;
             return price;
         }
-
-
+        
+        
         const vendors = ['Envato Codes', 'Codester', 'TemplateMonk', 'OCI Servers', 'ScriptJet', 'CodeCanyon'];
-
+        
         const vendorDetails = {
             'Envato Codes': {
                 company: 'Envato Codes',
@@ -635,12 +631,12 @@
         };
         const fixedDates = [
             'April 26, 2025', 'April 26, 2025', 'April 29, 2025', 'May 03, 2025', 'May 04, 2025',
-            'June 17, 2025', 'June 18, 2025', 'July 21, 2025', 'August 12, 2025', 'September 09, 2025', 'October 02, 2025']
-        const purchasedPrice = [73, 83, 74, 82, 71, 125, 78, 80, 105, 71, 40]
-        const scriptBaseNames = ["Sign & Log User Authentication e4", "LARACRUD Multipurpose Admin 3rd Level", "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", "Payment Gateway Backend Setup EG 2.0", "File Upload Service", "Notification System", "Analytics Tracker Proxy Server gen1", "Search For CMS Data Server v9", "Redis Caching Layer Throttling v1"]
+            'June 17, 2025', 'June 18, 2025', 'July 21, 2025', 'August 12, 2025', 'September 09, 2025','October 02, 2025']
+        const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71,40]
+        const scriptBaseNames = ["Sign & Log User Authentication e4", "LARACRUD Multipurpose Admin 3rd Level", "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", "Payment Gateway Backend Setup EG 2.0", "File Upload Service", "Notification System", "Analytics Tracker Proxy Server gen1","Search For CMS Data Server v9","Redis Caching Layer Throttling v1"]
         //For Get Scripts
         const scriptmarket = ["Sign & Log User Authentication e6", "LARACRUD Admin 6th Level", "MOLD pro Admin Panel", "Gravity Template setup ", "Payment Plugin for Ruoom - Django", "Payment Gateway Frontend EG 6.0", "File Upload Service", "Notification System", "Search Engine", "Clarity Analytics Tracker Proxy Server gen7", "Subscription Manager", "Inventory System", "Booking Engine", "Redis Caching Layer Throttling v6", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
-
+        
         const nodejsBaseNames = ["User Authentication", "Express API Server", "Socket.IO Chat Server", "GraphQL API Gateway", "JWT Authentication Service", "Stripe Payment Processor", "WebSocket Real-time Feed", "OAuth2 Provider", "MongoDB Data Service", "Redis Caching Layer", "Puppeteer Web Scraper", "Nodemailer Email Service", "BullMQ Job Queue", "Next.js SSR App", "NestJS Microservice", "AdonisJS Framework", "FeathersJS Real-time API"];
         const uiEssentialsBaseNames = ["Gravity Html Template", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
         const databaseEssentialsBaseNames = ["MySQL Managed Instance", "PostgreSQL Cluster", "MongoDB Atlas Replica Set", "Redis In-Memory Cache", "Elasticsearch Cluster", "Firebase Realtime DB", "Amazon DynamoDB Instance", "Google Cloud Spanner", "Microsoft Azure Cosmos DB", "SQLite Embeddable DB", "Neo4j Graph Database", "InfluxDB Time-Series DB", "Cassandra Cluster", "MariaDB Server", "RethinkDB Instance", "CouchDB Server", "ClickHouse OLAP DB", "Oracle DB Instance", "SQL Server Express", "FaunaDB Serverless", "Supabase Postgres Instance", "PlanetScale MySQL", "CockroachDB Distributed SQL", "ScyllaDB NoSQL Cluster", "TiDB NewSQL Platform", "ArangoDB Multi-model", "Realm Mobile Database", "Datastax Astra (Cassandra)", "Heroku Postgres", "DigitalOcean Managed PostgreSQL", "Aiven for PostgreSQL", "Upstash Redis", "Memcached Cloud", "TimescaleDB Cloud", "QuestDB Instance", "Vector Database (Pinecone)", "Vector Database (Weaviate)", "SurrealDB Instance", "EdgeDB Instance", "YugabyteDB Distributed SQL"];
@@ -663,7 +659,8 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Frontend',
-                // vendor: vendors[Math.floor(Math.random() * vendors.length)],
+                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate between $11 and $20
+               // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
         });
@@ -673,6 +670,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Backend',
+                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
                 //vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -683,6 +681,7 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'nodejs',
+                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
                 vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -694,8 +693,9 @@
             name: name,
             type: 'ui',
             price: getDeterministicPrice(name, 70, 180),
+            exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             expiryDate: getRandomDate(12),
-            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
+           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
         let databaseScripts = generateItems(databaseEssentialsBaseNames, 120, (name, id) => ({
@@ -703,8 +703,10 @@
             name: name,
             type: 'database',
             setupPrice: getDeterministicPrice(name, 90, 300),
+            exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
-            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
+            perRequestPrice: (Math.random() * (0.10 - 0.05) + 0.05).toFixed(3) // Per request API price
+           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
 
@@ -777,64 +779,42 @@
         // "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", 
         // "Payment Gateway Backend Setup EG 2.0", "File Upload Service", 
         // "Notification System", "Search For CMS", "Analytics Tracker Proxy Server gen1"]
-        var usedNames = new Set()
-
+        var usedNames=new Set()
+        
         let lastName;
         do { lastName = scriptBaseNames[Math.floor(Math.random() * scriptBaseNames.length)]; } while (usedNames.has(lastName));
-
+       
         const allVersions = generateVersionTiers(lastName).map(v => v.name);
         const version = `v1.${Math.floor(Math.random() * 9)}`;
         const exchangeVersions = allVersions.filter(v => v !== version);
         const lastVersion = `v1.${Math.floor(Math.random() * 9)}`;
         const lastExchangeVersions = generateVersionTiers(lastName).map(v => v.name).filter(v => v !== lastVersion);
-        // const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71]
-        // const vendors = ['Envato Codes', 'Codester', 'TemplateMon', 'Oracle Servers', 'ScriptJet', 'CodeCanyon'];
-
-        const Blinkbag = [
-            {
-                id: 1, name: "Sign & Log User Authentication e4", purchaseDate: fixedDates[0], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[0], vendor: vendors[1], code: "export const signupnow = webMethod(Permissions.Anyone,async (email, password, Name, regT) => {const registrationOptions = {contactInfo: {firstName: Name,},};const registration = await authentication.register(email,password,registrationOptions);let approve = await doApproval(registration.approvalToken);console.log(registration.approvalToken);if (approve.approved == true) {console.log(Member is now registered with the site and pending approval);",
-                exchangeVersions: generateVersionTiers("Sign & Log User Authentication e4").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 2, name: "LARACRUD Multipurpose Admin 3rd Level", purchaseDate: fixedDates[1], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[1], vendor: vendors[1], code: "app.put('/update/:key', async (req, res) => { try { const { key } = req.params; const { value } = req.body; if (value === undefined) { return res.status(400).json({ error: 'A new value is required.' }); } // 'XX' option means set only if the key already exists. const result = await redisClient.set(key, value, { XX: true }); if (result === null) { return res.status(404).json({ success: false, message: `Key '${key}' not found. Cannot update.` }); } res.status(200).json({ success: true, message: `Updated key '${key}'.` }); } catch (error) { console.error(error); res.status(500).json({ error: 'Server error occurred.' }); } });",
-                exchangeVersions: generateVersionTiers("LARACRUD Multipurpose Admin 3rd Level").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 3, name: "Twilio package MS Build-e6675 ", purchaseDate: fixedDates[2], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[2], vendor: vendors[2], code: "require('dotenv').config();.then(message => console.log(`Message sent successfully! SID: ${message.sid}`)) .catch(error => console.error('Error sending message:', error.message));",
-                exchangeVersions: generateVersionTiers("Twilio package MS Build-e6675").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 4, name: "SMTP Server Bulk Email Rotation Configuration", purchaseDate: fixedDates[3], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[3], vendor: vendors[1], code: "triggeredEmails.emailMember(  verifyRegistration,      registration.member._id,      emailOptions,  );triggeredEmails.emailContact( verifyRegistration,      registration.member._id,      emailOptions );",
-                exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
-                exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}`));",
-                exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
-                exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 8, name: "GPS Navigation Coordinates Receiver v13.8.3", purchaseDate: fixedDates[7], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[7], vendor: vendors[1], code: "WindowBackend.getCurrentGeolocation().then((loc) => { console.log(Rider Location:, yo) let locaList = itsbiz.locationBox.distlist console.log(Dist List:, itsbiz.locationBox.distlist) let rider_lat = loc.coords.latitude let rider_long = loc.coords.longitude let time = loc.timestamp let resto_lat = itsbiz.latitude let resto_long = itsbiz.longitude let final_dist = distance(rider_lat, rider_long, resto_lat, resto_long))}",
-                exchangeVersions: generateVersionTiers("GPS Navigation Coordinates Receiver v13.8.3").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 9, name: "Search For CMS", purchaseDate: fixedDates[8], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[8], vendor: vendors[3], code: "function SearchBy(Name,Email,Phone){ finded.items; let clientRepeater = []; for (var i in arrayfinded) { clientRepeater.push({ _id: i + io+Math.round(funtion SearchBy(Name,Email,Member){Math.random() * 1000), memberName: arrayfinded[i].memberName, _createdDate: arrayfinded[i]._createdDate, reward:arrayfinded[i].reward, phone: arrayfinded[i].phone, }); }",
-                exchangeVersions: generateVersionTiers("Search For CMS").map(v => v.name).filter(v => v !== version)
-            },
-            {
-                id: 10, name: "Clarity Analytics Tracker Proxy Server gen1", purchaseDate: fixedDates[9], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[9], vendor: vendors[1], code: "export const ClarityAnalytics = webMethod( Permissions.Admin, async (measurementTypes) => { try { const elevatedGetAnalyticsData = auth.elevate(analyticsData.getAnalyticsData); const response = elevatedGetAnalyticsData(measurementTypes); console.log(Analytics Data:,response) return response; } catch (error) { console.error(error); // Handle the error } }, );",
-                exchangeVersions: generateVersionTiers("Clarity Analytics Tracker Proxy Server gen1").map(v => v.name).filter(v => v !== version)
-            }
-            , {
-                id: 11, name: "Redis Caching Layer Throttling v1", purchaseDate: fixedDates[10], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[10], vendor: vendors[3], code: "const startServer = async () => { await connectRedis(); // Connects to Redis here app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`); }); }; startServer();",
-                exchangeVersions: generateVersionTiers("Redis Caching Layer Throttling v1").map(v => v.name).filter(v => v !== version)
-            }
+       // const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71]
+       // const vendors = ['Envato Codes', 'Codester', 'TemplateMon', 'Oracle Servers', 'ScriptJet', 'CodeCanyon'];
+        
+        const Blinkbag=[
+        { id: 1, name: "Sign & Log User Authentication e4", purchaseDate: fixedDates[0], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[0], vendor: vendors[1], code: "export const signupnow = webMethod(Permissions.Anyone,async (email, password, Name, regT) => {const registrationOptions = {contactInfo: {firstName: Name,},};const registration = await authentication.register(email,password,registrationOptions);let approve = await doApproval(registration.approvalToken);console.log(registration.approvalToken);if (approve.approved == true) {console.log(Member is now registered with the site and pending approval);", 
+        exchangeVersions: generateVersionTiers("Sign & Log User Authentication e4").map(v => v.name).filter(v => v !== version) },
+            { id: 2, name: "LARACRUD Multipurpose Admin 3rd Level", purchaseDate: fixedDates[1], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[1], vendor: vendors[1], code: "app.put('/update/:key', async (req, res) => { try { const { key } = req.params; const { value } = req.body; if (value === undefined) { return res.status(400).json({ error: 'A new value is required.' }); } // 'XX' option means set only if the key already exists. const result = await redisClient.set(key, value, { XX: true }); if (result === null) { return res.status(404).json({ success: false, message: `Key '${key}' not found. Cannot update.` }); } res.status(200).json({ success: true, message: `Updated key '${key}'.` }); } catch (error) { console.error(error); res.status(500).json({ error: 'Server error occurred.' }); } });",
+             exchangeVersions: generateVersionTiers("LARACRUD Multipurpose Admin 3rd Level").map(v => v.name).filter(v => v !== version) },
+            { id: 3, name: "Twilio package MS Build-e6675 ", purchaseDate:fixedDates[2], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[2], vendor: vendors[2], code: "require('dotenv').config();.then(message => console.log(`Message sent successfully! SID: ${message.sid}`)) .catch(error => console.error('Error sending message:', error.message));",
+             exchangeVersions: generateVersionTiers("Twilio package MS Build-e6675").map(v => v.name).filter(v => v !== version) },
+            { id: 4, name: "SMTP Server Bulk Email Rotation Configuration", purchaseDate: fixedDates[3], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[3], vendor: vendors[1], code: "triggeredEmails.emailMember(  verifyRegistration,      registration.member._id,      emailOptions,  );triggeredEmails.emailContact( verifyRegistration,      registration.member._id,      emailOptions );",
+             exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version) },
+            { id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
+             exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version) },
+            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}'));",
+             exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version) },
+            { id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
+             exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version) },
+            { id: 8, name: "GPS Navigation Coordinates Receiver v13.8.3", purchaseDate: fixedDates[7], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[7], vendor: vendors[1], code:  "WindowBackend.getCurrentGeolocation().then((loc) => { console.log(Rider Location:, yo) let locaList = itsbiz.locationBox.distlist console.log(Dist List:, itsbiz.locationBox.distlist) let rider_lat = loc.coords.latitude let rider_long = loc.coords.longitude let time = loc.timestamp let resto_lat = itsbiz.latitude let resto_long = itsbiz.longitude let final_dist = distance(rider_lat, rider_long, resto_lat, resto_long))}",
+             exchangeVersions: generateVersionTiers("GPS Navigation Coordinates Receiver v13.8.3").map(v => v.name).filter(v => v !== version) },
+            { id: 9, name: "Search For CMS", purchaseDate: fixedDates[8], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[8], vendor: vendors[3], code:"function SearchBy(Name,Email,Phone){ finded.items; let clientRepeater = []; for (var i in arrayfinded) { clientRepeater.push({ _id: i + io+Math.round(funtion SearchBy(Name,Email,Member){Math.random() * 1000), memberName: arrayfinded[i].memberName, _createdDate: arrayfinded[i]._createdDate, reward:arrayfinded[i].reward, phone: arrayfinded[i].phone, }); }",
+             exchangeVersions: generateVersionTiers("Search For CMS").map(v => v.name).filter(v => v !== version) },
+            { id: 10, name: "Clarity Analytics Tracker Proxy Server gen1", purchaseDate: fixedDates[9], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[9], vendor: vendors[1], code: "export const ClarityAnalytics = webMethod( Permissions.Admin, async (measurementTypes) => { try { const elevatedGetAnalyticsData = auth.elevate(analyticsData.getAnalyticsData); const response = elevatedGetAnalyticsData(measurementTypes); console.log(Analytics Data:,response) return response; } catch (error) { console.error(error); // Handle the error } }, );", 
+            exchangeVersions: generateVersionTiers("Clarity Analytics Tracker Proxy Server gen1").map(v => v.name).filter(v => v !== version) }
+            ,{ id: 11, name: "Redis Caching Layer Throttling v1", purchaseDate: fixedDates[10], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[10], vendor: vendors[3], code: "const startServer = async () => { await connectRedis(); // Connects to Redis here app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`); }); }; startServer();", 
+            exchangeVersions: generateVersionTiers("Redis Caching Layer Throttling v1").map(v => v.name).filter(v => v !== version) }
 
 
         ]
@@ -877,8 +857,33 @@
             "Moii.ai": { scripts: moiiscripts },
             "olivireWilson.com": { scripts: olivireWilsonScripts },
             "eliHealth.in": { scripts: eliHealthScripts },
-
+            
         };
+
+        // Helper to add fixed exchange info to 3rd (index 2) and 7th (index 6) scripts
+        function addFixedExchangeHistory(scriptsArray) {
+            const indices = [2, 6]; 
+            const exdate=["2025-11-21","2025-12-03"]
+            let d=0
+            indices.forEach(index => {
+                if (index < scriptsArray.length) {
+                    const script = scriptsArray[index];
+                    const exchangeDate = new Date(exdate[d]);
+                    console.log(exchangeDate)
+                    // Add random days for exchange date logic
+                    exchangeDate.setDate(exchangeDate.getDate()); 
+                    
+                    script.exchangedInfo = {
+                        price: 19,
+                        date: exchangeDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    };
+                    d+=1
+                }
+            });
+        }
+
+        // Apply fixed exchange history to all projects
+        Object.values(projectsData).forEach(project => addFixedExchangeHistory(project.scripts));
 
         function generateRandomVersionName() {
             const names = ['Community', 'Standard', 'Business', 'Ultimate', 'Lite', 'Pro', 'Atomic', 'Quantum'];
@@ -966,70 +971,176 @@
             let breakdown = { frontend: 0, backend: 0, cms: 0, server: 0 };
             projectsData[currentProject].scripts.forEach(script => {
                 console.log(currentProject)
-                if (currentProject == 'blinkbag.com') {
-                    let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
-                    let beP = (script.type === 'Backend') ? 0.6 : 0.35;
-                    breakdown.frontend += script.price * 0;
-                    breakdown.backend = 529;
-                    breakdown.cms = 181;
-                    breakdown.server = 172;
-                }
-                else {
-                    let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
-                    let beP = (script.type === 'Backend') ? 0.6 : 0.15;
-                    breakdown.frontend += script.price * feP;
-                    breakdown.backend += script.price * beP;
-                    breakdown.cms += script.price * 0.15;
-                    breakdown.server += script.price * 0.10;
+                let effectivePrice = script.price;
+                if(script.exchangedInfo) {
+                    effectivePrice += parseFloat(script.exchangedInfo.price);
                 }
 
+               if(currentProject=='blinkbag.com'){
+                let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
+                let beP = (script.type === 'Backend') ? 0.6 : 0.35;
+                breakdown.frontend += script.price * 0;
+                breakdown.backend = 529;
+                breakdown.cms = 181;
+                breakdown.server =172;
+               }
+               else{
+                let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
+                let beP = (script.type === 'Backend') ? 0.6 : 0.15;
+                breakdown.frontend += effectivePrice * feP;
+                breakdown.backend += effectivePrice * beP;
+                breakdown.cms += effectivePrice * 0.15;
+                breakdown.server += effectivePrice * 0.10;
+               }
+                
             });
             const dataValues = [breakdown.frontend.toFixed(2), breakdown.backend.toFixed(2), breakdown.cms.toFixed(2), breakdown.server.toFixed(2)];
-            const chartData = { labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], datasets: [{ data: dataValues, backgroundColor: ['#4bc0c0', '#ff6384', '#ffcd56', 'green'] }] };
+            
+            // --- PREMIUM CHART STYLING ---
+            
+            // Setup Contexts
             const pieCtx = document.getElementById('total-cost-pie-chart').getContext('2d');
-            totalCostPieChart = new Chart(pieCtx, { type: 'pie', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Overall Spending (Pie)' } } } });
             const barCtx = document.getElementById('total-cost-bar-chart').getContext('2d');
-            totalCostBarChart = new Chart(barCtx, { type: 'bar', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'Overall Spending (Bar)' } } } });
+
+            // Golden Gradient Function
+            function createGoldGradient(ctx) {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, '#BF953F'); // Dark Gold
+                gradient.addColorStop(0.25, '#FCF6BA'); // Light Gold
+                gradient.addColorStop(0.5, '#B38728'); // Medium Gold
+                gradient.addColorStop(0.75, '#FBF5B7'); // Light Gold
+                gradient.addColorStop(1, '#AA771C'); // Dark Gold
+                return gradient;
+            }
+
+            const goldGradientPie = createGoldGradient(pieCtx);
+            const goldGradientBar = createGoldGradient(barCtx);
+
+            const commonOptions = {
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { family: "'Inter', sans-serif", weight: '500' },
+                            color: '#4B5563'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        font: { family: "'Inter', sans-serif", size: 16, weight: 'bold' },
+                        color: '#1F2937',
+                        padding: 20
+                    }
+                }
+            };
+
+            const chartColors = ['#2563eb', '#db2777', '#d97706', '#059669']; // Blue, Pink, Amber, Emerald
+
+            // PIE CHART
+            totalCostPieChart = new Chart(pieCtx, { 
+                type: 'pie', 
+                data: {
+                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
+                    datasets: [{ 
+                        data: dataValues, 
+                        backgroundColor: chartColors,
+                        borderColor: goldGradientPie,
+                        borderWidth: 4,
+                        hoverBorderColor: '#FDB931',
+                        hoverBorderWidth: 6
+                    }] 
+                }, 
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        title: { ...commonOptions.plugins.title, text: 'Overall Spending (Pie)' }
+                    }
+                } 
+            });
+
+            // BAR CHART
+            totalCostBarChart = new Chart(barCtx, { 
+                type: 'bar', 
+                data: {
+                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
+                    datasets: [{ 
+                        label: 'Cost in USD',
+                        data: dataValues, 
+                        backgroundColor: chartColors,
+                        borderColor: goldGradientBar,
+                        borderWidth: 3,
+                        borderRadius: 8, // Rounded bars
+                        barPercentage: 0.6
+                    }] 
+                }, 
+                options: { 
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        legend: { display: false },
+                        title: { ...commonOptions.plugins.title, text: 'Overall Spending (Bar)' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#e5e7eb', drawBorder: false },
+                            ticks: { color: '#6B7280', font: { family: "'Inter', sans-serif" }, callback: (val) => '$' + val }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#374151', font: { family: "'Inter', sans-serif", weight: '500' } }
+                        }
+                    }
+                } 
+            });
         }
 
         function renderPaymentsPage() {
             if (!currentProject) return;
-            const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => sum + parseFloat(script.price || 0), 0);
+            const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => {
+                let val = sum + parseFloat(script.price || 0);
+                if(script.exchangedInfo) {
+                    val += parseFloat(script.exchangedInfo.price);
+                }
+                return val;
+            }, 0);
             totalInvestmentAmount.textContent = formatCurrency(totalInvestment);
             renderTotalCostAnalytics();
         }
-        var ip = ''
+        var ip=''
         function user_location() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    ip = this.responseText
-                }
-            };
-            xhttp.open("GET", "https://api.db-ip.com/v2/free/self", true);
-            xhttp.send();
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                  
+                    ip=this.responseText
+                    }
+                };
+                xhttp.open("GET", "https://api.db-ip.com/v2/free/self", true);
+                xhttp.send();
         }
         user_location()
         // --- LOGIN & PAGE NAVIGATION ---
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
-                var newip = JSON.parse(ip)
-
-                if (newip.ipAddress == '117.217.85.56' && newip.continentName == "Asia") {
-                    // Show loader, hide login page
-                    loader.style.display = 'inline-grid';
-                    allPages.loginPage.style.display = 'none';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        showPage(allPages.homePage);
-                        renderHomePage();
-                    }, 1500);
-                }
-                else {
+                var newip=JSON.parse(ip)
+             
+                if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
+                                    // Show loader, hide login page
+                        loader.style.display = 'inline-grid';
+                        allPages.loginPage.style.display = 'none';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            showPage(allPages.homePage);
+                            renderHomePage();
+                        }, 1500);
+               }
+                else{
                     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
-                    setTimeout(() => { errorMessage.textContent = ''; }, 3000);
+                setTimeout(() => { errorMessage.textContent = ''; }, 3000);
                 }
 
             } else {
@@ -1115,6 +1226,22 @@
 
             filteredAndSortedScripts.forEach(script => {
                 const isFinalized = script.status === 'finalized';
+                
+                // --- NEW: HTML for Exchange History ---
+                const exchangeInfoHTML = script.exchangedInfo 
+                    ? `<div class="mt-2 p-3 bg-orange-50 border border-orange-200 rounded-md">
+                         <div class="flex items-start">
+                            <span class="text-xl mr-2">♻️</span>
+                            <div>
+                                <p class="text-sm font-bold text-orange-800">Exchanged Version History</p>
+                                <p class="text-xs text-orange-700">Previous version exchanged on <span class="font-semibold">${script.exchangedInfo.date}</span></p>
+                                <p class="text-xs text-orange-700">Exchange Fee Paid: <span class="font-semibold">$${script.exchangedInfo.price}</span></p>
+                            </div>
+                         </div>
+                       </div>`
+                    : '';
+                // --------------------------------------
+
                 devScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="bg-white border border-gray-200 rounded-lg">
                         <details>
@@ -1127,6 +1254,7 @@
                             </summary>
                             <div class="p-4 border-t border-gray-200 bg-gray-50 space-y-3 text-sm text-gray-600">
                                <div class="space-y-1"><p><strong>Type:</strong> ${script.type}</p><p><strong>Vendor:</strong> ${script.vendor}</p><p><strong>Version:</strong> ${script.version}</p><p><strong>Price:</strong> ${formatCurrency(script.price)}</p><p><strong>Purchase Date:</strong> ${script.purchaseDate}</p></div>
+                               ${exchangeInfoHTML}
                                <div class="mt-2"><label class="font-semibold text-gray-700">Code Snippet:</label><div class="flex items-center space-x-2 mt-1"><textarea id="code-${script.id}" rows="4" class="w-full p-2 font-mono text-xs bg-white border border-gray-300 rounded-lg resize-none" readonly>${script.code}</textarea><button class="copy-code-btn self-start px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" data-script-id="${script.id}">Copy</button></div></div>
                             </div>
                         </details>
@@ -1224,7 +1352,7 @@
                     pricingHTML = `
                         <div>
                             <div class="text-lg font-bold text-indigo-600">${formatCurrency(script.setupPrice)} <span class="text-sm font-normal text-gray-500">Setup Fee</span></div>
-                            <div class="text-md font-semibold text-gray-700">$${script.hourlyRate}/hr <span class="text-sm font-normal text-gray-500">Usage Rate</span></div>
+                            <div class="text-sm font-semibold text-gray-600">$${script.perRequestPrice}/req <span class="text-xs font-normal text-gray-400">Current API Rate</span></div>
                         </div>`;
                 } else {
                     const versionOptions = script.versions.map((v, index) => `<option value="${index}">${v.name} - ${formatCurrency(v.price)}</option>`).join('');
@@ -1236,7 +1364,7 @@
                 getScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
                         <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
-                        
+                        <p class="text-xs text-orange-600 font-medium mt-1">Exchange Rate: $${script.exchangeRate}</p>
                         <div class="mt-3 space-y-3">
                             ${pricingHTML}
                             <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
@@ -1295,7 +1423,7 @@
             checkoutItemName.innerHTML = `${itemName}<br><span class="text-xs text-gray-400">by ${script.vendor}</span>`;
 
             if (script.type === 'database') {
-                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr`;
+                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr + $${script.perRequestPrice}/req`;
             } else {
                 checkoutItemPrice.textContent = formatCurrency(price);
             }
@@ -1318,7 +1446,7 @@
         filterDateBtn.addEventListener('click', () => {
             dateFromFilter = dateFromInput.value ? new Date(dateFromInput.value) : null;
             dateToFilter = dateToInput.value ? new Date(dateToInput.value) : null;
-            if (dateToFilter) { dateToFilter.setHours(23, 59, 59, 999); }
+            if (dateToFilter) { dateToFilter.setHours(23, 59, 59, 99); }
             renderContent();
         });
         clearFilterBtn.addEventListener('click', () => {
@@ -1401,6 +1529,11 @@
         function openModal(script) {
             modalTitle.textContent = `Exchange: ${script.name}`;
             modalVersionList.innerHTML = '';
+            
+            // Randomly calculate exchange fee
+            const exchangeFee = (Math.random() * (20 - 11) + 11).toFixed(2);
+            document.getElementById('modal-exchange-fee').textContent = '$' + exchangeFee;
+
             const availableVersions = script.exchangeVersions || [];
             if (availableVersions.length > 0) {
                 availableVersions.forEach(v => {
@@ -1417,58 +1550,276 @@
 
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
-
+        
         function generateAndDownloadInvoice(script) {
             if (!script) return;
-
-            const senderInfo = vendorDetails[script.vendor] || { // Fallback
-                company: "DevScripts LLC",
-                address: "123 Code Street, Dev City, 10101",
-                zip: "10101",
-                city: "Dev City",
-                country: "USA"
-            };
-
-            const invoiceData = {
-                "documentTitle": "INVOICE",
-                "currency": "USD",
-                "marginTop": 25,
-                "marginRight": 25,
-                "marginLeft": 25,
-                "marginBottom": 25,
-                "sender": senderInfo,
-                "images": {
-                    "background": "https://nikkisingh111333.github.io/codescript/codebuyportal/bginvoice.jpg"
-                },
-                "client": {
-                    "company": "Mr Nakul Singh",
-                    "address": "VISA - xxxx xxxx xxxx 0781",
-                    "country": "Country Of Origin- India"
-                },
-                "information": {
-                    "number": `INV-${script.id}-${new Date().getFullYear()}`,
-                    "date": script.purchaseDate,
-                },
-                "products": [
-                    {
-                        "quantity": "1",
-                        "description": `${script.name} - Version: ${script.version}`,
-                        "tax-rate": 0,
-                        "price": script.price
-                    }
-                ],
-                "bottom-notice": "This Receipt confirms the finalization of the script.Now You cannot Exchange The Code Version.\nIn order to Get Another Version Buy The New One From The Portal.\nAll The Price Amount Is in US Dollar($). ",
-                "settings": {
-                    "locale": "en-US",
-                    "currency": "USD",
-                }
-            };
-
-            easyinvoice.createInvoice(invoiceData, function (result) {
-                easyinvoice.download(`invoice-${script.id}.pdf`, result.pdf);
-            });
+            generatePDF(script) 
+        }
+        function generateInvoiceNumber(date) {
+            const purchaseDateVal = date;
+            const year = purchaseDateVal ? new Date(purchaseDateVal).getFullYear() : new Date().getFullYear();
+            const randomDigits = Math.floor(10000 + Math.random() * 90000);
+            return `${year}${randomDigits}`;
         }
 
+        function updateExpiryDate(date) {
+            const purchaseDateVal = date;
+            if (purchaseDateVal) {
+                const date = new Date(purchaseDateVal);
+                date.setFullYear(date.getFullYear() + 1);
+                let exdate=new Date(date)
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = exdate.toLocaleDateString('en-US', options)
+                return formattedDate;
+            }
+        }
+        function drawBackground(doc) {
+            doc.setDrawColor(245, 245, 245);
+            doc.setLineWidth(0.1);
+            for (let i = 0; i < 400; i += 15) {
+                doc.line(0, i, i, 0);
+                doc.line(210 - i, 297, 210, 297 - i);
+            }
+        }
+        async function generatePDF(script) {
+            const statusMsg = document.getElementById('statusMsg');
+            const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
+
+            if (!jspdfLib) {
+                statusMsg.innerText = "Error: Library not loaded.";
+                return;
+            }
+
+            try {
+                //console.log("Purchase Date:", script.purchaseDate)
+                const itemsArray = [{ "itemDescription":`${script.name} - Version: ${script.version}`,
+                 "itemVendor":script.vendor, 
+                 "itemPrice":script.price, 
+                 "itemQuantity": 1, 
+                 "totalFinalPrice": script.price }]
+                // console.log(JSON.stringify(itemsArray))
+                // console.log("ProjectName:",currentProject)
+                const invoiceData = {
+                    metadata: {
+                        domain: "www.codlokon.space",
+                        generatedAt: new Date().toISOString()
+                    },
+                    header: {
+                        invoiceNumber: generateInvoiceNumber(script.purchaseDate),
+                        orderNumber: 'ORD-'+Math.floor(Math.random() * 1000) + 1,
+                        purchaseDate: script.purchaseDate || 'N/A',
+                        expiryDate: updateExpiryDate(script.purchaseDate) || 'N/A'
+                    },
+                    sender: {
+                        companyName: "Codlokon.space"
+                    },
+                    client: {
+                        name: 'Mr.Nakul Singh',
+                        address: 'Soumya Heritage Bhopal,462026,M.P,India',
+                        projectId: currentProject
+                    },
+                    payment: {
+                        method: "Visa Card",
+                        cardNumber: 'XXXX XXXX XXXX 6673',
+                        maskedCard: (function (num) {
+                            return num.length >= 4 ? '**** **** **** ' + num.slice(-4) : '****';
+                        })('XXXX XXXX XXXX 6673')
+                    },
+                    lineItems: itemsArray,
+                    financials: {
+                        currency: '$',
+                        taxRate: 0
+                    }
+                };
+
+                // TAX-INCLUSIVE CALCULATION LOGIC
+                // The Sum of items is the Final Price (Grand Total)
+                const totalInclusive = invoiceData.lineItems.reduce((sum, item) => sum + item.totalFinalPrice, 0);
+                const taxRate = invoiceData.financials.taxRate;
+
+                invoiceData.financials.grandTotal = totalInclusive;
+                // Subtotal = Total / (1 + Rate)
+                invoiceData.financials.subtotal = totalInclusive / (1 + (taxRate / 100));
+                // Tax = Total - Subtotal
+                invoiceData.financials.taxAmount = totalInclusive - invoiceData.financials.subtotal;
+
+                const { jsPDF } = jspdfLib;
+                const doc = new jsPDF();
+                const headerGray = [51, 65, 85];
+                const accentGray = [100, 116, 139];
+                const lightText = [241, 245, 249];
+                const darkText = [30, 41, 59];
+               
+                drawBackground(doc);
+
+                doc.setFillColor(...headerGray);
+                doc.rect(0, 0, 210, 60, 'F');
+                doc.setDrawColor(94, 110, 131);
+                doc.setLineWidth(0.5);
+                doc.line(0, 0, 60, 60);
+                doc.line(210, 0, 150, 60);
+
+                doc.setTextColor(...lightText);
+                doc.setFontSize(8);
+                doc.text(invoiceData.metadata.domain, 105, 8, { align: 'center' });
+                doc.setFontSize(28);
+                doc.setFont('helvetica', 'bold');
+                doc.text('INVOICE', 20, 32);
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text('INVOICE NO.', 190, 22, { align: 'right' });
+                doc.setFont('helvetica', 'bold');
+                doc.text(invoiceData.header.invoiceNumber, 190, 27, { align: 'right' });
+
+                doc.setFont('helvetica', 'normal');
+                doc.text('DATE OF PURCHASE', 190, 34, { align: 'right' });
+                doc.setFont('helvetica', 'bold');
+                doc.text(invoiceData.header.purchaseDate, 190, 39, { align: 'right' });
+
+                doc.setFont('helvetica', 'normal');
+                doc.text('EXPIRY DATE', 190, 46, { align: 'right' });
+                doc.setFont('helvetica', 'bold');
+                doc.text(invoiceData.header.expiryDate, 190, 51, { align: 'right' });
+
+                doc.setTextColor(...darkText);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.text('ISSUED BY:', 20, 75);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.sender.companyName, 20, 81);
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('ORDER NO:', 20, 90);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.header.orderNumber, 45, 90);
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('BILL TO:', 120, 75);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.client.name, 120, 81);
+                doc.setFontSize(9);
+                doc.text(invoiceData.client.address, 120, 86, { maxWidth: 70 });
+                  // Project Details Styled to match theme
+                  const rightColX = 120;
+                doc.setFontSize(9);
+               
+                doc.setTextColor(...darkText);
+                doc.setFont('helvetica', 'bold');
+                doc.text('PROJECT ID:', rightColX, 100);
+                
+                doc.setTextColor(...accentGray);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.client.projectId, rightColX + 22, 100);
+                
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'italic');
+                doc.setTextColor(100, 116, 139);
+                doc.text('(Code script purchased for project attribution)', rightColX, 105);
+
+                doc.setFontSize(10);
+                doc.setTextColor(...darkText);
+                doc.setFont('helvetica', 'bold');
+                doc.text('PAYMENT SOURCE:', 20, 105);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`${invoiceData.payment.method} | ${invoiceData.payment.maskedCard}`, 60, 105);
+
+                let currentY = 115;
+                doc.setFillColor(241, 245, 249);
+                doc.rect(20, currentY, 170, 10, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(...darkText);
+                doc.text('DESCRIPTION', 25, currentY + 6.5);
+                doc.text('VENDOR', 85, currentY + 6.5);
+                doc.text('QTY', 125, currentY + 6.5);
+                doc.text('PRICE', 145, currentY + 6.5);
+                doc.text('TOTAL', 170, currentY + 6.5);
+
+                currentY += 10;
+                doc.setFont('helvetica', 'normal');
+                invoiceData.lineItems.forEach(item => {
+                    // Split text into wrapped lines for description and vendor
+                    const descLines = doc.splitTextToSize(item.itemDescription, 55);
+                    const vendorLines = doc.splitTextToSize(item.itemVendor, 35);
+                    
+                    // Determine the height needed for this row
+                    const maxLines = Math.max(descLines.length, vendorLines.length);
+                    const rowHeight = (maxLines * 5) + 2; 
+
+                    if (currentY + rowHeight > 270) {
+                        doc.addPage();
+                        drawBackground(doc);
+                        currentY = 20;
+                    }
+
+                    // Render lines
+                    doc.text(descLines, 25, currentY + 5);
+                    doc.text(vendorLines, 85, currentY + 5);
+                    
+                    // Render other columns
+                    doc.text(item.itemQuantity.toString(), 125, currentY + 5);
+                    doc.text(invoiceData.financials.currency + item.itemPrice.toLocaleString(), 145, currentY + 5);
+                    doc.text(invoiceData.financials.currency + item.totalFinalPrice.toLocaleString(), 170, currentY + 5);
+                    
+                    doc.setDrawColor(220, 225, 230);
+                    doc.line(20, currentY + rowHeight, 190, currentY + rowHeight);
+                    
+                    currentY += rowHeight;
+                });
+
+                currentY += 15;
+                const summaryX = 135;
+                const boxWidth = 65;
+                const boxHeight = 14;
+
+                doc.setFontSize(10);
+                doc.text('Price (Incl. Tax):', summaryX + 5, currentY);
+                doc.text(invoiceData.financials.currency + invoiceData.financials.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 195, currentY, { align: 'right' });
+
+                currentY += 7;
+                
+                currentY += 10;
+
+                // Total Box Shadow
+                doc.setFillColor(220, 225, 230);
+                doc.roundedRect(summaryX + 1, currentY - 6.5, boxWidth, boxHeight, 2, 2, 'F');
+
+                // Total Box Main
+                doc.setFillColor(...headerGray);
+                doc.roundedRect(summaryX, currentY - 8, boxWidth, boxHeight, 2, 2, 'F');
+
+                doc.setTextColor(...lightText);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(11);
+
+                // Box Content
+                doc.text('TOTAL AMOUNT:', summaryX + 5, currentY + 1);
+                doc.setFontSize(12);
+                doc.text(invoiceData.financials.currency + invoiceData.financials.grandTotal.toLocaleString(), summaryX + boxWidth - 5, currentY + 1, { align: 'right' });
+
+                // New Heading below total box
+               
+                
+ 
+                // Footer
+                doc.setTextColor(100, 16, 39);
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'italic');
+                doc.text('Note:In order to exchange Script Additional Charges Will be Apply', 105, 275, { align: 'center' });
+                
+                doc.setTextColor(100, 116, 139);
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'italic');
+                doc.text('This is a system generated invoice', 105, 289, { align: 'center' });
+
+                doc.save(`${invoiceData.header.invoiceNumber}_Invoice.pdf`);
+                //statusMsg.innerText = "PDF Generated: Tax-Inclusive Model";
+            } catch (err) {
+                console.error(err);
+                
+            }
+        }
         confirmProceedBtn.addEventListener('click', () => {
             if (scriptIdToFinalize !== null && currentProject) {
                 const scriptToFinalize = projectsData[currentProject].scripts.find(s => s.id === scriptIdToFinalize);
@@ -1480,22 +1831,21 @@
             }
             closeFinalizeModal();
         });
-
-        var linkCodes = {
-            "Sign & Log User Authentication e6": "https://www.codester.com/items/payment?id=43769&extended=true",
-            "MOLD pro Admin Panel": "https://www.codester.com/items/payment?id=56719&extended=true",
-            "LARACRUD Admin 6th Level": "https://www.codester.com/items/payment?id=37936&extended=true",
-            "Gravity Template setup": "https://www.templatemonster.com/checkout/",
-            "Payment Plugin for Ruoom - Django": "https://www.codester.com/items/payment?id=56287&extended=true",
-        }
+        
+        var linkCodes={
+            "Sign & Log User Authentication e6":"https://www.codester.com/items/payment?id=43769&extended=true",
+            "MOLD pro Admin Panel":"https://www.codester.com/items/payment?id=56719&extended=true",
+            "LARACRUD Admin 6th Level":"https://www.codester.com/items/payment?id=37936&extended=true",
+        "Gravity Template setup":"https://www.templatemonster.com/checkout/",
+    "Payment Plugin for Ruoom - Django":"https://www.codester.com/items/payment?id=56287&extended=true",}
         finalPayBtn.addEventListener('click', () => {
-            let link = linkCodes[currentCheckout.name.split("-")[0].trim()]
-            const stripeLink = link
-            console.log(finalPayBtn.name, currentCheckout)
+            let link=linkCodes[currentCheckout.name.split("-")[0].trim()]
+            const stripeLink =link 
+            console.log(finalPayBtn.name,currentCheckout)
             console.log(link)
-
+           
             window.location.href = stripeLink;
-
+            
         });
 
     </script>
