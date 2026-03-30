@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
   <link rel="icon" type="image/x-icon" href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
-    <title>Code Buy Script Portal | Codlokon</title>
+    <title>Codescript Portal</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- EasyInvoice for invoice generation -->
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
     <style>
         /* Custom styles for a clean look */
         body {
@@ -489,21 +489,6 @@
                         <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
                             id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
                     </div>
-                    <!-- Added Warning Popup for Exchange Charges -->
-                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-2">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-red-700">
-                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee" class="font-bold"></span> will be applied to your final invoice when you finalize this code.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="border-t border-gray-200 pt-4">
                         <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
                         <div id="modal-version-list" class="space-y-2"></div>
@@ -546,7 +531,7 @@
         </div>
         <footer class="w-full text-center p-4">
             <p class="text-gray-500 text-sm">
-                &copy; 2025-2026 All Rights Reserved.
+                &copy; 2025 All Rights Reserved. | Made in Israel 🇮🇱
             </p>
         </footer>
     </div>
@@ -659,7 +644,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Frontend',
-                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate between $11 and $20
                // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -670,7 +654,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Backend',
-                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
                 //vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -681,7 +664,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'nodejs',
-                exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
                 vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -693,7 +675,6 @@
             name: name,
             type: 'ui',
             price: getDeterministicPrice(name, 70, 180),
-            exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             expiryDate: getRandomDate(12),
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
@@ -703,9 +684,7 @@
             name: name,
             type: 'database',
             setupPrice: getDeterministicPrice(name, 90, 300),
-            exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
-            perRequestPrice: (Math.random() * (0.10 - 0.05) + 0.05).toFixed(3) // Per request API price
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
@@ -803,7 +782,7 @@
              exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version) },
             { id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
              exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version) },
-            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}'));",
+            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}`));",
              exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version) },
             { id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
              exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version) },
@@ -859,31 +838,6 @@
             "eliHealth.in": { scripts: eliHealthScripts },
             
         };
-
-        // Helper to add fixed exchange info to 3rd (index 2) and 7th (index 6) scripts
-        function addFixedExchangeHistory(scriptsArray) {
-            const indices = [2, 6]; 
-            const exdate=["2025-11-21","2025-12-03"]
-            let d=0
-            indices.forEach(index => {
-                if (index < scriptsArray.length) {
-                    const script = scriptsArray[index];
-                    const exchangeDate = new Date(exdate[d]);
-                    console.log(exchangeDate)
-                    // Add random days for exchange date logic
-                    exchangeDate.setDate(exchangeDate.getDate()); 
-                    
-                    script.exchangedInfo = {
-                        price: 19,
-                        date: exchangeDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                    };
-                    d+=1
-                }
-            });
-        }
-
-        // Apply fixed exchange history to all projects
-        Object.values(projectsData).forEach(project => addFixedExchangeHistory(project.scripts));
 
         function generateRandomVersionName() {
             const names = ['Community', 'Standard', 'Business', 'Ultimate', 'Lite', 'Pro', 'Atomic', 'Quantum'];
@@ -971,11 +925,6 @@
             let breakdown = { frontend: 0, backend: 0, cms: 0, server: 0 };
             projectsData[currentProject].scripts.forEach(script => {
                 console.log(currentProject)
-                let effectivePrice = script.price;
-                if(script.exchangedInfo) {
-                    effectivePrice += parseFloat(script.exchangedInfo.price);
-                }
-
                if(currentProject=='blinkbag.com'){
                 let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
                 let beP = (script.type === 'Backend') ? 0.6 : 0.35;
@@ -987,125 +936,24 @@
                else{
                 let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
                 let beP = (script.type === 'Backend') ? 0.6 : 0.15;
-                breakdown.frontend += effectivePrice * feP;
-                breakdown.backend += effectivePrice * beP;
-                breakdown.cms += effectivePrice * 0.15;
-                breakdown.server += effectivePrice * 0.10;
+                breakdown.frontend += script.price * feP;
+                breakdown.backend += script.price * beP;
+                breakdown.cms += script.price * 0.15;
+                breakdown.server += script.price * 0.10;
                }
                 
             });
             const dataValues = [breakdown.frontend.toFixed(2), breakdown.backend.toFixed(2), breakdown.cms.toFixed(2), breakdown.server.toFixed(2)];
-            
-            // --- PREMIUM CHART STYLING ---
-            
-            // Setup Contexts
+            const chartData = { labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], datasets: [{ data: dataValues, backgroundColor: ['#4bc0c0', '#ff6384', '#ffcd56', 'green'] }] };
             const pieCtx = document.getElementById('total-cost-pie-chart').getContext('2d');
+            totalCostPieChart = new Chart(pieCtx, { type: 'pie', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Overall Spending (Pie)' } } } });
             const barCtx = document.getElementById('total-cost-bar-chart').getContext('2d');
-
-            // Golden Gradient Function
-            function createGoldGradient(ctx) {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, '#BF953F'); // Dark Gold
-                gradient.addColorStop(0.25, '#FCF6BA'); // Light Gold
-                gradient.addColorStop(0.5, '#B38728'); // Medium Gold
-                gradient.addColorStop(0.75, '#FBF5B7'); // Light Gold
-                gradient.addColorStop(1, '#AA771C'); // Dark Gold
-                return gradient;
-            }
-
-            const goldGradientPie = createGoldGradient(pieCtx);
-            const goldGradientBar = createGoldGradient(barCtx);
-
-            const commonOptions = {
-                responsive: true, 
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: { family: "'Inter', sans-serif", weight: '500' },
-                            color: '#4B5563'
-                        }
-                    },
-                    title: {
-                        display: true,
-                        font: { family: "'Inter', sans-serif", size: 16, weight: 'bold' },
-                        color: '#1F2937',
-                        padding: 20
-                    }
-                }
-            };
-
-            const chartColors = ['#2563eb', '#db2777', '#d97706', '#059669']; // Blue, Pink, Amber, Emerald
-
-            // PIE CHART
-            totalCostPieChart = new Chart(pieCtx, { 
-                type: 'pie', 
-                data: {
-                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
-                    datasets: [{ 
-                        data: dataValues, 
-                        backgroundColor: chartColors,
-                        borderColor: goldGradientPie,
-                        borderWidth: 4,
-                        hoverBorderColor: '#FDB931',
-                        hoverBorderWidth: 6
-                    }] 
-                }, 
-                options: {
-                    ...commonOptions,
-                    plugins: {
-                        ...commonOptions.plugins,
-                        title: { ...commonOptions.plugins.title, text: 'Overall Spending (Pie)' }
-                    }
-                } 
-            });
-
-            // BAR CHART
-            totalCostBarChart = new Chart(barCtx, { 
-                type: 'bar', 
-                data: {
-                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
-                    datasets: [{ 
-                        label: 'Cost in USD',
-                        data: dataValues, 
-                        backgroundColor: chartColors,
-                        borderColor: goldGradientBar,
-                        borderWidth: 3,
-                        borderRadius: 8, // Rounded bars
-                        barPercentage: 0.6
-                    }] 
-                }, 
-                options: { 
-                    ...commonOptions,
-                    plugins: {
-                        ...commonOptions.plugins,
-                        legend: { display: false },
-                        title: { ...commonOptions.plugins.title, text: 'Overall Spending (Bar)' }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: '#e5e7eb', drawBorder: false },
-                            ticks: { color: '#6B7280', font: { family: "'Inter', sans-serif" }, callback: (val) => '$' + val }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#374151', font: { family: "'Inter', sans-serif", weight: '500' } }
-                        }
-                    }
-                } 
-            });
+            totalCostBarChart = new Chart(barCtx, { type: 'bar', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'Overall Spending (Bar)' } } } });
         }
 
         function renderPaymentsPage() {
             if (!currentProject) return;
-            const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => {
-                let val = sum + parseFloat(script.price || 0);
-                if(script.exchangedInfo) {
-                    val += parseFloat(script.exchangedInfo.price);
-                }
-                return val;
-            }, 0);
+            const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => sum + parseFloat(script.price || 0), 0);
             totalInvestmentAmount.textContent = formatCurrency(totalInvestment);
             renderTotalCostAnalytics();
         }
@@ -1128,7 +976,7 @@
             if (passwordInput.value === '831903pass') {
                 var newip=JSON.parse(ip)
              
-                if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
+                // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
                                     // Show loader, hide login page
                         loader.style.display = 'inline-grid';
                         allPages.loginPage.style.display = 'none';
@@ -1137,11 +985,11 @@
                             showPage(allPages.homePage);
                             renderHomePage();
                         }, 1500);
-                }
-                 else{
-                     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
-                     setTimeout(() => { errorMessage.textContent = ''; }, 3000);
-                 }
+               // }
+                // else{
+                //     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
+                // setTimeout(() => { errorMessage.textContent = ''; }, 3000);
+                // }
 
             } else {
                 errorMessage.textContent = 'Invalid Password';
@@ -1226,22 +1074,6 @@
 
             filteredAndSortedScripts.forEach(script => {
                 const isFinalized = script.status === 'finalized';
-                
-                // --- NEW: HTML for Exchange History ---
-                const exchangeInfoHTML = script.exchangedInfo 
-                    ? `<div class="mt-2 p-3 bg-orange-50 border border-orange-200 rounded-md">
-                         <div class="flex items-start">
-                            <span class="text-xl mr-2">♻️</span>
-                            <div>
-                                <p class="text-sm font-bold text-orange-800">Exchanged Version History</p>
-                                <p class="text-xs text-orange-700">Previous version exchanged on <span class="font-semibold">${script.exchangedInfo.date}</span></p>
-                                <p class="text-xs text-orange-700">Exchange Fee Paid: <span class="font-semibold">$${script.exchangedInfo.price}</span></p>
-                            </div>
-                         </div>
-                       </div>`
-                    : '';
-                // --------------------------------------
-
                 devScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="bg-white border border-gray-200 rounded-lg">
                         <details>
@@ -1254,7 +1086,6 @@
                             </summary>
                             <div class="p-4 border-t border-gray-200 bg-gray-50 space-y-3 text-sm text-gray-600">
                                <div class="space-y-1"><p><strong>Type:</strong> ${script.type}</p><p><strong>Vendor:</strong> ${script.vendor}</p><p><strong>Version:</strong> ${script.version}</p><p><strong>Price:</strong> ${formatCurrency(script.price)}</p><p><strong>Purchase Date:</strong> ${script.purchaseDate}</p></div>
-                               ${exchangeInfoHTML}
                                <div class="mt-2"><label class="font-semibold text-gray-700">Code Snippet:</label><div class="flex items-center space-x-2 mt-1"><textarea id="code-${script.id}" rows="4" class="w-full p-2 font-mono text-xs bg-white border border-gray-300 rounded-lg resize-none" readonly>${script.code}</textarea><button class="copy-code-btn self-start px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" data-script-id="${script.id}">Copy</button></div></div>
                             </div>
                         </details>
@@ -1352,7 +1183,7 @@
                     pricingHTML = `
                         <div>
                             <div class="text-lg font-bold text-indigo-600">${formatCurrency(script.setupPrice)} <span class="text-sm font-normal text-gray-500">Setup Fee</span></div>
-                            <div class="text-sm font-semibold text-gray-600">$${script.perRequestPrice}/req <span class="text-xs font-normal text-gray-400">Current API Rate</span></div>
+                            <div class="text-md font-semibold text-gray-700">$${script.hourlyRate}/hr <span class="text-sm font-normal text-gray-500">Usage Rate</span></div>
                         </div>`;
                 } else {
                     const versionOptions = script.versions.map((v, index) => `<option value="${index}">${v.name} - ${formatCurrency(v.price)}</option>`).join('');
@@ -1364,7 +1195,7 @@
                 getScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
                         <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
-                        <p class="text-xs text-orange-600 font-medium mt-1">Exchange Rate: $${script.exchangeRate}</p>
+                        
                         <div class="mt-3 space-y-3">
                             ${pricingHTML}
                             <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
@@ -1423,7 +1254,7 @@
             checkoutItemName.innerHTML = `${itemName}<br><span class="text-xs text-gray-400">by ${script.vendor}</span>`;
 
             if (script.type === 'database') {
-                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr + $${script.perRequestPrice}/req`;
+                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr`;
             } else {
                 checkoutItemPrice.textContent = formatCurrency(price);
             }
@@ -1446,7 +1277,7 @@
         filterDateBtn.addEventListener('click', () => {
             dateFromFilter = dateFromInput.value ? new Date(dateFromInput.value) : null;
             dateToFilter = dateToInput.value ? new Date(dateToInput.value) : null;
-            if (dateToFilter) { dateToFilter.setHours(23, 59, 59, 99); }
+            if (dateToFilter) { dateToFilter.setHours(23, 59, 59, 999); }
             renderContent();
         });
         clearFilterBtn.addEventListener('click', () => {
@@ -1529,11 +1360,6 @@
         function openModal(script) {
             modalTitle.textContent = `Exchange: ${script.name}`;
             modalVersionList.innerHTML = '';
-            
-            // Randomly calculate exchange fee
-            const exchangeFee = (Math.random() * (20 - 11) + 11).toFixed(2);
-            document.getElementById('modal-exchange-fee').textContent = '$' + exchangeFee;
-
             const availableVersions = script.exchangeVersions || [];
             if (availableVersions.length > 0) {
                 availableVersions.forEach(v => {
@@ -1553,273 +1379,54 @@
         
         function generateAndDownloadInvoice(script) {
             if (!script) return;
-            generatePDF(script) 
-        }
-        function generateInvoiceNumber(date) {
-            const purchaseDateVal = date;
-            const year = purchaseDateVal ? new Date(purchaseDateVal).getFullYear() : new Date().getFullYear();
-            const randomDigits = Math.floor(10000 + Math.random() * 90000);
-            return `${year}${randomDigits}`;
-        }
+            
+            const senderInfo = vendorDetails[script.vendor] || { // Fallback
+                company: "DevScripts LLC",
+                address: "123 Code Street, Dev City, 10101",
+                zip: "10101",
+                city: "Dev City",
+                country: "USA"
+            };
 
-        function updateExpiryDate(date) {
-            const purchaseDateVal = date;
-            if (purchaseDateVal) {
-                const date = new Date(purchaseDateVal);
-                date.setFullYear(date.getFullYear() + 1);
-                let exdate=new Date(date)
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const formattedDate = exdate.toLocaleDateString('en-US', options)
-                return formattedDate;
-            }
-        }
-        function drawBackground(doc) {
-            doc.setDrawColor(245, 245, 245);
-            doc.setLineWidth(0.1);
-            for (let i = 0; i < 400; i += 15) {
-                doc.line(0, i, i, 0);
-                doc.line(210 - i, 297, 210, 297 - i);
-            }
-        }
-        async function generatePDF(script) {
-            const statusMsg = document.getElementById('statusMsg');
-            const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
-
-            if (!jspdfLib) {
-                statusMsg.innerText = "Error: Library not loaded.";
-                return;
-            }
-
-            try {
-                //console.log("Purchase Date:", script.purchaseDate)
-                const itemsArray = [{ "itemDescription":`${script.name} - Version: ${script.version}`,
-                 "itemVendor":script.vendor, 
-                 "itemPrice":script.price, 
-                 "itemQuantity": 1, 
-                 "totalFinalPrice": script.price }]
-                // console.log(JSON.stringify(itemsArray))
-                // console.log("ProjectName:",currentProject)
-                const invoiceData = {
-                    metadata: {
-                        domain: "www.codlokon.space",
-                        generatedAt: new Date().toISOString()
-                    },
-                    header: {
-                        invoiceNumber: generateInvoiceNumber(script.purchaseDate),
-                        orderNumber: 'ORD-'+Math.floor(Math.random() * 1000) + 1,
-                        purchaseDate: script.purchaseDate || 'N/A',
-                        expiryDate: updateExpiryDate(script.purchaseDate) || 'N/A'
-                    },
-                    sender: {
-                        companyName: "Codlokon.space"
-                    },
-                    client: {
-                        name: 'Mr.Nakul Singh',
-                        address: 'Soumya Heritage Bhopal,462026,M.P,India',
-                        projectId: currentProject
-                    },
-                    payment: {
-                        method: "Visa Card",
-                        cardNumber: 'XXXX XXXX XXXX 6673',
-                        maskedCard: (function (num) {
-                            return num.length >= 4 ? '**** **** **** ' + num.slice(-4) : '****';
-                        })('XXXX XXXX XXXX 6673')
-                    },
-                    lineItems: itemsArray,
-                    financials: {
-                        currency: '$',
-                        taxRate: 0
+            const invoiceData = {
+                "documentTitle": "INVOICE",
+                "currency": "USD",
+                "marginTop": 25,
+                "marginRight": 25,
+                "marginLeft": 25,
+                "marginBottom": 25,
+                "sender": senderInfo,
+                "images": {
+                    "background": "https://nikkisingh111333.github.io/codescript/codebuyportal/bginvoice.jpg"                 },
+                "client": {
+                    "company": "Mr Nakul Singh",
+                    "address": "VISA - xxxx xxxx xxxx 0781",
+                    "country": "Country Of Origin- India"
+                },
+                "information": {
+                    "number": `INV-${script.id}-${new Date().getFullYear()}`,
+                    "date": script.purchaseDate,
+                },
+                "products": [
+                    {
+                        "quantity": "1",
+                        "description": `${script.name} - Version: ${script.version}`,
+                        "tax-rate": 0,
+                        "price": script.price
                     }
-                };
+                ],
+                "bottom-notice": "This Receipt confirms the finalization of the script.Now You cannot Exchange The Code Version.\nIn order to Get Another Version Buy The New One From The Portal.\nAll The Price Amount Is in US Dollar($). ",
+                            "settings": {
+                                "locale": "en-US",
+                                "currency": "USD",
+                            }
+            };
 
-                // TAX-INCLUSIVE CALCULATION LOGIC
-                // The Sum of items is the Final Price (Grand Total)
-                const totalInclusive = invoiceData.lineItems.reduce((sum, item) => sum + item.totalFinalPrice, 0);
-                const taxRate = invoiceData.financials.taxRate;
-
-                invoiceData.financials.grandTotal = totalInclusive;
-                // Subtotal = Total / (1 + Rate)
-                invoiceData.financials.subtotal = totalInclusive / (1 + (taxRate / 100));
-                // Tax = Total - Subtotal
-                invoiceData.financials.taxAmount = totalInclusive - invoiceData.financials.subtotal;
-
-                const { jsPDF } = jspdfLib;
-                const doc = new jsPDF();
-                const headerGray = [51, 65, 85];
-                const accentGray = [100, 116, 139];
-                const lightText = [241, 245, 249];
-                const darkText = [30, 41, 59];
-               
-                drawBackground(doc);
-
-                doc.setFillColor(...headerGray);
-                doc.rect(0, 0, 210, 60, 'F');
-                doc.setDrawColor(94, 110, 131);
-                doc.setLineWidth(0.5);
-                doc.line(0, 0, 60, 60);
-                doc.line(210, 0, 150, 60);
-
-                doc.setTextColor(...lightText);
-                doc.setFontSize(8);
-                doc.text(invoiceData.metadata.domain, 105, 8, { align: 'center' });
-                doc.setFontSize(28);
-                doc.setFont('helvetica', 'bold');
-                doc.text('INVOICE', 20, 32);
-
-                doc.setFontSize(9);
-                doc.setFont('helvetica', 'normal');
-                doc.text('INVOICE NO.', 190, 22, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.invoiceNumber, 190, 27, { align: 'right' });
-
-                doc.setFont('helvetica', 'normal');
-                doc.text('DATE OF PURCHASE', 190, 34, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.purchaseDate, 190, 39, { align: 'right' });
-
-                doc.setFont('helvetica', 'normal');
-                doc.text('EXPIRY DATE', 190, 46, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.expiryDate, 190, 51, { align: 'right' });
-
-                doc.setTextColor(...darkText);
-                doc.setFontSize(10);
-                doc.setFont('helvetica', 'bold');
-                doc.text('ISSUED BY:', 20, 75);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.sender.companyName, 20, 81);
-
-                doc.setFont('helvetica', 'bold');
-                doc.text('ORDER NO:', 20, 90);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.header.orderNumber, 45, 90);
-
-                doc.setFont('helvetica', 'bold');
-                doc.text('BILL TO:', 120, 75);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.client.name, 120, 81);
-                doc.setFontSize(9);
-                doc.text(invoiceData.client.address, 120, 86, { maxWidth: 70 });
-                  // Project Details Styled to match theme
-                  const rightColX = 120;
-                doc.setFontSize(9);
-               
-                doc.setTextColor(...darkText);
-                doc.setFont('helvetica', 'bold');
-                doc.text('PROJECT ID:', rightColX, 100);
-                
-                doc.setTextColor(...accentGray);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.client.projectId, rightColX + 22, 100);
-                
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.setTextColor(100, 116, 139);
-                doc.text('(Code script purchased for project attribution)', rightColX, 105);
-
-                doc.setFontSize(10);
-                doc.setTextColor(...darkText);
-                doc.setFont('helvetica', 'bold');
-                doc.text('PAYMENT SOURCE:', 20, 105);
-                doc.setFont('helvetica', 'normal');
-                doc.text(`${invoiceData.payment.method} | ${invoiceData.payment.maskedCard}`, 60, 105);
-
-                let currentY = 115;
-                doc.setFillColor(241, 245, 249);
-                doc.rect(20, currentY, 170, 10, 'F');
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(...darkText);
-                doc.text('DESCRIPTION', 25, currentY + 6.5);
-                doc.text('VENDOR', 85, currentY + 6.5);
-                doc.text('QTY', 125, currentY + 6.5);
-                doc.text('PRICE', 145, currentY + 6.5);
-                doc.text('TOTAL', 170, currentY + 6.5);
-
-                currentY += 10;
-                doc.setFont('helvetica', 'normal');
-                invoiceData.lineItems.forEach(item => {
-                    // Split text into wrapped lines for description and vendor
-                    const descLines = doc.splitTextToSize(item.itemDescription, 55);
-                    const vendorLines = doc.splitTextToSize(item.itemVendor, 35);
-                    
-                    // Determine the height needed for this row
-                    const maxLines = Math.max(descLines.length, vendorLines.length);
-                    const rowHeight = (maxLines * 5) + 2; 
-
-                    if (currentY + rowHeight > 270) {
-                        doc.addPage();
-                        drawBackground(doc);
-                        currentY = 20;
-                    }
-
-                    // Render lines
-                    doc.text(descLines, 25, currentY + 5);
-                    doc.text(vendorLines, 85, currentY + 5);
-                    
-                    // Render other columns
-                    doc.text(item.itemQuantity.toString(), 125, currentY + 5);
-                    doc.text(invoiceData.financials.currency + item.itemPrice.toLocaleString(), 145, currentY + 5);
-                    doc.text(invoiceData.financials.currency + item.totalFinalPrice.toLocaleString(), 170, currentY + 5);
-                    
-                    doc.setDrawColor(220, 225, 230);
-                    doc.line(20, currentY + rowHeight, 190, currentY + rowHeight);
-                    
-                    currentY += rowHeight;
-                });
-
-                currentY += 15;
-                const summaryX = 135;
-                const boxWidth = 65;
-                const boxHeight = 14;
-
-                doc.setFontSize(10);
-                doc.text('Price (Incl. Tax):', summaryX + 5, currentY);
-                doc.text(invoiceData.financials.currency + invoiceData.financials.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 195, currentY, { align: 'right' });
-
-                currentY += 7;
-                
-                currentY += 10;
-
-                // Total Box Shadow
-                doc.setFillColor(220, 225, 230);
-                doc.roundedRect(summaryX + 1, currentY - 6.5, boxWidth, boxHeight, 2, 2, 'F');
-
-                // Total Box Main
-                doc.setFillColor(...headerGray);
-                doc.roundedRect(summaryX, currentY - 8, boxWidth, boxHeight, 2, 2, 'F');
-
-                doc.setTextColor(...lightText);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-
-                // Box Content
-                doc.text('TOTAL AMOUNT:', summaryX + 5, currentY + 1);
-                doc.setFontSize(12);
-                doc.text(invoiceData.financials.currency + invoiceData.financials.grandTotal.toLocaleString(), summaryX + boxWidth - 5, currentY + 1, { align: 'right' });
-
-                // New Heading below total box
-               
-                
- 
-                // Footer
-                doc.setTextColor(100, 16, 39);
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.text('Note:In order to exchange Script Additional Charges Will be Apply', 105, 275, { align: 'center' });
-                
-                doc.setTextColor(100, 116, 139);
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.text('This is a system generated invoice', 105, 289, { align: 'center' });
-
-                doc.save(`${invoiceData.header.invoiceNumber}_Invoice.pdf`);
-                //statusMsg.innerText = "PDF Generated: Tax-Inclusive Model";
-            } catch (err) {
-                console.error(err);
-                
-            }
+            easyinvoice.createInvoice(invoiceData, function (result) {
+                easyinvoice.download(`invoice-${script.id}.pdf`, result.pdf);
+            });
         }
+
         confirmProceedBtn.addEventListener('click', () => {
             if (scriptIdToFinalize !== null && currentProject) {
                 const scriptToFinalize = projectsData[currentProject].scripts.find(s => s.id === scriptIdToFinalize);
@@ -1852,3 +1459,4 @@
 </body>
 
 </html>
+
