@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
   <link rel="icon" type="image/x-icon" href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
-    <title>Codlokon Portal</title>
+    <title>Codescript Portal</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- EasyInvoice for invoice generation -->
-   <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
     <style>
         /* Custom styles for a clean look */
         body {
@@ -428,7 +428,7 @@
                                 <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
                                     <div class="flex flex-col mt-2 space-y-2">
                                         <div class="flex items-center p-3 border rounded-lg bg-white">
-                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png';" />
+                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
                                             <div>
                                                 <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
                                                 <div class="text-sm text-gray-600">Nakul Singh</div>
@@ -489,21 +489,6 @@
                         <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Exchange Script</h2><button
                             id="close-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
                     </div>
-                    <!-- Added Warning Popup for Exchange Charges -->
-                    <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-2">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-red-700">
-                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee" class="font-bold"></span> will be applied to your final invoice when you finalize this code.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="border-t border-gray-200 pt-4">
                         <p class="text-gray-600 mb-4">Please select a different version of the script:</p>
                         <div id="modal-version-list" class="space-y-2"></div>
@@ -546,7 +531,7 @@
         </div>
         <footer class="w-full text-center p-4">
             <p class="text-gray-500 text-sm">
-                &copy; 2025 All Rights Reserved.
+                &copy; 2025 All Rights Reserved. | Made in Israel 🇮🇱
             </p>
         </footer>
     </div>
@@ -659,7 +644,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Frontend',
-                exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate between $11 and $20
                // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -670,7 +654,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'Backend',
-                exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
                 //vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -681,7 +664,6 @@
                 id: idCounter++,
                 name: scriptName,
                 type: 'nodejs',
-                exchangeRate: (Math.random() * (50 - 31) + 11).toFixed(2), // Random rate
                 vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
@@ -693,7 +675,6 @@
             name: name,
             type: 'ui',
             price: getDeterministicPrice(name, 70, 180),
-            exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
             expiryDate: getRandomDate(12),
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
@@ -703,7 +684,6 @@
             name: name,
             type: 'database',
             setupPrice: getDeterministicPrice(name, 90, 300),
-            exchangeRate: (Math.random() * (50 - 31) + 31).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
@@ -994,15 +974,7 @@
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
-                // FIXED: Wrapped JSON parsing in a try-catch to prevent crashes if IP fetch fails
-                let newip = {};
-                try {
-                    if(ip) {
-                        newip = JSON.parse(ip);
-                    }
-                } catch(e) {
-                    console.log("IP fetch failed or parsing error", e);
-                }
+                var newip=JSON.parse(ip)
              
                 // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
                                     // Show loader, hide login page
@@ -1223,7 +1195,7 @@
                 getScriptsList.insertAdjacentHTML('beforeend', `
                     <div class="p-4 bg-gray-50 border rounded-lg flex flex-col modern-card-hover">
                         <h3 class="font-semibold text-gray-800 flex-grow">${script.name}</h3>
-                        <p class="text-xs text-orange-600 font-medium mt-1">Exchange Rate: $${script.exchangeRate}</p>
+                        
                         <div class="mt-3 space-y-3">
                             ${pricingHTML}
                             <button style="color:white;padding:10px;border-radius:20px" class="pay-btn w-full bg-indigo-600 hover:bg-indigo-700" data-script-id="${script.id}">${buttonText}</button>
@@ -1388,11 +1360,6 @@
         function openModal(script) {
             modalTitle.textContent = `Exchange: ${script.name}`;
             modalVersionList.innerHTML = '';
-            
-            // Randomly calculate exchange fee
-            const exchangeFee = (Math.random() * (20 - 11) + 11).toFixed(2);
-            document.getElementById('modal-exchange-fee').textContent = '$' + exchangeFee;
-
             const availableVersions = script.exchangeVersions || [];
             if (availableVersions.length > 0) {
                 availableVersions.forEach(v => {
@@ -1407,278 +1374,57 @@
         closeModalButton.addEventListener('click', closeModal);
         exchangeModal.addEventListener('click', (e) => { if (e.target === exchangeModal) closeModal(); });
 
-         function generateInvoiceNumber(date) {
-            const purchaseDateVal = date;
-            const year = purchaseDateVal ? new Date(purchaseDateVal).getFullYear() : new Date().getFullYear();
-            const randomDigits = Math.floor(10000 + Math.random() * 90000);
-            return `${year}${randomDigits}`;
-        }
-
-        function updateExpiryDate(date) {
-            const purchaseDateVal = date;
-            if (purchaseDateVal) {
-                const date = new Date(purchaseDateVal);
-                date.setFullYear(date.getFullYear() + 1);
-                let exdate=new Date(date)
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const formattedDate = exdate.toLocaleDateString('en-US', options)
-                return formattedDate;
-            }
-        }
-        function drawBackground(doc) {
-            doc.setDrawColor(245, 245, 245);
-            doc.setLineWidth(0.1);
-            for (let i = 0; i < 400; i += 15) {
-                doc.line(0, i, i, 0);
-                doc.line(210 - i, 297, 210, 297 - i);
-            }
-        }
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
-        async function generatePDF(script) {
-            const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
-
-            if (!jspdfLib) {
-                console.log("Lirary not loaded1")
-                return;
-            }
-
-            try {
-                //console.log("Purchase Date:", script.purchaseDate)
-                const itemsArray = [{ "itemDescription":`${script.name} - Version: ${script.version}`,
-                 "itemVendor":script.vendor, 
-                 "itemPrice":script.price, 
-                 "itemQuantity": 1, 
-                 "totalFinalPrice": script.price }]
-                // console.log(JSON.stringify(itemsArray))
-                // console.log("ProjectName:",currentProject)
-                const invoiceData = {
-                    metadata: {
-                        domain: "www.codlokon.space",
-                        generatedAt: new Date().toISOString()
-                    },
-                    header: {
-                        invoiceNumber: generateInvoiceNumber(script.purchaseDate),
-                        orderNumber: 'ORD-'+Math.floor(Math.random() * 1000) + 1,
-                        purchaseDate: script.purchaseDate || 'N/A',
-                        expiryDate: updateExpiryDate(script.purchaseDate) || 'N/A'
-                    },
-                    sender: {
-                        companyName: "Codlokon.space"
-                    },
-                    client: {
-                        name: 'Mr.Nakul Singh',
-                        address: 'Soumya Heritage Bhopal,462026,M.P,India',
-                        projectId: currentProject
-                    },
-                    payment: {
-                        method: "Visa Card",
-                        cardNumber: 'XXXX XXXX XXXX 6673',
-                        maskedCard: (function (num) {
-                            return num.length >= 4 ? '**** **** **** ' + num.slice(-4) : '****';
-                        })('XXXX XXXX XXXX 6673')
-                    },
-                    lineItems: itemsArray,
-                    financials: {
-                        currency: '$',
-                        taxRate: 0
-                    }
-                };
-
-                // TAX-INCLUSIVE CALCULATION LOGIC
-                // The Sum of items is the Final Price (Grand Total)
-                const totalInclusive = invoiceData.lineItems.reduce((sum, item) => sum + item.totalFinalPrice, 0);
-                const taxRate = invoiceData.financials.taxRate;
-
-                invoiceData.financials.grandTotal = totalInclusive;
-                // Subtotal = Total / (1 + Rate)
-                invoiceData.financials.subtotal = totalInclusive / (1 + (taxRate / 100));
-                // Tax = Total - Subtotal
-                invoiceData.financials.taxAmount = totalInclusive - invoiceData.financials.subtotal;
-
-                const { jsPDF } = jspdfLib;
-                const doc = new jsPDF();
-                const headerGray = [51, 65, 85];
-                const accentGray = [100, 116, 139];
-                const lightText = [241, 245, 249];
-                const darkText = [30, 41, 59];
-               
-                drawBackground(doc);
-
-                doc.setFillColor(...headerGray);
-                doc.rect(0, 0, 210, 60, 'F');
-                doc.setDrawColor(94, 110, 131);
-                doc.setLineWidth(0.5);
-                doc.line(0, 0, 60, 60);
-                doc.line(210, 0, 150, 60);
-
-                doc.setTextColor(...lightText);
-                doc.setFontSize(8);
-                doc.text(invoiceData.metadata.domain, 105, 8, { align: 'center' });
-                doc.setFontSize(28);
-                doc.setFont('helvetica', 'bold');
-                doc.text('INVOICE', 20, 32);
-
-                doc.setFontSize(9);
-                doc.setFont('helvetica', 'normal');
-                doc.text('INVOICE NO.', 190, 22, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.invoiceNumber, 190, 27, { align: 'right' });
-
-                doc.setFont('helvetica', 'normal');
-                doc.text('DATE OF PURCHASE', 190, 34, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.purchaseDate, 190, 39, { align: 'right' });
-
-                doc.setFont('helvetica', 'normal');
-                doc.text('EXPIRY DATE', 190, 46, { align: 'right' });
-                doc.setFont('helvetica', 'bold');
-                doc.text(invoiceData.header.expiryDate, 190, 51, { align: 'right' });
-
-                doc.setTextColor(...darkText);
-                doc.setFontSize(10);
-                doc.setFont('helvetica', 'bold');
-                doc.text('ISSUED BY:', 20, 75);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.sender.companyName, 20, 81);
-
-                doc.setFont('helvetica', 'bold');
-                doc.text('ORDER NO:', 20, 90);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.header.orderNumber, 45, 90);
-
-                doc.setFont('helvetica', 'bold');
-                doc.text('BILL TO:', 120, 75);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.client.name, 120, 81);
-                doc.setFontSize(9);
-                doc.text(invoiceData.client.address, 120, 86, { maxWidth: 70 });
-                  // Project Details Styled to match theme
-                  const rightColX = 120;
-                doc.setFontSize(9);
-               
-                doc.setTextColor(...darkText);
-                doc.setFont('helvetica', 'bold');
-                doc.text('PROJECT ID:', rightColX, 100);
-                
-                doc.setTextColor(...accentGray);
-                doc.setFont('helvetica', 'normal');
-                doc.text(invoiceData.client.projectId, rightColX + 22, 100);
-                
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.setTextColor(100, 116, 139);
-                doc.text('(Code script purchased for project attribution)', rightColX, 105);
-
-                doc.setFontSize(10);
-                doc.setTextColor(...darkText);
-                doc.setFont('helvetica', 'bold');
-                doc.text('PAYMENT SOURCE:', 20, 105);
-                doc.setFont('helvetica', 'normal');
-                doc.text(`${invoiceData.payment.method} | ${invoiceData.payment.maskedCard}`, 60, 105);
-
-                let currentY = 115;
-                doc.setFillColor(241, 245, 249);
-                doc.rect(20, currentY, 170, 10, 'F');
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(...darkText);
-                doc.text('DESCRIPTION', 25, currentY + 6.5);
-                doc.text('VENDOR', 85, currentY + 6.5);
-                doc.text('QTY', 125, currentY + 6.5);
-                doc.text('PRICE', 145, currentY + 6.5);
-                doc.text('TOTAL', 170, currentY + 6.5);
-
-                currentY += 10;
-                doc.setFont('helvetica', 'normal');
-                invoiceData.lineItems.forEach(item => {
-                    // Split text into wrapped lines for description and vendor
-                    const descLines = doc.splitTextToSize(item.itemDescription, 55);
-                    const vendorLines = doc.splitTextToSize(item.itemVendor, 35);
-                    
-                    // Determine the height needed for this row
-                    const maxLines = Math.max(descLines.length, vendorLines.length);
-                    const rowHeight = (maxLines * 5) + 2; 
-
-                    if (currentY + rowHeight > 270) {
-                        doc.addPage();
-                        drawBackground(doc);
-                        currentY = 20;
-                    }
-
-                    // Render lines
-                    doc.text(descLines, 25, currentY + 5);
-                    doc.text(vendorLines, 85, currentY + 5);
-                    
-                    // Render other columns
-                    doc.text(item.itemQuantity.toString(), 125, currentY + 5);
-                    doc.text(invoiceData.financials.currency + item.itemPrice.toLocaleString(), 145, currentY + 5);
-                    doc.text(invoiceData.financials.currency + item.totalFinalPrice.toLocaleString(), 170, currentY + 5);
-                    
-                    doc.setDrawColor(220, 225, 230);
-                    doc.line(20, currentY + rowHeight, 190, currentY + rowHeight);
-                    
-                    currentY += rowHeight;
-                });
-
-                currentY += 15;
-                const summaryX = 135;
-                const boxWidth = 65;
-                const boxHeight = 14;
-
-                doc.setFontSize(10);
-                doc.text('Price (Incl. Tax):', summaryX + 5, currentY);
-                doc.text(invoiceData.financials.currency + invoiceData.financials.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 195, currentY, { align: 'right' });
-
-                currentY += 7;
-                
-                currentY += 10;
-
-                // Total Box Shadow
-                doc.setFillColor(220, 225, 230);
-                doc.roundedRect(summaryX + 1, currentY - 6.5, boxWidth, boxHeight, 2, 2, 'F');
-
-                // Total Box Main
-                doc.setFillColor(...headerGray);
-                doc.roundedRect(summaryX, currentY - 8, boxWidth, boxHeight, 2, 2, 'F');
-
-                doc.setTextColor(...lightText);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-
-                // Box Content
-                doc.text('TOTAL AMOUNT:', summaryX + 5, currentY + 1);
-                doc.setFontSize(12);
-                doc.text(invoiceData.financials.currency + invoiceData.financials.grandTotal.toLocaleString(), summaryX + boxWidth - 5, currentY + 1, { align: 'right' });
-
-                // New Heading below total box
-               
-                
- 
-                // Footer
-                doc.setTextColor(100, 16, 39);
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.text('Note:In order to exchange Script Additional Charges Will be Apply', 105, 275, { align: 'center' });
-                
-                doc.setTextColor(100, 116, 139);
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'italic');
-                doc.text('This is a system generated invoice', 105, 289, { align: 'center' });
-
-                doc.save(`${invoiceData.header.invoiceNumber}_Invoice.pdf`);
-                //statusMsg.innerText = "PDF Generated: Tax-Inclusive Model";
-            } catch (err) {
-                console.error(err);
-                
-            }
-        }
-
+        
         function generateAndDownloadInvoice(script) {
             if (!script) return;
-            generatePDF(script) 
             
-            
+            const senderInfo = vendorDetails[script.vendor] || { // Fallback
+                company: "DevScripts LLC",
+                address: "123 Code Street, Dev City, 10101",
+                zip: "10101",
+                city: "Dev City",
+                country: "USA"
+            };
+
+            const invoiceData = {
+                "documentTitle": "INVOICE",
+                "currency": "USD",
+                "marginTop": 25,
+                "marginRight": 25,
+                "marginLeft": 25,
+                "marginBottom": 25,
+                "sender": senderInfo,
+                "images": {
+                    "background": "https://nikkisingh111333.github.io/codescript/codebuyportal/bginvoice.jpg"                 },
+                "client": {
+                    "company": "Mr Nakul Singh",
+                    "address": "VISA - xxxx xxxx xxxx 0781",
+                    "country": "Country Of Origin- India"
+                },
+                "information": {
+                    "number": `INV-${script.id}-${new Date().getFullYear()}`,
+                    "date": script.purchaseDate,
+                },
+                "products": [
+                    {
+                        "quantity": "1",
+                        "description": `${script.name} - Version: ${script.version}`,
+                        "tax-rate": 0,
+                        "price": script.price
+                    }
+                ],
+                "bottom-notice": "This Receipt confirms the finalization of the script.Now You cannot Exchange The Code Version.\nIn order to Get Another Version Buy The New One From The Portal.\nAll The Price Amount Is in US Dollar($). ",
+                            "settings": {
+                                "locale": "en-US",
+                                "currency": "USD",
+                            }
+            };
+
+            easyinvoice.createInvoice(invoiceData, function (result) {
+                easyinvoice.download(`invoice-${script.id}.pdf`, result.pdf);
+            });
         }
 
         confirmProceedBtn.addEventListener('click', () => {
@@ -1713,11 +1459,4 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
 
