@@ -705,6 +705,7 @@
             setupPrice: getDeterministicPrice(name, 90, 300),
             exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
+            perRequestPrice: (Math.random() * (0.10 - 0.05) + 0.05).toFixed(3) // Per request API price
            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
@@ -802,7 +803,7 @@
              exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version) },
             { id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
              exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version) },
-            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}`));",
+            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}'));",
              exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version) },
             { id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
              exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version) },
@@ -1351,7 +1352,7 @@
                     pricingHTML = `
                         <div>
                             <div class="text-lg font-bold text-indigo-600">${formatCurrency(script.setupPrice)} <span class="text-sm font-normal text-gray-500">Setup Fee</span></div>
-                            <div class="text-md font-semibold text-gray-700">$${script.hourlyRate}/hr <span class="text-sm font-normal text-gray-500">Usage Rate</span></div>
+                            <div class="text-sm font-semibold text-gray-600">$${script.perRequestPrice}/req <span class="text-xs font-normal text-gray-400">Current API Rate</span></div>
                         </div>`;
                 } else {
                     const versionOptions = script.versions.map((v, index) => `<option value="${index}">${v.name} - ${formatCurrency(v.price)}</option>`).join('');
@@ -1422,7 +1423,7 @@
             checkoutItemName.innerHTML = `${itemName}<br><span class="text-xs text-gray-400">by ${script.vendor}</span>`;
 
             if (script.type === 'database') {
-                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr`;
+                checkoutItemPrice.innerHTML = `${formatCurrency(price)} <span class="text-sm text-gray-500">(Setup Fee)</span> + $${script.hourlyRate}/hr + $${script.perRequestPrice}/req`;
             } else {
                 checkoutItemPrice.textContent = formatCurrency(price);
             }
