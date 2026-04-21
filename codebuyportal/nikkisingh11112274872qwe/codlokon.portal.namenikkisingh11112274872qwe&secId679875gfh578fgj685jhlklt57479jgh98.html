@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-  <link rel="icon" type="image/x-icon" href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
+
+    <link rel="icon" type="image/x-icon"
+        href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
     <title>Code Buy Script Portal | Codlokon</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -177,7 +178,8 @@
     <div class="lg:hidden w-full min-h-screen flex items-center justify-center p-4 text-center">
         <div class="bg-white p-8 rounded-xl shadow-lg max-w-md mx-auto">
             <h1 class="text-2xl font-bold text-gray-800">Unsupported Device</h1>
-            <p class="mt-4 text-gray-600">This portal cannot be opened on phone or tablet. Can only access on PC browser.</p>
+            <p class="mt-4 text-gray-600">This portal cannot be opened on phone or tablet. Can only access on PC
+                browser.</p>
         </div>
     </div>
 
@@ -255,7 +257,7 @@
                                     <a href="#" id="payments-link"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Payments</a>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -273,7 +275,8 @@
                         <div class="flex border-b border-gray-200">
                             <button data-tab="dev" class="tab-button px-6 py-3 text-gray-600">In Development
                                 Scripts</button>
-                            <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice Section</button>
+                            <button data-tab="invoice" class="tab-button px-6 py-3 text-gray-600">Invoice
+                                Section</button>
                             <button data-tab="get" class="tab-button px-6 py-3 text-gray-600">Get Scripts</button>
                             <button data-tab="update" class="tab-button px-6 py-3 text-gray-600">Update Scripts</button>
                         </div>
@@ -298,7 +301,8 @@
                                         class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Clear</button>
                                 </div>
                                 <div class="flex items-center space-x-2"><label for="sort-scripts"
-                                        class="text-sm font-medium text-gray-600">Sort by:</label><select id="sort-scripts"
+                                        class="text-sm font-medium text-gray-600">Sort by:</label><select
+                                        id="sort-scripts"
                                         class="p-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <option value="date-desc">Date (Newest First)</option>
                                         <option value="date-asc">Date (Oldest First)</option>
@@ -335,11 +339,32 @@
                                         Essentials</button>
                                 </nav>
                             </div>
-                            <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                            <!-- Search Bar for Scripts -->
+                            <div class="mb-6 relative">
+                                <div class="relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="script-search-input"
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all"
+                                        placeholder="Search scripts in this category...">
+                                </div>
+                                <!-- Auto-suggestions Dropdown -->
+                                <ul id="search-suggestions"
+                                    class="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg hidden max-h-60 overflow-y-auto">
+                                </ul>
+                            </div>
+                            <div id="get-scripts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
                             <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
                         </div>
-                         <!-- Update Scripts -->
-                         <div id="update-tab" class="tab-pane hidden">
+                        <!-- Update Scripts -->
+                        <div id="update-tab" class="tab-pane hidden">
                             <div id="update-scripts-content" class="text-center py-10 bg-gray-50 rounded-lg">
                                 <!-- Content will be dynamically inserted here -->
                             </div>
@@ -353,7 +378,8 @@
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Account Details</h1><button
                         id="back-to-portal-from-account"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
+                        Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                     <div class="bg-gray-50 p-6 rounded-lg border">
@@ -381,19 +407,23 @@
                                 <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">UCO BANK INDIA</p>
                             </div>
                             <div><label class="text-gray-500">Account Number</label>
-                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">XXXX-XXXX-XXXX-6673
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800 font-mono">
+                                    XXXX-XXXX-XXXX-6673
                                 </p>
                             </div>
                             <div><label class="text-gray-500">Branch & IFSC Code</label>
-                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch /
+                                <p class="w-full bg-gray-200 p-2 rounded mt-1 text-gray-800">OBEIDULLAHGANJ Main Branch
+                                    /
                                     UCBA0000259</p>
                             </div>
                         </div>
                         <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg"
                             role="alert">
                             <p class="font-bold">Security Notice</p>
-                            <p class="text-sm">For your protection, personal and bank details are read-only and cannot be change or alter. All payments
-                                and transactions are locked to this account to prevent fraud. Please contact support for any
+                            <p class="text-sm">For your protection, personal and bank details are read-only and cannot
+                                be change or alter. All payments
+                                and transactions are locked to this account to prevent fraud. Please contact support for
+                                any
                                 verification or updates.</p>
                         </div>
                     </div>
@@ -402,7 +432,8 @@
             <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
+                        Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 pt-4">
                     <div class="lg:col-span-2 space-y-8">
@@ -410,7 +441,8 @@
                             <h2 class="text-xl font-semibold text-gray-700 border-b pb-3">Order Summary</h2>
                             <div class="space-y-3 mt-4">
                                 <div class="flex justify-between"><span class="text-gray-600">Item:</span><span
-                                        id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span></div>
+                                        id="checkout-item-name" class="font-semibold text-gray-800 text-right"></span>
+                                </div>
                                 <div class="flex justify-between"><span class="text-gray-600">Price:</span><span
                                         id="checkout-item-price" class="font-semibold text-gray-800"></span></div>
                                 <div class="flex justify-between text-sm" id="discount-row" style="display: none;"><span
@@ -436,7 +468,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                            <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo Code</label>
+                                </div>
+                                <div><label for="promo-code" class="text-sm font-medium text-gray-700">Promo
+                                        Code</label>
                                     <div class="flex mt-2"><input type="text" id="promo-code"
                                             class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"><button
                                             id="apply-promo"
@@ -462,7 +496,8 @@
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
                         id="back-to-portal-from-payments"
-                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</button>
+                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800">&larr; Back to
+                        Dashboard</button>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
                     <div
@@ -472,7 +507,8 @@
                         <p class="text-gray-500">This is the total amount you've spent on this project's scripts.</p>
                     </div>
                     <div class="lg:col-span-2 bg-gray-50 p-6 rounded-lg border">
-                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown</h2>
+                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Project Spending Breakdown
+                        </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                             <div class="w-full h-64"><canvas id="total-cost-pie-chart"></canvas></div>
                             <div class="w-full h-64"><canvas id="total-cost-bar-chart"></canvas></div>
@@ -493,13 +529,18 @@
                     <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-2">
                         <div class="flex">
                             <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd" />
                                 </svg>
                             </div>
                             <div class="ml-3">
                                 <p class="text-sm text-red-700">
-                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee" class="font-bold"></span> will be applied to your final invoice when you finalize this code.
+                                    <strong>Warning:</strong> Exchange charges of <span id="modal-exchange-fee"
+                                        class="font-bold"></span> will be applied to your final invoice when you
+                                    finalize this code.
                                 </p>
                             </div>
                         </div>
@@ -510,30 +551,35 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="update-payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+
+            <div id="update-payment-modal"
+                class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
                 <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl space-y-4 modal-animate">
                     <div class="flex justify-between items-center border-b pb-3">
                         <h2 id="update-modal-title" class="text-xl font-bold text-gray-800">Update Payment</h2>
-                        <button id="close-update-modal" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                        <button id="close-update-modal"
+                            class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
                     </div>
                     <div id="update-modal-details" class="py-2"></div>
-                    <button id="pay-update-btn" class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"></button>
+                    <button id="pay-update-btn"
+                        class="w-full px-4 py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"></button>
                 </div>
             </div>
 
             <div id="finalize-confirm-modal"
                 class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
                 <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
-                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
+                    <div
+                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800">Are you absolutely sure?</h2>
-                    <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action cannot
+                    <p class="text-sm text-gray-600">If you proceed, you will finalize this code script. This action
+                        cannot
                         be undone. You will be unable to exchange the code in case of any incompatibility or technical
                         issues and will need to purchase a new script.</p>
                     <div class="flex justify-center space-x-4 pt-2"><button id="confirm-cancel-btn"
@@ -547,7 +593,8 @@
                 class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
                 <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
                         <path class="opacity-75" fill="currentColor"
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                         </path>
@@ -593,10 +640,12 @@
             const price = Math.abs(hash) % (max - min + 1) + min;
             return price;
         }
-        
-        
+
+        const scriptSearchInput = document.getElementById('script-search-input');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        let currentSearchQuery = '';
         const vendors = ['Envato Codes', 'Codester', 'TemplateMonk', 'OCI Servers', 'ScriptJet', 'CodeCanyon'];
-        
+
         const vendorDetails = {
             'Envato Codes': {
                 company: 'Envato Codes',
@@ -643,18 +692,36 @@
         };
         const fixedDates = [
             'April 26, 2025', 'April 26, 2025', 'April 29, 2025', 'May 03, 2025', 'May 04, 2025',
-            'June 17, 2025', 'June 18, 2025', 'July 21, 2025', 'August 12, 2025', 'September 09, 2025','October 02, 2025'
-        ,'January 15, 2026',"January 17, 2026","January 20, 2026","March 08, 2026","March 11, 2026","March 16, 2026"]
-        const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71,40,78,99,42,84,99,68]
-        const scriptBaseNames = ["Sign & Log User Authentication e4", "LARACRUD Multipurpose Admin 3rd Level", "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", "Payment Gateway Backend Setup EG 2.0", "File Upload Service", "Notification System", "Analytics Tracker Proxy Server gen1","Search For CMS Data Server v9","Redis Caching Layer Throttling v1", '3D Perspective Grid Slider (Optimized)',
-        'Vanilla JS Interactive Grid Reveal','3D Slider Customizable v3.2','Subscription Analytics Dashboard v4', 'Sea Colorlight cloud Essentials Setup v8.2.4','OpenStreetMap Co-ordinates Plotter Customizable v3']
+            'June 17, 2025', 'June 18, 2025', 'July 21, 2025', 'August 12, 2025', 'September 09, 2025', 'October 02, 2025'
+            , 'January 15, 2026', "January 17, 2026", "January 20, 2026", "March 08, 2026", "March 11, 2026", "March 16, 2026"]
+        const purchasedPrice = [73, 83, 74, 82, 71, 125, 78, 80, 105, 71, 40, 78, 99, 42, 84, 99, 68]
+        const scriptBaseNames = ["Sign & Log User Authentication e4", "LARACRUD Multipurpose Admin 3rd Level", "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", "Payment Gateway Backend Setup EG 2.0", "File Upload Service", "Notification System", "Analytics Tracker Proxy Server gen1", "Search For CMS Data Server v9", "Redis Caching Layer Throttling v1", '3D Perspective Grid Slider (Optimized)',
+            'Vanilla JS Interactive Grid Reveal', '3D Slider Customizable v3.2', 'Subscription Analytics Dashboard v4', 'Sea Colorlight cloud Essentials Setup v8.2.4', 'OpenStreetMap Co-ordinates Plotter Customizable v3']
         //For Get Scripts
         const scriptmarket = ["Sign & Log User Authentication e6", "LARACRUD Admin 6th Level", "MOLD pro Admin Panel", "Gravity Template setup ", "Payment Plugin for Ruoom - Django", "Payment Gateway Frontend EG 6.0", "File Upload Service", "Notification System", "Search Engine", "Clarity Analytics Tracker Proxy Server gen7", "Subscription Manager", "Inventory System", "Booking Engine", "Redis Caching Layer Throttling v6", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
-        
-        const nodejsBaseNames = ["User Authentication", "Express API Server", "Socket.IO Chat Server", "GraphQL API Gateway", "JWT Authentication Service", "Stripe Payment Processor", "WebSocket Real-time Feed", "OAuth2 Provider", "MongoDB Data Service", "Redis Caching Layer","Sea Colorlight cloud Essentials Setup v7.2.4", "Puppeteer Web Scraper", "Nodemailer Email Service", "BullMQ Job Queue", "Next.js SSR App", "NestJS Microservice", "AdonisJS Framework", "FeathersJS Real-time API"];
-        const uiEssentialsBaseNames = ['3D Slider Customizable v3.4',"Gravity Html Template", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
+
+        const nodejsBaseNames = ["User Authentication", "Sea Colorlight cloud Essentials Setup v8.1.1", "Express API Server", "Socket.IO Chat Server", "GraphQL API Gateway", "JWT Authentication Service", "Stripe Payment Processor", "WebSocket Real-time Feed", "OAuth2 Provider", "MongoDB Data Service", "Redis Caching Layer", "Sea Colorlight cloud Essentials Setup v7.2.4", "Puppeteer Web Scraper", "Nodemailer Email Service", "BullMQ Job Queue", "Next.js SSR App", "NestJS Microservice", "AdonisJS Framework", "FeathersJS Real-time API"];
+        const uiEssentialsBaseNames = ["Vanilla JS Interactive Grid Reveal", '3D Slider Customizable v3.4', 'Subscription Analytics Dashboard v4', "Gravity Html Template", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
         const databaseEssentialsBaseNames = ["MySQL Managed Instance", "PostgreSQL Cluster", "MongoDB Atlas Replica Set", "Redis In-Memory Cache", "Elasticsearch Cluster", "Firebase Realtime DB", "Amazon DynamoDB Instance", "Google Cloud Spanner", "Microsoft Azure Cosmos DB", "SQLite Embeddable DB", "Neo4j Graph Database", "InfluxDB Time-Series DB", "Cassandra Cluster", "MariaDB Server", "RethinkDB Instance", "CouchDB Server", "ClickHouse OLAP DB", "Oracle DB Instance", "SQL Server Express", "FaunaDB Serverless", "Supabase Postgres Instance", "PlanetScale MySQL", "CockroachDB Distributed SQL", "ScyllaDB NoSQL Cluster", "TiDB NewSQL Platform", "ArangoDB Multi-model", "Realm Mobile Database", "Datastax Astra (Cassandra)", "Heroku Postgres", "DigitalOcean Managed PostgreSQL", "Aiven for PostgreSQL", "Upstash Redis", "Memcached Cloud", "TimescaleDB Cloud", "QuestDB Instance", "Vector Database (Pinecone)", "Vector Database (Weaviate)", "SurrealDB Instance", "EdgeDB Instance", "YugabyteDB Distributed SQL"];
 
+        //Search Script Feature
+        function getActiveCategoryScripts() {
+            let scriptsToDisplay;
+            switch (activeSubTab) {
+                case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
+                case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
+                case 'nodejs': scriptsToDisplay = getScripts.filter(s => s.type === 'nodejs'); break;
+                case 'ui': scriptsToDisplay = uiScripts; break;
+                case 'database': scriptsToDisplay = databaseScripts; break;
+            }
+
+            // Apply the search text filter if a query exists
+            if (currentSearchQuery) {
+                const query = currentSearchQuery.toLowerCase();
+                scriptsToDisplay = scriptsToDisplay.filter(s => s.name.toLowerCase().includes(query));
+            }
+            return scriptsToDisplay;
+        }
         function generateItems(baseNames, count, generatorFn) {
             const items = [];
             let id = 1;
@@ -674,7 +741,7 @@
                 name: scriptName,
                 type: 'Frontend',
                 exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate between $11 and $20
-               // vendor: vendors[Math.floor(Math.random() * vendors.length)],
+                // vendor: vendors[Math.floor(Math.random() * vendors.length)],
                 versions: generateVersionTiers(scriptName)
             }
         });
@@ -709,7 +776,7 @@
             price: getDeterministicPrice(name, 70, 180),
             exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             expiryDate: getRandomDate(12),
-           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
+            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
         let databaseScripts = generateItems(databaseEssentialsBaseNames, 120, (name, id) => ({
@@ -720,7 +787,7 @@
             exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
             perRequestPrice: (Math.random() * (0.20 - 0.05) + 0.05).toFixed(3) // Per request API price
-           // vendor: vendors[Math.floor(Math.random() * vendors.length)]
+            // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
 
@@ -793,55 +860,89 @@
         // "Twilio package MS Build-e6675 ", "Blog Platform", "Payment CRM Application", 
         // "Payment Gateway Backend Setup EG 2.0", "File Upload Service", 
         // "Notification System", "Search For CMS", "Analytics Tracker Proxy Server gen1"]
-        var usedNames=new Set()
-        
+        var usedNames = new Set()
+
         let lastName;
         do { lastName = scriptBaseNames[Math.floor(Math.random() * scriptBaseNames.length)]; } while (usedNames.has(lastName));
-       
+
         const allVersions = generateVersionTiers(lastName).map(v => v.name);
         const version = `v1.${Math.floor(Math.random() * 9)}`;
         const exchangeVersions = allVersions.filter(v => v !== version);
         const lastVersion = `v1.${Math.floor(Math.random() * 9)}`;
         const lastExchangeVersions = generateVersionTiers(lastName).map(v => v.name).filter(v => v !== lastVersion);
-       // const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71]
-       // const vendors = ['Envato Codes', 'Codester', 'TemplateMon', 'Oracle Servers', 'ScriptJet', 'CodeCanyon'];
-        
-      
-       const Blinkbag=[
-        { id: 1, name: "Sign & Log User Authentication e4", purchaseDate: fixedDates[0], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[0], vendor: vendors[1], code: "export const signupnow = webMethod(Permissions.Anyone,async (email, password, Name, regT) => {const registrationOptions = {contactInfo: {firstName: Name,},};const registration = await authentication.register(email,password,registrationOptions);let approve = await doApproval(registration.approvalToken);console.log(registration.approvalToken);if (approve.approved == true) {console.log(Member is now registered with the site and pending approval);", 
-        exchangeVersions: generateVersionTiers("Sign & Log User Authentication e4").map(v => v.name).filter(v => v !== version) },
-            { id: 2, name: "LARACRUD Multipurpose Admin 3rd Level", purchaseDate: fixedDates[1], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[1], vendor: vendors[1], code: "app.put('/update/:key', async (req, res) => { try { const { key } = req.params; const { value } = req.body; if (value === undefined) { return res.status(400).json({ error: 'A new value is required.' }); } // 'XX' option means set only if the key already exists. const result = await redisClient.set(key, value, { XX: true }); if (result === null) { return res.status(404).json({ success: false, message: `Key '${key}' not found. Cannot update.` }); } res.status(200).json({ success: true, message: `Updated key '${key}'.` }); } catch (error) { console.error(error); res.status(500).json({ error: 'Server error occurred.' }); } });",
-             exchangeVersions: generateVersionTiers("LARACRUD Multipurpose Admin 3rd Level").map(v => v.name).filter(v => v !== version) },
-            { id: 3, name: "Twilio package MS Build-e6675 ", purchaseDate:fixedDates[2], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[2], vendor: vendors[2], code: "require('dotenv').config();.then(message => console.log(`Message sent successfully! SID: ${message.sid}`)) .catch(error => console.error('Error sending message:', error.message));",
-             exchangeVersions: generateVersionTiers("Twilio package MS Build-e6675").map(v => v.name).filter(v => v !== version) },
-            { id: 4, name: "SMTP Server Bulk Email Rotation Configuration", purchaseDate: fixedDates[3], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[3], vendor: vendors[1], code: "triggeredEmails.emailMember(  verifyRegistration,      registration.member._id,      emailOptions,  );triggeredEmails.emailContact( verifyRegistration,      registration.member._id,      emailOptions );",
-             exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version) },
-            { id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
-             exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version) },
-            { id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}'));",
-             exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version) },
-            { id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
-             exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version) },
-            { id: 8, name: "GPS Navigation Coordinates Receiver v13.8.3", purchaseDate: fixedDates[7], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[7], vendor: vendors[1], code:  "WindowBackend.getCurrentGeolocation().then((loc) => { console.log(Rider Location:, yo) let locaList = itsbiz.locationBox.distlist console.log(Dist List:, itsbiz.locationBox.distlist) let rider_lat = loc.coords.latitude let rider_long = loc.coords.longitude let time = loc.timestamp let resto_lat = itsbiz.latitude let resto_long = itsbiz.longitude let final_dist = distance(rider_lat, rider_long, resto_lat, resto_long))}",
-             exchangeVersions: generateVersionTiers("GPS Navigation Coordinates Receiver v13.8.3").map(v => v.name).filter(v => v !== version) },
-            { id: 9, name: "Search For CMS", purchaseDate: fixedDates[8], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[8], vendor: vendors[3], code:"function SearchBy(Name,Email,Phone){ finded.items; let clientRepeater = []; for (var i in arrayfinded) { clientRepeater.push({ _id: i + io+Math.round(funtion SearchBy(Name,Email,Member){Math.random() * 1000), memberName: arrayfinded[i].memberName, _createdDate: arrayfinded[i]._createdDate, reward:arrayfinded[i].reward, phone: arrayfinded[i].phone, }); }",
-             exchangeVersions: generateVersionTiers("Search For CMS").map(v => v.name).filter(v => v !== version) },
-            { id: 10, name: "Clarity Analytics Tracker Proxy Server gen1", purchaseDate: fixedDates[9], status: 'paid', type: 'Backend', version: lastVersion , price: purchasedPrice[9], vendor: vendors[1], code: "export const ClarityAnalytics = webMethod( Permissions.Admin, async (measurementTypes) => { try { const elevatedGetAnalyticsData = auth.elevate(analyticsData.getAnalyticsData); const response = elevatedGetAnalyticsData(measurementTypes); console.log(Analytics Data:,response) return response; } catch (error) { console.error(error); // Handle the error } }, );", 
-            exchangeVersions: generateVersionTiers("Clarity Analytics Tracker Proxy Server gen1").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 11, name: "Redis Caching Layer Throttling v1", purchaseDate: fixedDates[10], status: 'paid', type: 'Database', version: lastVersion , price: purchasedPrice[10], vendor: vendors[3], code: "const startServer = async () => { await connectRedis(); // Connects to Redis here app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`); }); }; startServer();", 
-            exchangeVersions: generateVersionTiers("Redis Caching Layer Throttling v1").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 12, name: "3D Perspective Grid Slider (Optimized)", purchaseDate: "January 15, 2026", status: 'paid', type: 'Frontend', version: lastVersion , price: 78, vendor: vendors[3], code: "<script> document.addEventListener(DOMContentLoaded, () => { const gridContainer = document.getElementById(gridContainer); const assets = [  const baseSet = [...assets, ...assets]; // 18 items const loopSet = [...baseSet, ...baseSet]; // 36 items total to ensure 50% covers the screen function createRow() { const row = document.createElement('div'); row.className = 'row-strip'; // Using a DocumentFragment prevents multiple reflows while appending nodes const fragment = document.createDocumentFragment(); loopSet.forEach(src => { const card = document.createElement('div'); card.className = 'card'; const img = document.createElement('img'); img.src = src; img.loading = lazy; // Load off-screen images lazily img.decoding = async; // Do not block main thread while decoding images img.alt = 3D Grid Asset; img.onerror = () => { img.src = 'https://via.placeholder.com/280x180/1a1a1e/333333?text=Asset'; }; card.appendChild(img); fragment.appendChild(card); }); row.appendChild(fragment); return row; } // Create 3 rows for (let i = 0; i < 3; i++) { gridContainer.appendChild(createRow()); } })", 
-            exchangeVersions: generateVersionTiers("3D Perspective Grid Slider (Optimized)").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 13, name: "Vanilla JS Interactive Grid Reveal", purchaseDate: "January 17, 2026", status: 'paid', type: 'Frontend', version: lastVersion , price: 99, vendor: vendors[1], code: "function createGrid() { container.innerHTML = ''; domTiles = []; // Reset the cache // Calculate columns and rows based on screen size and target tile size gridCols = Math.ceil(window.innerWidth / TARGET_TILE_SIZE); gridRows = Math.ceil(window.innerHeight / TARGET_TILE_SIZE); // Set CSS Grid layout dynamically to prevent fractional pixel wrapping bugs container.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`; container.style.gridTemplateRows = `repeat(${gridRows}, 1fr)`; const totalTiles = gridCols * gridRows; // Generate the DOM elements for (let i = 0; i < totalTiles; i++) { const tile = document.createElement('div'); tile.className = 'fade-tile'; const gradient = document.createElement('div'); gradient.className = 'gradient-bg'; const image = document.createElement('div'); image.className = 'image-bg'; // Assign a random image from our array to this specific tile const randomImg = imageUrls[Math.floor(Math.random() * imageUrls.length)]; image.style.backgroundImage = `url('${randomImg}')`; // Assemble the DOM structure tile.appendChild(gradient); tile.appendChild(image); container.appendChild(tile); domTiles.push(tile); // Store in our array for fast access later // --- ROBUST MOUSE EVENT --- // Native mouseenter completely bypasses sub-pixel math bugs tile.addEventListener('mouseenter', () => { activateTile(i); handleInactivity(); }); } }", 
-            exchangeVersions: generateVersionTiers("Vanilla JS Interactive Grid Reveal").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 14, name: "3D Slider Customizable v3.2", purchaseDate: "January 20, 2026", status: 'paid', type: 'Frontend', version: lastVersion , price: 42, vendor: vendors[1], code: "slides.forEach((slide, i) => { // Calculate relative offset considering wrap-around for infinite loop let offset = i - currentIndex; if (offset > Math.floor(total / 2)) offset -= total; if (offset < -Math.floor(total / 2)) offset += total; const absOffset = Math.abs(offset); const direction = Math.sign(offset); let translateX = 0; let translateZ = 0; let translateY = 0; let rotateY = 0; let opacity = 0; let scale = 1; let zIndex = 0; let filter = 'brightness(1) blur(0px)'; if (offset === 0) { // Active Slide translateX = 0; translateZ = 0; translateY = 8; rotateY = 0; opacity = 1; scale = 1,1.15; zIndex = 10; filter = 'brightness(1) blur(0px)' } else { // Dynamically adjust 3D spacing based on screen size // On mobile, the gap between items is smaller to fit the screen const baseTranslateX = isMobile ? 95 : 110; const multiplierX = isMobile ? 25 : 35; const baseTranslateZ = isMobile ? -120 : -200; translateX = direction * (baseTranslateX + absOffset * multiplierX); translateZ = baseTranslateZ * absOffset; translateY = 0; rotateY = -direction * (isMobile ? 15 : 20); // slightly softer angle on mobile opacity = 1 - (absOffset * 0.15); scale = 1 - (absOffset * 0.05); zIndex = 5 - absOffset; filter = `brightness(${1 - (absOffset * 0.4)}) blur(${absOffset * 2}px)`; if (absOffset > 3) { opacity = 0; } } image.className = 'image-bg'; // Assign a random image from our array to this specific tile const randomImg = imageUrls[Math.floor(Math.random() * imageUrls.length)]; image.style.backgroundImage = `url('${randomImg}')`; // Assemble the DOM structure tile.appendChild(gradient); tile.appendChild(image); container.appendChild(tile); domTiles.push(tile); // Store in our array for fast access later // --- ROBUST MOUSE EVENT --- // Native mouseenter completely bypasses sub-pixel math bugs tile.addEventListener('mouseenter', () => { activateTile(i); handleInactivity(); }); } }", 
-            exchangeVersions: generateVersionTiers("3D Slider Customizable v3.2").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 15, name: "Subscription Analytics Dashboard v4", purchaseDate: "March 08, 2026", status: 'paid', type: 'Frontend', version: lastVersion , price: 84, vendor: vendors[1], code: "function updateDashboardCards(platformStats,allHistoricalData,processedData) { // Helper to format currency values cleanly in GBP (£1,000) const formatCurrency = (amount) => { return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 }).format(amount); }; // Main Stat Cards document.getElementById('stat-total-subs').innerText = platformStats.totalSubs.toLocaleString(); document.getElementById('stat-active-subs').innerText = platformStats.activeSubs.toLocaleString(); document.getElementById('stat-free-users').innerText = platformStats.usersWithoutPlan.toLocaleString(); // Revenue Headers document.getElementById('stat-current-revenue').innerText = formatCurrency(platformStats.currentMonthRevenue); }", 
-            exchangeVersions: generateVersionTiers("Subscription Analytics Dashboard v4").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 16, name: "Sea Colorlight cloud Essentials Setup v8.2.4", purchaseDate: "March 11, 2026", status: 'paid', type: 'Backend', version: lastVersion , price: 99, vendor: vendors[3], code: "Colorlight Setup = webMethod( Permissions.SiteMember, async (programId) => { let json = { program_ids: [programId] }; let fetchOptions = { method: post, headers: { Content-Type: application/jso, Authorization: await secretAdmin(), }, body: JSON.stringify(json), }; const response = await fetch( https://bea.colorlightcloud, fetchOptions ); console.log(response.status,response.ok) if (response.ok) { const json = await response.json(); console.log(Response For Deleting Playlist:, json); return json; } else { return Promise.reject(Fetch did not succeed); } } );", 
-            exchangeVersions: generateVersionTiers("Sea Colorlight cloud Setup v8.2.4 Community").map(v => v.name).filter(v => v !== version) }
-            ,{ id: 17, name: "OpenStreetMap Co-ordinates Plotter Customizable v3", purchaseDate: "March 16, 2026", status: 'paid', type: 'Frontend', version: lastVersion , price: 68, vendor: vendors[2], code: "<script> const AREA_LIMIT_KM2 = 5.0; let clickedPoints = []; let markers = []; let polygon = null; let activeTab = 'draw'; const provider = new window.GeoSearch.OpenStreetMapProvider(); const searchControl = new window.GeoSearch.GeoSearchControl({ provider: provider, style: 'bar', showMarker: true, autoClose: true, keepResult: true }); const map = L.map('map', { center: [55.944381, -3.187143], zoom: 13, zoomControl: false, attributionControl: false });", 
-            exchangeVersions: generateVersionTiers("OpenStreetMap Co-ordinates Plotter Customizable v3").map(v => v.name).filter(v => v !== version) }
+        // const purchasedPrice = [73, 83, 74, 82,71, 125, 78, 80,105, 71]
+        // const vendors = ['Envato Codes', 'Codester', 'TemplateMon', 'Oracle Servers', 'ScriptJet', 'CodeCanyon'];
+
+
+        const Blinkbag = [
+            {
+                id: 1, name: "Sign & Log User Authentication e4", purchaseDate: fixedDates[0], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[0], vendor: vendors[1], code: "export const signupnow = webMethod(Permissions.Anyone,async (email, password, Name, regT) => {const registrationOptions = {contactInfo: {firstName: Name,},};const registration = await authentication.register(email,password,registrationOptions);let approve = await doApproval(registration.approvalToken);console.log(registration.approvalToken);if (approve.approved == true) {console.log(Member is now registered with the site and pending approval);",
+                exchangeVersions: generateVersionTiers("Sign & Log User Authentication e4").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 2, name: "LARACRUD Multipurpose Admin 3rd Level", purchaseDate: fixedDates[1], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[1], vendor: vendors[1], code: "app.put('/update/:key', async (req, res) => { try { const { key } = req.params; const { value } = req.body; if (value === undefined) { return res.status(400).json({ error: 'A new value is required.' }); } // 'XX' option means set only if the key already exists. const result = await redisClient.set(key, value, { XX: true }); if (result === null) { return res.status(404).json({ success: false, message: `Key '${key}' not found. Cannot update.` }); } res.status(200).json({ success: true, message: `Updated key '${key}'.` }); } catch (error) { console.error(error); res.status(500).json({ error: 'Server error occurred.' }); } });",
+                exchangeVersions: generateVersionTiers("LARACRUD Multipurpose Admin 3rd Level").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 3, name: "Twilio package MS Build-e6675 ", purchaseDate: fixedDates[2], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[2], vendor: vendors[2], code: "require('dotenv').config();.then(message => console.log(`Message sent successfully! SID: ${message.sid}`)) .catch(error => console.error('Error sending message:', error.message));",
+                exchangeVersions: generateVersionTiers("Twilio package MS Build-e6675").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 4, name: "SMTP Server Bulk Email Rotation Configuration", purchaseDate: fixedDates[3], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[3], vendor: vendors[1], code: "triggeredEmails.emailMember(  verifyRegistration,      registration.member._id,      emailOptions,  );triggeredEmails.emailContact( verifyRegistration,      registration.member._id,      emailOptions );",
+                exchangeVersions: generateVersionTiers("SMTP Server Bulk Email Rotation Configuration").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 5, name: "Payment CRM Application", purchaseDate: fixedDates[4], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[4], vendor: vendors[1], code: "app.get('/api/payments', (req, res) => { res.json(paymentsDatabase); }); app.post('/api/payments', (req, res) => { const { customerName, amount } = req.body; if (!customerName || !amount) { return res.status(400).json({ error: 'Customer name and amount are required.' }); } currentId++; const newPayment = { id: currentId, customerName, amount: parseFloat(amount), date: new Date().toISOString().split('T')[0]};",
+                exchangeVersions: generateVersionTiers("Payment CRM Application").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 6, name: "Payment Gateway Headless Server Setup EG 2.0", purchaseDate: fixedDates[5], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[5], vendor: vendors[3], code: "app.post(/create-stripe-payment, async (req, res) => { try { const { amount, currency } = req.body; const paymentIntent = await stripe.paymentIntents.create({ amount, currency, description: Test Payment, }); res.status(200).json({ clientSecret: paymentIntent.client_secret, message: Stripe Payment Initiated, }); } catch (err) { console.error(Stripe Error:, err); res.status(500).json({ error: err.message }); } }); // -------------------- RAZORPAY CONFIG -------------------- const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_SECRET, }); // Endpoint to create Razorpay order app.post(/create-razorpay-order, async (req, res) => { try { const { amount, currency, receipt } = req.body; const options = { amount: amount, currency: currency ||pound, receipt: receipt || receipt#1, }; const order = await razorpay.orders.create(options); res.status(200).json(order); } catch (err) { console.error(Razorpay Error:, err); res.status(500).json({ error: err.message }); } }); const PORT = process.env.PORT || 5000; app.listen(PORT, () => console.log(' Payment Server running on port ${PORT}'));",
+                exchangeVersions: generateVersionTiers("Payment Gateway Backend Setup EG 2.0").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 7, name: "File Upload Service", purchaseDate: fixedDates[6], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[6], vendor: vendors[1], code: "const upload = new tus.Upload(fileContent, {retryDelays: [0, 3000, 5000, 10000, 20000],  metadata: { filename: fileName, contentType: mimeType, token: resumableUploadUrlResponse.uploadToken, },  onError: function (error) { console.log(Failed because:  + error); reject(error); }, onProgress: function (bytesUploaded, bytesTotal) { var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2); console.log(bytesUploaded, bytesTotal, percentage + %); $w(#uploading).value = parseInt(percentage) if ($w(#uploading).value == 100) { $w(#uploading).hide() $w(#uploaded).show(puff) } }, onSuccess: async function () { lightbox.close({reopen:reopen}); console.log(Download %s from %s, fileName, upload.url); resolve(true); }, }); $w(#uploading).show() upload.start(); });",
+                exchangeVersions: generateVersionTiers("File Upload Service").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 8, name: "GPS Navigation Coordinates Receiver v13.8.3", purchaseDate: fixedDates[7], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[7], vendor: vendors[1], code: "WindowBackend.getCurrentGeolocation().then((loc) => { console.log(Rider Location:, yo) let locaList = itsbiz.locationBox.distlist console.log(Dist List:, itsbiz.locationBox.distlist) let rider_lat = loc.coords.latitude let rider_long = loc.coords.longitude let time = loc.timestamp let resto_lat = itsbiz.latitude let resto_long = itsbiz.longitude let final_dist = distance(rider_lat, rider_long, resto_lat, resto_long))}",
+                exchangeVersions: generateVersionTiers("GPS Navigation Coordinates Receiver v13.8.3").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 9, name: "Search For CMS", purchaseDate: fixedDates[8], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[8], vendor: vendors[3], code: "function SearchBy(Name,Email,Phone){ finded.items; let clientRepeater = []; for (var i in arrayfinded) { clientRepeater.push({ _id: i + io+Math.round(funtion SearchBy(Name,Email,Member){Math.random() * 1000), memberName: arrayfinded[i].memberName, _createdDate: arrayfinded[i]._createdDate, reward:arrayfinded[i].reward, phone: arrayfinded[i].phone, }); }",
+                exchangeVersions: generateVersionTiers("Search For CMS").map(v => v.name).filter(v => v !== version)
+            },
+            {
+                id: 10, name: "Clarity Analytics Tracker Proxy Server gen1", purchaseDate: fixedDates[9], status: 'paid', type: 'Backend', version: lastVersion, price: purchasedPrice[9], vendor: vendors[1], code: "export const ClarityAnalytics = webMethod( Permissions.Admin, async (measurementTypes) => { try { const elevatedGetAnalyticsData = auth.elevate(analyticsData.getAnalyticsData); const response = elevatedGetAnalyticsData(measurementTypes); console.log(Analytics Data:,response) return response; } catch (error) { console.error(error); // Handle the error } }, );",
+                exchangeVersions: generateVersionTiers("Clarity Analytics Tracker Proxy Server gen1").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 11, name: "Redis Caching Layer Throttling v1", purchaseDate: fixedDates[10], status: 'paid', type: 'Database', version: lastVersion, price: purchasedPrice[10], vendor: vendors[3], code: "const startServer = async () => { await connectRedis(); // Connects to Redis here app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`); }); }; startServer();",
+                exchangeVersions: generateVersionTiers("Redis Caching Layer Throttling v1").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 12, name: "3D Perspective Grid Slider (Optimized)", purchaseDate: "January 15, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 78, vendor: vendors[3], code: "<script> documnt.addEventListener(DOMContentLoaded, () => { const gridContainer = document.getElementById(gridContainer); const assets = [  const baseSet = [...assets, ...assets]; // 18 items const loopSet = [...baseSet, ...baseSet]; // 36 items total to ensure 50% covers the screen function createRow() { const row = document.createElement('div'); row.className = 'row-strip'; // Using a DocumentFragment prevents multiple reflows while appending nodes const fragment = document.createDocumentFragment(); loopSet.forEach(src => { const card = document.createElement('div'); card.className = 'card'; const img = document.createElement('img'); img.src = src; img.loading = lazy; // Load off-screen images lazily img.decoding = async; // Do not block main thread while decoding images img.alt = 3D Grid Asset; img.onerror = () => { img.src = 'https://via.placeholder.com/280x180/1a1a1e/333333?text=Asset'; }; card.appendChild(img); fragment.appendChild(card); }); row.appendChild(fragment); return row; } // Create 3 rows for (let i = 0; i < 3; i++) { gridContainer.appendChild(createRow()); } })",
+                exchangeVersions: generateVersionTiers("3D Perspective Grid Slider (Optimized)").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 13, name: "Vanilla JS Interactive Grid Reveal", purchaseDate: "January 17, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 99, vendor: vendors[1], code: "function createGrid() { container.innerHTML = ''; domTiles = []; // Reset the cache // Calculate columns and rows based on screen size and target tile size gridCols = Math.ceil(window.innerWidth / TARGET_TILE_SIZE); gridRows = Math.ceil(window.innerHeight / TARGET_TILE_SIZE); // Set CSS Grid layout dynamically to prevent fractional pixel wrapping bugs container.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`; container.style.gridTemplateRows = `repeat(${gridRows}, 1fr)`; const totalTiles = gridCols * gridRows; // Generate the DOM elements for (let i = 0; i < totalTiles; i++) { const tile = document.createElement('div'); tile.className = 'fade-tile'; const gradient = document.createElement('div'); gradient.className = 'gradient-bg'; const image = document.createElement('div'); image.className = 'image-bg'; // Assign a random image from our array to this specific tile const randomImg = imageUrls[Math.floor(Math.random() * imageUrls.length)]; image.style.backgroundImage = `url('${randomImg}')`; // Assemble the DOM structure tile.appendChild(gradient); tile.appendChild(image); container.appendChild(tile); domTiles.push(tile); // Store in our array for fast access later // --- ROBUST MOUSE EVENT --- // Native mouseenter completely bypasses sub-pixel math bugs tile.addEventListener('mouseenter', () => { activateTile(i); handleInactivity(); }); } }",
+                exchangeVersions: generateVersionTiers("Vanilla JS Interactive Grid Reveal").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 14, name: "3D Slider Customizable v3.2", purchaseDate: "January 20, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 42, vendor: vendors[1], code: "slides.forEach((slide, i) => { // Calculate relative offset considering wrap-around for infinite loop let offset = i - currentIndex; if (offset > Math.floor(total / 2)) offset -= total; if (offset < -Math.floor(total / 2)) offset += total; const absOffset = Math.abs(offset); const direction = Math.sign(offset); let translateX = 0; let translateZ = 0; let translateY = 0; let rotateY = 0; let opacity = 0; let scale = 1; let zIndex = 0; let filter = 'brightness(1) blur(0px)'; if (offset === 0) { // Active Slide translateX = 0; translateZ = 0; translateY = 8; rotateY = 0; opacity = 1; scale = 1,1.15; zIndex = 10; filter = 'brightness(1) blur(0px)' } else { // Dynamically adjust 3D spacing based on screen size // On mobile, the gap between items is smaller to fit the screen const baseTranslateX = isMobile ? 95 : 110; const multiplierX = isMobile ? 25 : 35; const baseTranslateZ = isMobile ? -120 : -200; translateX = direction * (baseTranslateX + absOffset * multiplierX); translateZ = baseTranslateZ * absOffset; translateY = 0; rotateY = -direction * (isMobile ? 15 : 20); // slightly softer angle on mobile opacity = 1 - (absOffset * 0.15); scale = 1 - (absOffset * 0.05); zIndex = 5 - absOffset; filter = `brightness(${1 - (absOffset * 0.4)}) blur(${absOffset * 2}px)`; if (absOffset > 3) { opacity = 0; } } image.className = 'image-bg'; // Assign a random image from our array to this specific tile const randomImg = imageUrls[Math.floor(Math.random() * imageUrls.length)]; image.style.backgroundImage = `url('${randomImg}')`; // Assemble the DOM structure tile.appendChild(gradient); tile.appendChild(image); container.appendChild(tile); domTiles.push(tile); // Store in our array for fast access later // --- ROBUST MOUSE EVENT --- // Native mouseenter completely bypasses sub-pixel math bugs tile.addEventListener('mouseenter', () => { activateTile(i); handleInactivity(); }); } }",
+                exchangeVersions: generateVersionTiers("3D Slider Customizable v3.2").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 15, name: "Subscription Analytics Dashboard v4", purchaseDate: "March 08, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 84, vendor: vendors[1], code: "function updateDashboardCards(platformStats,allHistoricalData,processedData) { // Helper to format currency values cleanly in GBP (£1,000) const formatCurrency = (amount) => { return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 }).format(amount); }; // Main Stat Cards document.getElementById('stat-total-subs').innerText = platformStats.totalSubs.toLocaleString(); document.getElementById('stat-active-subs').innerText = platformStats.activeSubs.toLocaleString(); document.getElementById('stat-free-users').innerText = platformStats.usersWithoutPlan.toLocaleString(); // Revenue Headers document.getElementById('stat-current-revenue').innerText = formatCurrency(platformStats.currentMonthRevenue); }",
+                exchangeVersions: generateVersionTiers("Subscription Analytics Dashboard v4").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 16, name: "Sea Colorlight cloud Essentials Setup v8.2.4", purchaseDate: "March 11, 2026", status: 'paid', type: 'Backend', version: lastVersion, price: 99, vendor: vendors[3], code: "Colorlight Setup = webMethod( Permissions.SiteMember, async (programId) => { let json = { program_ids: [programId] }; let fetchOptions = { method: post, headers: { Content-Type: application/jso, Authorization: await secretAdmin(), }, body: JSON.stringify(json), }; const response = await fetch( https://bea.colorlightcloud, fetchOptions ); console.log(response.status,response.ok) if (response.ok) { const json = await response.json(); console.log(Response For Deleting Playlist:, json); return json; } else { return Promise.reject(Fetch did not succeed); } } );",
+                exchangeVersions: generateVersionTiers("Sea Colorlight cloud Setup v8.2.4 Community").map(v => v.name).filter(v => v !== version)
+            }
+            , {
+                id: 17, name: "OpenStreetMap Co-ordinates Plotter Customizable v3", purchaseDate: "March 16, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 68, vendor: vendors[2], code: "<script> const AREA_LIMIT_KM2 = 5.0; let clickedPoints = []; let markers = []; let polygon = null; let activeTab = 'draw'; const provider = new window.GeoSearch.OpenStreetMapProvider(); const searchControl = new window.GeoSearch.GeoSearchControl({ provider: provider, style: 'bar', showMarker: true, autoClose: true, keepResult: true }); const map = L.map('map', { center: [55.944381, -3.187143], zoom: 13, zoomControl: false, attributionControl: false });",
+                exchangeVersions: generateVersionTiers("OpenStreetMap Co-ordinates Plotter Customizable v3").map(v => v.name).filter(v => v !== version)
+            }
 
 
         ]
@@ -884,27 +985,27 @@
             "Moii.ai": { scripts: moiiscripts },
             "olivireWilson.com": { scripts: olivireWilsonScripts },
             "eliHealth.in": { scripts: eliHealthScripts },
-            
+
         };
 
         // Helper to add fixed exchange info to 3rd (index 2) and 7th (index 6) scripts
         function addFixedExchangeHistory(scriptsArray) {
-            const indices = [2, 6]; 
-            const exdate=["2025-10-07","2025-10-15"]
-            let d=0
+            const indices = [2, 6];
+            const exdate = ["2025-10-07", "2025-10-15"]
+            let d = 0
             indices.forEach(index => {
                 if (index < scriptsArray.length) {
                     const script = scriptsArray[index];
                     const exchangeDate = new Date(exdate[d]);
                     console.log(exchangeDate)
                     // Add random days for exchange date logic
-                    exchangeDate.setDate(exchangeDate.getDate()); 
-                    
+                    exchangeDate.setDate(exchangeDate.getDate());
+
                     script.exchangedInfo = {
                         price: 21,
                         date: exchangeDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
                     };
-                    d+=1
+                    d += 1
                 }
             });
         }
@@ -999,32 +1100,32 @@
             projectsData[currentProject].scripts.forEach(script => {
                 console.log(currentProject)
                 let effectivePrice = script.price;
-                if(script.exchangedInfo) {
+                if (script.exchangedInfo) {
                     effectivePrice += parseFloat(script.exchangedInfo.price);
                 }
 
-               if(currentProject=='blinkbag.com'){
-                let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
-                let beP = (script.type === 'Backend') ? 0.6 : 0.35;
-                breakdown.frontend =409;
-                breakdown.backend = 628;
-                breakdown.cms = 181;
-                breakdown.server =172;
-               }
-               else{
-                let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
-                let beP = (script.type === 'Backend') ? 0.6 : 0.15;
-                breakdown.frontend += effectivePrice * feP;
-                breakdown.backend += effectivePrice * beP;
-                breakdown.cms += effectivePrice * 0.15;
-                breakdown.server += effectivePrice * 0.10;
-               }
-                
+                if (currentProject == 'blinkbag.com') {
+                    let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
+                    let beP = (script.type === 'Backend') ? 0.6 : 0.35;
+                    breakdown.frontend = 371;
+                    breakdown.backend = 477;
+                    breakdown.cms = 228;
+                    breakdown.server = 318;
+                }
+                else {
+                    let feP = (script.type === 'Frontend') ? 0.6 : 0.15;
+                    let beP = (script.type === 'Backend') ? 0.6 : 0.15;
+                    breakdown.frontend += effectivePrice * feP;
+                    breakdown.backend += effectivePrice * beP;
+                    breakdown.cms += effectivePrice * 0.15;
+                    breakdown.server += effectivePrice * 0.10;
+                }
+
             });
             const dataValues = [breakdown.frontend.toFixed(2), breakdown.backend.toFixed(2), breakdown.cms.toFixed(2), breakdown.server.toFixed(2)];
-            
+
             // --- PREMIUM CHART STYLING ---
-            
+
             // Setup Contexts
             const pieCtx = document.getElementById('total-cost-pie-chart').getContext('2d');
             const barCtx = document.getElementById('total-cost-bar-chart').getContext('2d');
@@ -1044,7 +1145,7 @@
             const goldGradientBar = createGoldGradient(barCtx);
 
             const commonOptions = {
-                responsive: true, 
+                responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
@@ -1065,44 +1166,44 @@
             const chartColors = ['#2563eb', '#db2777', '#d97706', '#059669']; // Blue, Pink, Amber, Emerald
 
             // PIE CHART
-            totalCostPieChart = new Chart(pieCtx, { 
-                type: 'pie', 
+            totalCostPieChart = new Chart(pieCtx, {
+                type: 'pie',
                 data: {
-                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
-                    datasets: [{ 
-                        data: dataValues, 
+                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'],
+                    datasets: [{
+                        data: dataValues,
                         backgroundColor: chartColors,
                         borderColor: goldGradientPie,
                         borderWidth: 4,
                         hoverBorderColor: '#FDB931',
                         hoverBorderWidth: 6
-                    }] 
-                }, 
+                    }]
+                },
                 options: {
                     ...commonOptions,
                     plugins: {
                         ...commonOptions.plugins,
                         title: { ...commonOptions.plugins.title, text: 'Overall Spending (Pie)' }
                     }
-                } 
+                }
             });
 
             // BAR CHART
-            totalCostBarChart = new Chart(barCtx, { 
-                type: 'bar', 
+            totalCostBarChart = new Chart(barCtx, {
+                type: 'bar',
                 data: {
-                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'], 
-                    datasets: [{ 
+                    labels: ['Frontend', 'Backend', 'Data CMS', 'Server'],
+                    datasets: [{
                         label: 'Cost in USD',
-                        data: dataValues, 
+                        data: dataValues,
                         backgroundColor: chartColors,
                         borderColor: goldGradientBar,
                         borderWidth: 3,
                         borderRadius: 8, // Rounded bars
                         barPercentage: 0.6
-                    }] 
-                }, 
-                options: { 
+                    }]
+                },
+                options: {
                     ...commonOptions,
                     plugins: {
                         ...commonOptions.plugins,
@@ -1120,7 +1221,7 @@
                             ticks: { color: '#374151', font: { family: "'Inter', sans-serif", weight: '500' } }
                         }
                     }
-                } 
+                }
             });
         }
 
@@ -1128,7 +1229,7 @@
             if (!currentProject) return;
             const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => {
                 let val = sum + parseFloat(script.price || 0);
-                if(script.exchangedInfo) {
+                if (script.exchangedInfo) {
                     val += parseFloat(script.exchangedInfo.price);
                 }
                 return val;
@@ -1136,35 +1237,35 @@
             totalInvestmentAmount.textContent = formatCurrency(totalInvestment);
             renderTotalCostAnalytics();
         }
-        var ip=''
+        var ip = ''
         function user_location() {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                  
-                    ip=this.responseText
-                    }
-                };
-                xhttp.open("GET", "https://api.db-ip.com/v2/free/self", true);
-                xhttp.send();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    ip = this.responseText
+                }
+            };
+            xhttp.open("GET", "https://api.db-ip.com/v2/free/self", true);
+            xhttp.send();
         }
         user_location()
         // --- LOGIN & PAGE NAVIGATION ---
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
             if (passwordInput.value === '831903pass') {
-                var newip=JSON.parse(ip)
-             
+                var newip = JSON.parse(ip)
+
                 // if(newip.ipAddress=='117.217.85.56'&&newip.continentName=="Asia"){
-                                    // Show loader, hide login page
-                        loader.style.display = 'inline-grid';
-                        allPages.loginPage.style.display = 'none';
-                        setTimeout(() => {
-                            loader.style.display = 'none';
-                            showPage(allPages.homePage);
-                            renderHomePage();
-                        }, 1500);
-               // }
+                // Show loader, hide login page
+                loader.style.display = 'inline-grid';
+                allPages.loginPage.style.display = 'none';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    showPage(allPages.homePage);
+                    renderHomePage();
+                }, 1500);
+                // }
                 // else{
                 //     errorMessage.textContent = 'Sorry ,Your Identity is Not Matching .\nThis Portal Does not belongs to you';
                 // setTimeout(() => { errorMessage.textContent = ''; }, 3000);
@@ -1217,9 +1318,17 @@
         });
 
         subTabButtons.forEach(button => {
+
+
             button.addEventListener('click', () => {
                 activeSubTab = button.dataset.subtab;
-                subTabButtons.forEach(btn => btn.classList.remove('sub-tab-active'));
+                subTabButtons.forEach(btn => {
+                    // Clear search when switching tabs
+                    if (scriptSearchInput) scriptSearchInput.value = '';
+                    currentSearchQuery = '';
+                    if (searchSuggestions) searchSuggestions.classList.add('hidden');
+                    btn.classList.remove('sub-tab-active')
+                });
                 button.classList.add('sub-tab-active');
                 currentPage = 1;
                 renderGetScriptsPage(currentPage);
@@ -1253,9 +1362,9 @@
 
             filteredAndSortedScripts.forEach(script => {
                 const isFinalized = script.status === 'finalized';
-                
+
                 // --- NEW: HTML for Exchange History ---
-                const exchangeInfoHTML = script.exchangedInfo 
+                const exchangeInfoHTML = script.exchangedInfo
                     ? `<div class="mt-2 p-3 bg-orange-50 border border-orange-200 rounded-md">
                          <div class="flex items-start">
                             <span class="text-xl mr-2">♻️</span>
@@ -1359,7 +1468,7 @@
             updateScriptsContent.className = "";
             let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
             let today = new Date();
-            
+
             finalizedScripts.forEach(script => {
                 // Set future dates for existing scripts so they are already updated
                 if (!script.nextUpdateDate) {
@@ -1414,19 +1523,22 @@
 
         function renderGetScriptsPage(page) {
             getScriptsList.innerHTML = '';
-            let scriptsToDisplay;
-            switch (activeSubTab) {
-                case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
-                case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
-                case 'nodejs': scriptsToDisplay = getScripts.filter(s => s.type === 'nodejs'); break;
-                case 'ui': scriptsToDisplay = uiScripts; break;
-                case 'database': scriptsToDisplay = databaseScripts; break;
-            }
+            let scriptsToDisplay = getActiveCategoryScripts();
+            // switch (activeSubTab) {
+            //     case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
+            //     case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
+            //     case 'nodejs': scriptsToDisplay = getScripts.filter(s => s.type === 'nodejs'); break;
+            //     case 'ui': scriptsToDisplay = uiScripts; break;
+            //     case 'database': scriptsToDisplay = databaseScripts; break;
+            // }
 
             const totalPages = Math.ceil(scriptsToDisplay.length / itemsPerPage);
             currentPage = Math.max(1, Math.min(page, totalPages));
             const paginatedScripts = scriptsToDisplay.slice((currentPage - 1) * itemsPerPage, page * itemsPerPage);
-
+            if (paginatedScripts.length === 0) {
+                getScriptsList.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500 font-medium">No scripts found matching your search.</div>`;
+                return;
+            }
             paginatedScripts.forEach(script => {
                 let pricingHTML = '';
                 if (script.type === 'ui') {
@@ -1455,17 +1567,18 @@
                         </div>
                     </div>`);
             });
+
         }
 
         function renderPagination() {
-            let scriptsToDisplay;
-            switch (activeSubTab) {
-                case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
-                case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
-                case 'nodejs': scriptsToDisplay = getScripts.filter(s => s.type === 'nodejs'); break;
-                case 'ui': scriptsToDisplay = uiScripts; break;
-                case 'database': scriptsToDisplay = databaseScripts; break;
-            }
+            let scriptsToDisplay = getActiveCategoryScripts();
+            // switch (activeSubTab) {
+            //     case 'frontend': scriptsToDisplay = getScripts.filter(s => s.type === 'Frontend'); break;
+            //     case 'backend': scriptsToDisplay = getScripts.filter(s => s.type === 'Backend'); break;
+            //     case 'nodejs': scriptsToDisplay = getScripts.filter(s => s.type === 'nodejs'); break;
+            //     case 'ui': scriptsToDisplay = uiScripts; break;
+            //     case 'database': scriptsToDisplay = databaseScripts; break;
+            // }
             const totalPages = Math.ceil(scriptsToDisplay.length / itemsPerPage);
             paginationControls.innerHTML = '';
             if (totalPages <= 1) return;
@@ -1538,7 +1651,67 @@
             dateFromFilter = null; dateToFilter = null;
             renderContent();
         });
+        if (scriptSearchInput) {
+            scriptSearchInput.addEventListener('input', (e) => {
+                currentSearchQuery = e.target.value.trim();
+                const queryLower = currentSearchQuery.toLowerCase();
+                searchSuggestions.innerHTML = '';
 
+                if (currentSearchQuery.length > 0) {
+                    // Temporarily unset query to get ALL scripts in this tab to build suggestions
+                    const tempQuery = currentSearchQuery;
+                    currentSearchQuery = '';
+                    const allCategoryScripts = getActiveCategoryScripts();
+                    currentSearchQuery = tempQuery;
+
+                    // Get top 8 matches
+                    const matches = allCategoryScripts.filter(s => s.name.toLowerCase().includes(queryLower)).slice(0, 8);
+
+                    if (matches.length > 0) {
+                        searchSuggestions.classList.remove('hidden');
+                        matches.forEach(match => {
+                            const li = document.createElement('li');
+                            li.className = 'px-4 py-3 hover:bg-indigo-50 cursor-pointer text-sm text-gray-700 border-b border-gray-100 last:border-0 transition-colors';
+
+                            // Highlight matched text in bold indigo
+                            const matchIndex = match.name.toLowerCase().indexOf(queryLower);
+                            const preMatch = match.name.substring(0, matchIndex);
+                            const matchText = match.name.substring(matchIndex, matchIndex + queryLower.length);
+                            const postMatch = match.name.substring(matchIndex + queryLower.length);
+
+                            li.innerHTML = `${preMatch}<strong class="text-indigo-600">${matchText}</strong>${postMatch}`;
+
+                            // When clicked, fill input and trigger render
+                            li.addEventListener('click', () => {
+                                scriptSearchInput.value = match.name;
+                                currentSearchQuery = match.name;
+                                searchSuggestions.classList.add('hidden');
+                                currentPage = 1;
+                                renderGetScriptsPage(currentPage);
+                                renderPagination();
+                            });
+                            searchSuggestions.appendChild(li);
+                        });
+                    } else {
+                        searchSuggestions.classList.add('hidden');
+                    }
+                } else {
+                    searchSuggestions.classList.add('hidden');
+                }
+
+                // Re-render the grid below dynamically
+                currentPage = 1;
+                renderGetScriptsPage(currentPage);
+                renderPagination();
+            });
+
+            // Hide suggestions when clicking outside the input
+            document.addEventListener('click', (e) => {
+                if (scriptSearchInput && !scriptSearchInput.contains(e.target) && searchSuggestions && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.classList.add('hidden');
+                }
+            });
+        }
         document.body.addEventListener('click', function (event) {
             const target = event.target;
             const projectFolder = target.closest('.project-folder');
@@ -1618,7 +1791,7 @@
         function openModal(script) {
             modalTitle.textContent = `Exchange: ${script.name}`;
             modalVersionList.innerHTML = '';
-            
+
             // Randomly calculate exchange fee
             const exchangeFee = (Math.random() * (20 - 11) + 11).toFixed(2);
             document.getElementById('modal-exchange-fee').textContent = '$' + exchangeFee;
@@ -1640,7 +1813,7 @@
         function openUpdatePaymentModal(script) {
             // Generate deterministic usage stats per script
             const requestCount = (script.id * 4321 + script.name.length * 876) % 15000 + 500; // Deterministic value between 500 and 15500
-            
+
             // Re-use or fallback to a deterministic API rate (0.050 to 0.200)
             const apiRate = script.perRequestPrice || (getDeterministicPrice(script.name + "api", 50, 200) / 1000).toFixed(3);
             const totalAmount = (requestCount * apiRate).toFixed(2);
@@ -1656,20 +1829,20 @@
                 </div>
                 <p class="text-xs text-gray-500 text-center">Processing this payment will apply pending updates and extend your instance activity.</p>
             `;
-            
+
             const payBtn = document.getElementById('pay-update-btn');
             payBtn.textContent = `Pay $${totalAmount}`;
             payBtn.onclick = () => {
                 document.getElementById('update-payment-modal').classList.add('hidden');
                 loadingOverlay.classList.remove('hidden');
-                
+
                 setTimeout(() => {
                     loadingOverlay.classList.add('hidden');
-                    
+
                     // Assign update schedule to 1 month from today
                     let today = new Date();
                     script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-                    
+
                     renderContent();
                 }, 1500);
             };
@@ -1683,10 +1856,10 @@
 
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
-        
+
         function generateAndDownloadInvoice(script) {
             if (!script) return;
-            generatePDF(script) 
+            generatePDF(script)
         }
         function generateInvoiceNumber(date) {
             const purchaseDateVal = date;
@@ -1700,7 +1873,7 @@
             if (purchaseDateVal) {
                 const date = new Date(purchaseDateVal);
                 date.setFullYear(date.getFullYear() + 1);
-                let exdate=new Date(date)
+                let exdate = new Date(date)
                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                 const formattedDate = exdate.toLocaleDateString('en-US', options)
                 return formattedDate;
@@ -1725,11 +1898,13 @@
 
             try {
                 //console.log("Purchase Date:", script.purchaseDate)
-                const itemsArray = [{ "itemDescription":`${script.name} - Version: ${script.version}`,
-                 "itemVendor":script.vendor, 
-                 "itemPrice":script.price, 
-                 "itemQuantity": 1, 
-                 "totalFinalPrice": script.price }]
+                const itemsArray = [{
+                    "itemDescription": `${script.name} - Version: ${script.version}`,
+                    "itemVendor": script.vendor,
+                    "itemPrice": script.price,
+                    "itemQuantity": 1,
+                    "totalFinalPrice": script.price
+                }]
                 // console.log(JSON.stringify(itemsArray))
                 // console.log("ProjectName:",currentProject)
                 const invoiceData = {
@@ -1739,7 +1914,7 @@
                     },
                     header: {
                         invoiceNumber: generateInvoiceNumber(script.purchaseDate),
-                        orderNumber: 'ORD-'+Math.floor(Math.random() * 1000) + 1,
+                        orderNumber: 'ORD-' + Math.floor(Math.random() * 1000) + 1,
                         purchaseDate: script.purchaseDate || 'N/A',
                         expiryDate: updateExpiryDate(script.purchaseDate) || 'N/A'
                     },
@@ -1782,7 +1957,7 @@
                 const accentGray = [100, 116, 139];
                 const lightText = [241, 245, 249];
                 const darkText = [30, 41, 59];
-               
+
                 drawBackground(doc);
 
                 doc.setFillColor(...headerGray);
@@ -1833,18 +2008,18 @@
                 doc.text(invoiceData.client.name, 120, 81);
                 doc.setFontSize(9);
                 doc.text(invoiceData.client.address, 120, 86, { maxWidth: 70 });
-                  // Project Details Styled to match theme
-                  const rightColX = 120;
+                // Project Details Styled to match theme
+                const rightColX = 120;
                 doc.setFontSize(9);
-               
+
                 doc.setTextColor(...darkText);
                 doc.setFont('helvetica', 'bold');
                 doc.text('PROJECT ID:', rightColX, 100);
-                
+
                 doc.setTextColor(...accentGray);
                 doc.setFont('helvetica', 'normal');
                 doc.text(invoiceData.client.projectId, rightColX + 22, 100);
-                
+
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'italic');
                 doc.setTextColor(100, 116, 139);
@@ -1875,10 +2050,10 @@
                     // Split text into wrapped lines for description and vendor
                     const descLines = doc.splitTextToSize(item.itemDescription, 55);
                     const vendorLines = doc.splitTextToSize(item.itemVendor, 35);
-                    
+
                     // Determine the height needed for this row
                     const maxLines = Math.max(descLines.length, vendorLines.length);
-                    const rowHeight = (maxLines * 5) + 2; 
+                    const rowHeight = (maxLines * 5) + 2;
 
                     if (currentY + rowHeight > 270) {
                         doc.addPage();
@@ -1889,15 +2064,15 @@
                     // Render lines
                     doc.text(descLines, 25, currentY + 5);
                     doc.text(vendorLines, 85, currentY + 5);
-                    
+
                     // Render other columns
                     doc.text(item.itemQuantity.toString(), 125, currentY + 5);
                     doc.text(invoiceData.financials.currency + item.itemPrice.toLocaleString(), 145, currentY + 5);
                     doc.text(invoiceData.financials.currency + item.totalFinalPrice.toLocaleString(), 170, currentY + 5);
-                    
+
                     doc.setDrawColor(220, 225, 230);
                     doc.line(20, currentY + rowHeight, 190, currentY + rowHeight);
-                    
+
                     currentY += rowHeight;
                 });
 
@@ -1911,7 +2086,7 @@
                 doc.text(invoiceData.financials.currency + invoiceData.financials.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 195, currentY, { align: 'right' });
 
                 currentY += 7;
-                
+
                 currentY += 10;
 
                 // Total Box Shadow
@@ -1932,15 +2107,15 @@
                 doc.text(invoiceData.financials.currency + invoiceData.financials.grandTotal.toLocaleString(), summaryX + boxWidth - 5, currentY + 1, { align: 'right' });
 
                 // New Heading below total box
-               
-                
- 
+
+
+
                 // Footer
                 doc.setTextColor(100, 16, 39);
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'italic');
                 doc.text('Note:In order to exchange Script Additional Charges Will be Apply', 105, 275, { align: 'center' });
-                
+
                 doc.setTextColor(100, 116, 139);
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'italic');
@@ -1950,7 +2125,7 @@
                 //statusMsg.innerText = "PDF Generated: Tax-Inclusive Model";
             } catch (err) {
                 console.error(err);
-                
+
             }
         }
         confirmProceedBtn.addEventListener('click', () => {
@@ -1959,31 +2134,32 @@
                 if (scriptToFinalize) {
                     generateAndDownloadInvoice(scriptToFinalize);
                     scriptToFinalize.status = 'finalized';
-                    
+
                     // Assign update schedule to 1st of next month upon finalize
                     let today = new Date();
                     scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-                    
+
                     renderContent();
                 }
             }
             closeFinalizeModal();
         });
-        
-        var linkCodes={
-            "Sign & Log User Authentication e6":"https://www.codester.com/items/payment?id=43769&extended=true",
-            "MOLD pro Admin Panel":"https://www.codester.com/items/payment?id=56719&extended=true",
-            "LARACRUD Admin 6th Level":"https://www.codester.com/items/payment?id=37936&extended=true",
-        "Gravity Template setup":"https://www.templatemonster.com/checkout/",
-    "Payment Plugin for Ruoom - Django":"https://www.codester.com/items/payment?id=56287&extended=true",}
+
+        var linkCodes = {
+            "Sign & Log User Authentication e6": "https://www.codester.com/items/payment?id=43769&extended=true",
+            "MOLD pro Admin Panel": "https://www.codester.com/items/payment?id=56719&extended=true",
+            "LARACRUD Admin 6th Level": "https://www.codester.com/items/payment?id=37936&extended=true",
+            "Gravity Template setup": "https://www.templatemonster.com/checkout/",
+            "Payment Plugin for Ruoom - Django": "https://www.codester.com/items/payment?id=56287&extended=true",
+        }
         finalPayBtn.addEventListener('click', () => {
-            let link=linkCodes[currentCheckout.name.split("-")[0].trim()]
-            const stripeLink =link 
-            console.log(finalPayBtn.name,currentCheckout)
+            let link = linkCodes[currentCheckout.name.split("-")[0].trim()]
+            const stripeLink = link
+            console.log(finalPayBtn.name, currentCheckout)
             console.log(link)
-           
+
             window.location.href = stripeLink;
-            
+
         });
 
     </script>
