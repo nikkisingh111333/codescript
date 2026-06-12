@@ -786,7 +786,7 @@
             setupPrice: getDeterministicPrice(name, 90, 300),
             exchangeRate: (Math.random() * (20 - 11) + 11).toFixed(2), // Random rate
             hourlyRate: (getDeterministicPrice(name + "rate", 9, 49) / 10).toFixed(2),
-            perRequestPrice: (Math.random() * (0.20 - 0.05) + 0.05).toFixed(3) // Per request API price
+            perRequestPrice: (getDeterministicPrice(name + "api", 50, 200) / 1000).toFixed(3) // Per request API price
             // vendor: vendors[Math.floor(Math.random() * vendors.length)]
         }));
 
@@ -1382,7 +1382,7 @@
             finalizedScripts.forEach(script => {
                 // Set future dates for existing scripts so they are already updated
                 if (!script.nextUpdateDate) {
-                    script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+                    script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
                 }
 
                 let updateDateObj = new Date(script.nextUpdateDate);
@@ -1408,7 +1408,7 @@
                     if (isServerSide) {
                         statusHtml = `
                             <div class="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
-                                <p class="text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-1">Scheduled Update</p>
+                                <p class="text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-1">Scheduled Monthly Update</p>
                                 <div class="flex items-center text-indigo-700 mb-3">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <span class="font-bold">${formattedDate}</span>
@@ -1435,7 +1435,7 @@
                     } else {
                         statusHtml = `
                             <div class="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
-                                <p class="text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-1">Scheduled Update</p>
+                                <p class="text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-1">Scheduled Monthly Update</p>
                                 <div class="flex items-center text-indigo-700">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <span class="font-bold">${formattedDate}</span>
@@ -1806,7 +1806,7 @@
 
                     // Assign update schedule to 1 month from today
                     let today = new Date();
-                    script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+                    script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
                     renderContent();
                 }, 1500);
@@ -2095,9 +2095,9 @@
                     generateAndDownloadInvoice(scriptToFinalize);
                     scriptToFinalize.status = 'finalized';
 
-                    // Assign update schedule to 1st of next month upon finalize
+                    // Assign update schedule to exact 1 month from today upon finalize
                     let today = new Date();
-                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
                     renderContent();
                 }
