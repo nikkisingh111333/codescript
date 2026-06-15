@@ -8,12 +8,14 @@
     <link rel="icon" type="image/x-icon"
         href="https://nikkisingh111333.github.io/codescript/codebuyportal/Gemini_Generated_Image_rczkjnrczkjnrczk.png">
     <title>Code Buy Script Portal | Codlokon</title>
+    
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- EasyInvoice for invoice generation -->
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    
     <style>
         /* Custom styles for a clean look */
         body {
@@ -188,6 +190,7 @@
         <div class="w-full min-h-screen flex items-center justify-center p-4">
             <!-- Loader (hidden by default) -->
             <div class="loader" id="loader" style="display:none;"></div>
+            
             <!-- =========== Login Page =========== -->
             <div id="login-page" class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
                 <div>
@@ -235,6 +238,7 @@
                                 Projects</button>
                             <h2 id="current-project-name" class="text-lg font-bold text-gray-800"></h2>
                         </div>
+                        
                         <!-- Right Side: Dropdown Menu -->
                         <div class="relative">
                             <button id="profile-menu-button"
@@ -257,7 +261,6 @@
                                     <a href="#" id="payments-link"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Payments</a>
-
                                 </div>
                             </div>
                         </div>
@@ -318,6 +321,7 @@
                         <div id="invoice-tab" class="tab-pane hidden">
                             <div id="invoice-list" class="space-y-4"></div>
                         </div>
+                        
                         <!-- Get Scripts -->
                         <div id="get-tab" class="tab-pane hidden">
                             <div class="mb-4 border-b border-gray-200">
@@ -363,6 +367,7 @@
                             </div>
                             <div id="pagination-controls" class="flex justify-center items-center space-x-2 mt-6"></div>
                         </div>
+                        
                         <!-- Update Scripts -->
                         <div id="update-tab" class="tab-pane hidden">
                             <div id="update-scripts-content" class="text-center py-10 bg-gray-50 rounded-lg">
@@ -429,6 +434,7 @@
                     </div>
                 </div>
             </div>
+            
             <div id="checkout-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Checkout</h1><button id="back-to-portal"
@@ -460,7 +466,7 @@
                                 <div><label class="text-sm font-medium text-gray-700">Payment Method</label>
                                     <div class="flex flex-col mt-2 space-y-2">
                                         <div class="flex items-center p-3 border rounded-lg bg-white">
-                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" />
+                                            <img src="visa.png" alt="Visa" class="w-8 h-8 mr-3" onerror="this.src='https://placehold.co/32x32/1e3a8a/ffffff?text=V'" />
                                             <div>
                                                 <div class="font-semibold text-gray-800">Card Payment (Visa)</div>
                                                 <div class="text-sm text-gray-600">Nakul Singh</div>
@@ -483,15 +489,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="lg:col-span-3 bg-gray-50 p-6 rounded-lg border">
-                        <h2 class="text-xl font-semibold text-gray-700 border-b pb-3 mb-4">Cost Breakdown & Analytics</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                            <div class="w-full h-64"><canvas id="cost-pie-chart"></canvas></div>
-                            <div class="w-full h-64"><canvas id="cost-bar-chart"></canvas></div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
+            
             <div id="payments-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
                 <div class="flex justify-between items-center border-b pb-4">
                     <h1 class="text-3xl font-bold text-gray-800">Payments & Analytics</h1><button
@@ -589,6 +589,23 @@
                     </div>
                 </div>
             </div>
+
+            <div id="discontinue-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+                <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-2xl text-center space-y-4 modal-animate">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Discontinue Services?</h2>
+                    <p class="text-sm text-gray-600">Are you sure you want to cancel the autopay and discontinue these services? Your backend instance will be terminated and associated data may be permanently lost.</p>
+                    <div class="flex justify-center space-x-4 pt-2">
+                        <button id="cancel-discontinue-btn" class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg border border-gray-300 hover:bg-gray-200">Keep Active</button>
+                        <button id="confirm-discontinue-btn" class="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 shadow-md">Terminate</button>
+                    </div>
+                </div>
+            </div>
+
             <div id="loading-overlay"
                 class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] transition-opacity duration-300">
                 <div class="flex flex-col items-center space-y-4"><svg class="animate-spin h-12 w-12 text-white"
@@ -605,7 +622,7 @@
         </div>
         <footer class="w-full text-center p-4">
             <p class="text-gray-500 text-sm">
-                &copy; 2025-2026 All Rights Reserved.
+                &copy; 2026-2027 All Rights Reserved.
             </p>
         </footer>
     </div>
@@ -928,7 +945,6 @@
                 if (index < scriptsArray.length) {
                     const script = scriptsArray[index];
                     const exchangeDate = new Date(exdate[d]);
-                    // console.log(exchangeDate)
                     exchangeDate.setDate(exchangeDate.getDate());
 
                     script.exchangedInfo = {
@@ -942,6 +958,31 @@
 
         // Apply fixed exchange history to all projects
         Object.values(projectsData).forEach(project => addFixedExchangeHistory(project.scripts));
+
+        // --- LOCAL STORAGE LOGIC ---
+        function saveProjectsData() {
+            localStorage.setItem('codlokon_projectsData', JSON.stringify(projectsData));
+        }
+
+        function loadProjectsData() {
+            const stored = localStorage.getItem('codlokon_projectsData');
+            if (stored) {
+                try {
+                    const parsed = JSON.parse(stored);
+                    Object.keys(parsed).forEach(key => {
+                        if (projectsData[key]) {
+                            // Merge saved data with the current session data
+                            projectsData[key].scripts = parsed[key].scripts;
+                        }
+                    });
+                } catch (e) {
+                    console.error("Failed to load projects data from local storage", e);
+                }
+            }
+        }
+        
+        // Load stored user session data on page load
+        loadProjectsData();
 
         function generateRandomVersionName() {
             const names = ['Community', 'Standard', 'Business', 'Ultimate', 'Lite', 'Pro', 'Atomic', 'Quantum'];
@@ -991,6 +1032,12 @@
         const finalizeConfirmModal = document.getElementById('finalize-confirm-modal');
         const confirmProceedBtn = document.getElementById('confirm-proceed-btn');
         const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+        
+        const discontinueModal = document.getElementById('discontinue-modal');
+        const confirmDiscontinueBtn = document.getElementById('confirm-discontinue-btn');
+        const cancelDiscontinueBtn = document.getElementById('cancel-discontinue-btn');
+        let scriptIdToDiscontinue = null;
+
         const sortScriptsDropdown = document.getElementById('sort-scripts');
         const loadingOverlay = document.getElementById('loading-overlay');
         const accountLink = document.getElementById('account-link');
@@ -1308,7 +1355,6 @@
             });
         }
 
-
         function getFilteredAndSortedScripts(scripts) {
             let filteredScripts = [...scripts];
 
@@ -1366,6 +1412,7 @@
                 return;
             }
             const scripts = projectsData[currentProject].scripts;
+            // Only show scripts that are 'finalized'
             const finalizedScripts = scripts.filter(script => script.status === 'finalized');
 
             if (finalizedScripts.length === 0) {
@@ -1376,17 +1423,37 @@
 
             // Remove placeholder padding for actual grid content
             updateScriptsContent.className = "";
-            let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
             let today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize to midnight for accurate day calculation
 
-            finalizedScripts.forEach(script => {
-                // Set future dates for existing scripts so they are already updated
+            let totalAutoPayAmount = 0;
+            let hasAutoPayDue = false;
+            let gridHtml = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
+
+            finalizedScripts.forEach((script, index) => {
+                const typeLower = script.type ? script.type.toLowerCase() : '';
+                const isServerSide = ['backend', 'database', 'nodejs', 'server'].includes(typeLower);
+
+                // For testing: Set existing un-dated server scripts to expire exactly tomorrow
                 if (!script.nextUpdateDate) {
-                    script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+                    if (isServerSide) {
+                        let tomorrow = new Date(today);
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        script.nextUpdateDate = tomorrow;
+                    } else {
+                        script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+                    }
                 }
 
                 let updateDateObj = new Date(script.nextUpdateDate);
-                let isDue = today >= updateDateObj;
+                updateDateObj.setHours(0, 0, 0, 0);
+                
+                const diffTime = updateDateObj.getTime() - today.getTime();
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                let isDue = diffDays <= 0;
+                let isExpiringTomorrow = diffDays === 1;
+
                 let formattedDate = updateDateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
                 let statusHtml = '';
@@ -1401,10 +1468,67 @@
                             <button class="process-update-btn w-full px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 transition-colors shadow-sm" data-script-id="${script.id}">Process Update</button>
                         </div>
                     `;
-                } else {
-                    const typeLower = script.type ? script.type.toLowerCase() : '';
-                    const isServerSide = ['backend', 'database', 'nodejs', 'server'].includes(typeLower);
+                } else if (isExpiringTomorrow && isServerSide) {
+                    // Auto-pay scheduled logic for exactly 1 day left
+                    const requestCount = (script.id * 4321 + script.name.length * 876) % 15000 + 500;
+                    const apiRate = script.perRequestPrice || (getDeterministicPrice(script.name + "api", 50, 200) / 1000).toFixed(3);
+                    const amountDue = (requestCount * apiRate).toFixed(2);
+                    
+                    totalAutoPayAmount += parseFloat(amountDue);
+                    hasAutoPayDue = true;
 
+                    // Date After Expiry Calculation
+                    let dateAfterExpiry = new Date(updateDateObj);
+                    dateAfterExpiry.setDate(dateAfterExpiry.getDate() + 1);
+                    let formattedDateAfter = dateAfterExpiry.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    
+                    // Max Process Limit (2 days after)
+                    let maxProcessDate = new Date(updateDateObj);
+                    maxProcessDate.setDate(maxProcessDate.getDate() + 2);
+                    let formattedMaxProcessDate = maxProcessDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    // Generate deterministic waitlist queue number
+                    let roundNumber = (script.id * 17 + script.name.length * 3) % 45 + 5; 
+
+                    statusHtml = `
+                        <div class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg shadow-inner">
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="text-amber-800 text-xs font-bold uppercase tracking-wider flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Expiring in 1 Day
+                                </p>
+                                <button class="discontinue-btn px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold rounded shadow transition-colors uppercase tracking-wide" data-script-id="${script.id}">Discontinue Services</button>
+                            </div>
+                            
+                            <div class="bg-white p-3 rounded border border-amber-100 text-sm shadow-sm space-y-1.5">
+                                <div class="flex justify-between text-gray-600"><span>Monthly API Usage:</span> <strong class="text-gray-800">${requestCount.toLocaleString()} req</strong></div>
+                                <div class="flex justify-between text-gray-600"><span>Usage Rate:</span> <strong class="text-gray-800">$${apiRate}/req</strong></div>
+                                <div class="flex justify-between text-amber-900 font-bold border-t border-amber-100 pt-1.5 mt-1.5 text-base">
+                                    <span>Due Bill Amount:</span> <span>$${amountDue}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3 space-y-2">
+                                <div class="bg-amber-100 text-amber-900 text-xs text-center py-2 px-2 rounded font-medium border border-amber-200">
+                                    Autopay scheduled automatically for <span class="font-bold underline">${formattedDateAfter}</span>
+                                </div>
+                                
+                                <div class="bg-blue-50 border border-blue-200 p-3 rounded">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-blue-800 text-xs font-semibold">Autopay Waitlist Queue:</span>
+                                        <span class="font-bold text-sm bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full animate-pulse">Round #${roundNumber}</span>
+                                    </div>
+                                    <p class="text-[10px] text-blue-700 leading-tight mt-1">Your payment will process successfully once your round hits 0. Must complete within a 2-day limit (by ${formattedMaxProcessDate}).</p>
+                                </div>
+                                
+                                <div class="flex items-start text-[11px] text-amber-800 font-bold pt-1">
+                                    <svg class="w-4 h-4 mr-1 flex-shrink-0 mt-0.5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                    Warning: Please keep your amount updated in your account to avoid service interruption!
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
                     if (isServerSide) {
                         statusHtml = `
                             <div class="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-lg">
@@ -1446,8 +1570,8 @@
                     }
                 }
 
-                html += `
-                    <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                gridHtml += `
+                    <div class="${isExpiringTomorrow && isServerSide ? 'ring-2 ring-amber-400' : ''} p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-bold text-gray-800 text-lg leading-tight w-3/4">${script.name}</h3>
@@ -1459,8 +1583,30 @@
                     </div>
                 `;
             });
-            html += `</div>`;
-            updateScriptsContent.innerHTML = html;
+            gridHtml += `</div>`;
+            
+            let finalHtml = '';
+            
+            // Prepend the Top Warning Banner if any autopay is due
+            if (hasAutoPayDue) {
+                finalHtml += `
+                    <div class="mb-8 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-r-lg shadow-sm">
+                        <h3 class="text-lg font-bold text-amber-900 flex items-center mb-2">
+                            <svg class="w-6 h-6 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Action Required: Upcoming Auto-Pay
+                        </h3>
+                        <p class="text-sm text-amber-800 leading-relaxed mb-3">
+                            You have backend services expiring in exactly 1 day. A total of <strong class="text-amber-900 text-xl mx-1">$${totalAutoPayAmount.toFixed(2)}</strong> is due for monthly usage processing.
+                        </p>
+                        <p class="text-sm text-amber-900 font-bold bg-amber-200 bg-opacity-70 p-3 rounded border border-amber-300 flex items-center">
+                            <span class="text-xl mr-2">⚠️</span> Please keep your amount updated in your account to prevent instance termination and data loss!
+                        </p>
+                    </div>
+                `;
+            }
+            
+            finalHtml += gridHtml;
+            updateScriptsContent.innerHTML = finalHtml;
 
             // Start the live metrics interval for Server-side scripts
             if (window.liveMetricsInterval) clearInterval(window.liveMetricsInterval);
@@ -1469,16 +1615,15 @@
                     const currentSpeed = parseInt(el.innerText);
                     const variance = Math.floor(Math.random() * 60) - 30; // -30 to +30 change
                     let newSpeed = currentSpeed + variance;
-                    // Clamp bounds so speed looks natural
                     if(newSpeed < 50) newSpeed = 50 + Math.floor(Math.random() * 50);
                     if(newSpeed > 999) newSpeed = 900 - Math.floor(Math.random() * 100);
                     el.innerText = `${newSpeed} KB/s`;
                 });
                 
                 document.querySelectorAll('.cpu-load-metric').forEach(el => {
-                    if (Math.random() > 0.4) { // Only update ~60% of the time for organic feel
+                    if (Math.random() > 0.4) {
                         const currentLoad = parseInt(el.innerText);
-                        const variance = Math.floor(Math.random() * 11) - 5; // -5 to +5 change
+                        const variance = Math.floor(Math.random() * 11) - 5;
                         let newLoad = currentLoad + variance;
                         if(newLoad < 5) newLoad = 5 + Math.floor(Math.random() * 5);
                         if(newLoad > 95) newLoad = 90 - Math.floor(Math.random() * 10);
@@ -1487,16 +1632,16 @@
                 });
 
                 document.querySelectorAll('.latency-metric').forEach(el => {
-                    if (Math.random() > 0.3) { // Update ~70% of the time
+                    if (Math.random() > 0.3) {
                         const currentLatency = parseInt(el.innerText);
-                        const variance = Math.floor(Math.random() * 21) - 10; // -10 to +10 change
+                        const variance = Math.floor(Math.random() * 21) - 10;
                         let newLatency = currentLatency + variance;
                         if(newLatency < 10) newLatency = 15 + Math.floor(Math.random() * 10);
                         if(newLatency > 300) newLatency = 250 - Math.floor(Math.random() * 50);
                         el.innerText = `${newLatency} ms`;
                     }
                 });
-            }, 1500); // update every 1.5s
+            }, 1500);
         }
 
         function renderGetScriptsPage(page) {
@@ -1616,6 +1761,7 @@
             dateFromFilter = null; dateToFilter = null;
             renderContent();
         });
+        
         if (scriptSearchInput) {
             scriptSearchInput.addEventListener('input', (e) => {
                 currentSearchQuery = e.target.value.trim();
@@ -1677,6 +1823,7 @@
                 }
             });
         }
+        
         document.body.addEventListener('click', function (event) {
             const target = event.target;
             const projectFolder = target.closest('.project-folder');
@@ -1704,6 +1851,7 @@
                     script.version = newVersion;
                     script.code = `// Code for ${script.name} ${newVersion}`;
                     closeModal();
+                    saveProjectsData(); // Save state to local storage
                     renderContent();
                 }
             }
@@ -1751,6 +1899,30 @@
                 const script = projectsData[currentProject].scripts.find(s => s.id === scriptId);
                 if (script) openUpdatePaymentModal(script);
             }
+            
+            if (target.classList.contains('discontinue-btn')) {
+                scriptIdToDiscontinue = parseInt(target.getAttribute('data-script-id'));
+                discontinueModal.classList.remove('hidden');
+            }
+        });
+
+        cancelDiscontinueBtn.addEventListener('click', () => {
+            discontinueModal.classList.add('hidden');
+            scriptIdToDiscontinue = null;
+        });
+
+        confirmDiscontinueBtn.addEventListener('click', () => {
+            if (scriptIdToDiscontinue !== null && currentProject) {
+                const scriptToDiscontinue = projectsData[currentProject].scripts.find(s => s.id === scriptIdToDiscontinue);
+                if (scriptToDiscontinue) {
+                    // Update status to remove it from active finalized updates
+                    scriptToDiscontinue.status = 'discontinued';
+                    saveProjectsData(); // Save discontinued state to local storage
+                    renderContent();
+                }
+            }
+            discontinueModal.classList.add('hidden');
+            scriptIdToDiscontinue = null;
         });
 
         function openModal(script) {
@@ -1808,6 +1980,7 @@
                     let today = new Date();
                     script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
+                    saveProjectsData(); // Save successful payment extension to local storage
                     renderContent();
                 }, 1500);
             };
@@ -2095,10 +2268,11 @@
                     generateAndDownloadInvoice(scriptToFinalize);
                     scriptToFinalize.status = 'finalized';
 
-                    // Assign update schedule to exact 1 month from today upon finalize
+                    // Assign update schedule to EXACTLY 1 day from today to trigger the testing features
                     let today = new Date();
-                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth()+1, today.getDate());
 
+                    saveProjectsData(); // Save finalized script and trigger date to local storage
                     renderContent();
                 }
             }
