@@ -2629,7 +2629,7 @@
 
                     // Assign update schedule to EXACTLY 1 day from today to trigger the testing features
                     let today = new Date();
-                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                    scriptToFinalize.nextUpdateDate = new Date(today.getFullYear(), today.getMonth()+1, today.getDate());
 
                     saveProjectsData(); // Save finalized script and trigger date to local storage
                     renderContent();
