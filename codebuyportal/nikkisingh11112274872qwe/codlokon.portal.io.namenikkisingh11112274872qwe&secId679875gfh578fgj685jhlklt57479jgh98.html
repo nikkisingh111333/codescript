@@ -749,11 +749,11 @@
             'April 26, 2025', 'April 26, 2025', 'April 29, 2025', 'May 03, 2025', 'May 04, 2025',
             'June 17, 2025', 'June 18, 2025', 'July 21, 2025', 'August 12, 2025', 'September 09, 2025', 'October 02, 2025'
             , 'January 15, 2026', "January 17, 2026", "January 20, 2026", "March 08, 2026", "March 11, 2026", "March 16, 2026"]
-        const purchasedPrice = [73, 83, 74, 82, 71, 125, 78, 80, 105, 71, 40, 78, 99, 42, 84, 99, 79]
+        const purchasedPrice = [73, 83, 74, 82, 71, 125, 78, 80, 105, 71, 40, 78, 99, 42, 84, 99, 79,13]
         const scriptBaseNames = ["Sign & Log User Authentication e4", "LARACRUD Multipurpose Admin 3rd Level", "Sea Cloud Essentials Setup v8.2.4 ", "Blog Platform", "Payment CRM Application", "Payment Gateway Backend Setup EG 2.0", "File Upload Service", "Notification System", "Analytics Tracker Proxy Server gen1", "Search For CMS Data Server v9", "Redis Caching Layer Throttling v1", '3D Perspective Grid Slider (Optimized)',
-            'Vanilla JS Interactive Grid Reveal', '3D Slider Customizable v3.2', 'Subscription Analytics Dashboard v4', 'Beu Colorlight cloud Essentials Setup v8.2.4', 'OpenStreetMap Mapbox Co-ordinates Plotter Customizable v3']
+            'Vanilla JS Interactive Grid Reveal', '3D Slider Customizable v3.2', 'Subscription Analytics Dashboard v4', 'Beu Colorlight cloud Essentials Setup v8.2.4', 'OpenStreetMap Mapbox Co-ordinates Plotter Customizable v3','Anycast Routing & Global Content Delivery Network Setup v2.6.1']
         //For Get Scripts
-        const scriptmarket = ["Sign & Log User Authentication e6", "LARACRUD Admin 6th Level", "MOLD pro Admin Panel", "Gravity Template setup ", "Payment Plugin for Ruoom - Django", "Payment Gateway Frontend EG 6.0", "File Upload Service", "Notification System", "Search Engine", "Clarity Analytics Tracker Proxy Server gen7", "Subscription Manager", "Inventory System", "Booking Engine", "Redis Caching Layer Throttling v6", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
+        const scriptmarket = ["Sign & Log User Authentication e6", "LARACRUD Admin 6th Level", "MOLD pro Admin Panel", "Gravity Template setup ", "Payment Plugin for Ruoom - Django", "Payment Gateway Frontend EG 6.0", "Anycast Routing & Global Content Delivery Network Setup v2.6.1","File Upload Service", "Notification System", "Search Engine", "Clarity Analytics Tracker Proxy Server gen7", "Subscription Manager", "Inventory System", "Booking Engine", "Redis Caching Layer Throttling v6", "Social Media Feed", "API Gateway", "Load Balancer", "Caching Service", "Image Processor", "Video Streaming", "Geo-location Service", "Recommendation Engine", "A/B Testing Framework", "Ad Server", "Survey Builder", "Form Processor", "User Profile Manager", "Reporting Tool", "Workflow Automation", "Data Importer/Exporter", "Coupon Code Generator", "Affiliate Tracking", "Real-time Collaboration", "Document Editor", "Calendar & Scheduling", "Email Marketing", "Help Desk & Ticketing", "Knowledge Base", "Community Forum", "Gamification Engine", "Loyalty Program", "Multi-language Support", "Invoice Generator", "Shipping Calculator", "Order Tracking", "Product Review System", "Wishlist Manager", "Gift Card System", "Data Visualization", "Machine Learning Model", "Natural Language Processor", "Blockchain Integration", "IoT Device Connector", "Web Scraper", "Automation Bot", "Security Scanner", "Backup & Restore", "Server Provisioning", "Log Management"];
 
         const nodejsBaseNames = ["User Authentication", "Sea Colorlight cloud Essentials Setup v8.1.1", "Express API Server", "Socket.IO Chat Server", "GraphQL API Gateway", "JWT Authentication Service", "Stripe Payment Processor", "WebSocket Real-time Feed", "OAuth2 Provider", "MongoDB Data Service", "Redis Caching Layer", "Beu Colorlight cloud Essentials Setup v10.1.4", "Puppeteer Web Scraper", "Nodemailer Email Service", "BullMQ Job Queue", "Next.js SSR App", "NestJS Microservice", "AdonisJS Framework", "FeathersJS Real-time API"];
         const uiEssentialsBaseNames = ["Vanilla JS Interactive Grid Reveal", '3D Slider Customizable v3.4', 'Subscription Analytics Dashboard v4', "Gravity Html Template", "Glassmorphism Card Set", "Neumorphic UI Kit", "Interactive Chart Library", "Customizable Form Elements", "Draggable Kanban Board", "SVG Icon Pack (Pro)", "Parallax Scrolling Engine", "Responsive Navigation Menu", "Date & Time Picker Suite", "Gradient Generator Tool", "Themeable Component Library", "SVG Shape Generator", "CSS Animation Toolkit", "Advanced Tooltip System", "Interactive Map Toolkit", "Photo Gallery with Lightbox", "Video Player Skin", "Landing Page Template Kit", "Dashboard UI Kit", "Onboarding Tour Library", "Notification & Alert System", "Modal & Popup Collection", "WYSIWYG Editor Skin", "Data Table Component", "File Uploader with Progress", "Autocomplete Search Input", "Mega Menu Component", "Social Media Sharing Buttons", "Cookie Consent Banner", "Pricing Table Templates", "Testimonial Slider", "Contact Form with Validation", "FAQ Accordion Component", "Team Showcase Section", "Portfolio Grid Layout", "Coming Soon Page Template", "404 Error Page Kit", "Login/Register Form UI", "User Profile Widget"];
@@ -924,6 +924,9 @@
             , {
                 id: 17, name: "OpenStreetMap Mapbox Co-ordinates Mapbox Plotter Customizable v3", purchaseDate: "March 16, 2026", status: 'paid', type: 'Frontend', version: lastVersion, price: 79, vendor: vendors[2], code: "<script> const AREA_LIMIT_KM2 = 5.0; let clickedPoints = []; let markers = []; let polygon = null; let activeTab = 'draw'; const provider = new window.GeoSearch.OpenStreetMapProvider(); const searchControl = new window.GeoSearch.GeoSearchControl({ provider: provider, style: 'bar', showMarker: true, autoClose: true, keepResult: true }); const map = L.map('map', { center: [55.944381, -3.187143], zoom: 13, zoomControl: false, attributionControl: false });",
                 exchangeVersions: generateVersionTiers("OpenStreetMap Mapbox Co-ordinates Plotter Customizable v3").map(v => v.name).filter(v => v !== version)
+            }, {
+                id: 18, name: "Anycast Routing & Global Content Delivery Network Setup v2.6.1", purchaseDate: "June 19, 2026", status: 'paid', type: 'Backend', version: lastVersion, price: 79, vendor: vendors[2], code: "const express = require('express'); const app = express(); const PORT = process.env.PORT || 3000; // 1. Geolocation Routing Middleware (Passed from Anycast CDN Edge) app.use((req, res, next) => { // Most Anycast CDNs (like Cloudflare) pass the user's country code in the headers const userCountry = req.headers['cf-ipcountry'] || req.headers['x-country-code'] || 'Global'; console.log(`[CDN Node] Traffic received from region: ${userCountry}`); req.userCountry = userCountry; next(); }); // 2. Static Asset Delivery with Smart Cache-Control Headers // This tells the Anycast Edge servers exactly how long to cache your files app.get('/assets/:filename', (req, res) => { const filename = req.params.filename; // Set technical CDN headers // s-maxage: Tells the Anycast CDN Edge server to cache this for 1 year (31536000 seconds) // max-age: Tells the user's browser to cache this for 1 day (86400 seconds) // stale-while-revalidate: Keeps the site fast by serving old cache while updating in the background res.setHeader('Cache-Control', 'public, s-maxage=31536000, max-age=86400, stale-while-revalidate=60'); res.setHeader('X-CDN-Origin-Node', 'Origin-Cluster-v4.2.0'); // Simulate sending a file res.json({ asset: filename, status: Delivered from Origin, optimized_for: req.userCountry }); }); // 3. Dynamic API Endpoint (Bypasses Anycast CDN Caching) app.get('/api/v1/realtime-data', (req, res) => { // Instructs the Anycast CDN Edge to NEVER cache this private/dynamic data res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'); res.setHeader('Pragma', 'no-cache'); res.setHeader('Expires', '0'); res.json({ timestamp: Date.now(), data: Live technical metrics, cached: false }); }); // 4. Remote CDN Cache Purge / Invalidation Endpoint app.post('/api/v1/cdn/purge', express.json(), (req, res) => { const { zoneId, files } = req.body; // In a real setup, you would use Axios/Fetch to call your Anycast provider's API here // Example: Cloudflare API or AWS CloudFront Invalidation API console.log(`[Purge Protocol v4.2.0] Purging files from Anycast Edge Zone: ${zoneId}`); res.status(200).json({ success: true, purged_assets: files, status: Edge synchronization initiated }); }); app.listen(PORT, () => { console.log(`[Anycast Origin Server v4.2.0] Running on port ${PORT}`); });",
+                exchangeVersions: generateVersionTiers("Anycast Routing & Global Content Delivery Network Setup v2.6.1").map(v => v.name).filter(v => v !== version)
             }
 
 
@@ -2406,7 +2409,7 @@
 
                 const invoiceData = {
                     metadata: {
-                        domain: "www.codlokon.space",
+                        
                         generatedAt: new Date().toISOString()
                     },
                     header: {
@@ -2464,7 +2467,7 @@
 
                 doc.setTextColor(...lightText);
                 doc.setFontSize(8);
-                doc.text(invoiceData.metadata.domain, 105, 8, { align: 'center' });
+                // doc.text(invoiceData.metadata.domain, 105, 8, { align: 'center' });
                 doc.setFontSize(28);
                 doc.setFont('helvetica', 'bold');
                 doc.text('INVOICE', 20, 32);
@@ -2534,7 +2537,7 @@
                 doc.setFontSize(9);
                 doc.setTextColor(...darkText);
                 doc.text('DESCRIPTION', 25, currentY + 6.5);
-                doc.text('VENDOR', 85, currentY + 6.5);
+                doc.text('PRIMARY VENDOR', 85, currentY + 6.5);
                 doc.text('QTY', 125, currentY + 6.5);
                 doc.text('PRICE', 145, currentY + 6.5);
                 doc.text('TOTAL', 170, currentY + 6.5);
@@ -2544,7 +2547,7 @@
                 invoiceData.lineItems.forEach(item => {
                     // Split text into wrapped lines for description and vendor
                     const descStr = String(item.itemDescription || '');
-                    const vendorStr = String(item.itemVendor || '');
+                    const vendorStr = 'Codlokon'
                     const descLines = doc.splitTextToSize(descStr, 55);
                     const vendorLines = doc.splitTextToSize(vendorStr, 35);
 
