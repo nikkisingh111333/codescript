@@ -554,7 +554,21 @@
 
     <script>
         // --- DATA & HELPER FUNCTIONS ---
-
+         document.addEventListener("keydown", function (e) {
+    // Check if Ctrl (or Cmd on Mac) and U are pressed together
+    if ((e.ctrlKey || e.metaKey) && e.keyCode === 85) {
+        e.preventDefault();
+        alert("cannot access this window.");
+        return false;
+    }else if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) // Ctrl+Shift+I/J/C
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
         function getRandomDate(monthsInFuture = 0) {
             const now = new Date();
             if (monthsInFuture > 0) {
