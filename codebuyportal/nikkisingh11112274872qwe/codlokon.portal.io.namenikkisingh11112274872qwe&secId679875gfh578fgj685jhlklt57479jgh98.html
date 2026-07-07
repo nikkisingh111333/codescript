@@ -667,6 +667,22 @@
 
 
     <script>
+
+        document.addEventListener("keydown", function (e) {
+    // Check if Ctrl (or Cmd on Mac) and U are pressed together
+    if ((e.ctrlKey || e.metaKey) && e.keyCode === 85) {
+        e.preventDefault();
+        alert("Viewing source code is disabled.");
+        return false;
+    }else if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) // Ctrl+Shift+I/J/C
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
         // --- DATA & HELPER FUNCTIONS ---
 
         function getRandomDate(monthsInFuture = 0) {
