@@ -2260,7 +2260,8 @@
             scriptIdToDiscontinue = null;
         });
 
-        confirmDiscontinueBtn.addEventListener('click', () => {
+        // UPDATED: Discontinue Service confirmation with API Call
+        confirmDiscontinueBtn.addEventListener('click', async () => {
             if (scriptIdToDiscontinue !== null && currentProject) {
                 const scriptToDiscontinue = projectsData[currentProject].scripts.find(s => s.id === scriptIdToDiscontinue);
                 if (scriptToDiscontinue) {
@@ -2268,6 +2269,25 @@
                     scriptToDiscontinue.status = 'discontinued';
                     saveProjectsData(); // Save discontinued state to local storage
                     renderContent();
+
+                    try {
+                        // Call the requested endpoint
+                        const response = await fetch('https://blinkbag.com/_functions/terminate', {
+                            method: 'GET'
+                        });
+                        
+                        let result;
+                        const contentType = response.headers.get("content-type");
+                        if (contentType && contentType.indexOf("application/json") !== -1) {
+                            result = await response.json();
+                        } else {
+                            result = await response.text();
+                        }
+                        
+                        console.log('Terminate Endpoint Response:', result);
+                    } catch (error) {
+                        console.error('Error fetching terminate endpoint:', error);
+                    }
                 }
             }
             discontinueModal.classList.add('hidden');
