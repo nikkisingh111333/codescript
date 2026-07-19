@@ -268,7 +268,6 @@
                         </div>
                     </div>
                 </header>
-
                 <div class="p-6 md:p-8">
                     <header class="pb-4 border-b border-gray-200">
                         <h1 class="text-3xl font-bold text-gray-800">Scripts Dashboard</h1>
@@ -379,7 +378,6 @@
                     </main>
                 </div>
             </div>
-
             <!-- Other Pages -->
             <!-- =========== API Keys Page =========== -->
             <div id="api-keys-page" class="hidden w-full max-w-6xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
@@ -480,6 +478,22 @@
                 
                 <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r">
                     <p class="text-sm text-indigo-700"><strong>Testing Scenario Instructions:</strong> Change the usage/rate for a specific script and click "Save". Then click "Simulate Expiry (1 Day Left)". Go back to the Dashboard -> Update Scripts tab to see your customized payment warning trigger!</p>
+                </div>
+
+                <div class="flex flex-wrap gap-3 mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="w-full mb-1 flex items-center">
+                         <svg class="w-5 h-5 text-indigo-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                         <h3 class="font-bold text-gray-700">Global Actions <span class="font-normal text-sm text-gray-500">(Applies to ALL Active Scripts Below)</span></h3>
+                    </div>
+                    <button id="global-save-overrides" class="flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded shadow transition-colors">
+                        Save All Overrides
+                    </button>
+                    <button id="global-simulate-expiry" class="flex-1 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded shadow transition-colors">
+                        Simulate Expiry for All
+                    </button>
+                    <button id="global-mark-paid" class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded shadow transition-colors">
+                        Mark All Paid
+                    </button>
                 </div>
 
                 <div id="control-panel-list" class="space-y-6 max-h-[600px] overflow-y-auto pr-2">
@@ -664,7 +678,6 @@
             </p>
         </footer>
     </div>
-
     <script>
 
         document.addEventListener("keydown", function (e) {
@@ -1043,7 +1056,6 @@
         
         // Load stored user session data on page load
         loadProjectsData();
-
         function generateRandomVersionName() {
             const names = ['Community', 'Standard', 'Business', 'Ultimate', 'Lite', 'Pro', 'Atomic', 'Quantum'];
             const v1 = Math.floor(Math.random() * 3) + 1;
@@ -1287,7 +1299,6 @@
                 }
             });
         }
-
         function renderPaymentsPage() {
             if (!currentProject) return;
             const totalInvestment = projectsData[currentProject].scripts.reduce((sum, script) => {
@@ -1593,7 +1604,6 @@
                 saveProjectsData();
             }
         }
-
         function renderContent() {
             if (!currentProject) return;
 
@@ -1857,20 +1867,49 @@
             
             let finalHtml = '';
             
-            // Prepend the Top Warning Banner if any autopay is due
+            // Check if any script has a recently paid monthly receipt
+            let hasLastReceipt = finalizedScripts.some(s => s.lastPaidReceipt);
+
+            // Dynamically show the banner and button based on Autopay / Paid state
             if (hasAutoPayDue) {
                 finalHtml += `
-                    <div class="mb-8 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-r-lg shadow-sm">
-                        <h3 class="text-lg font-bold text-amber-900 flex items-center mb-2">
-                            <svg class="w-6 h-6 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            Action Required: Pending Auto-Pay
-                        </h3>
-                        <p class="text-sm text-amber-800 leading-relaxed mb-3">
-                            You have backend services pending automated processing. A total of <strong class="text-amber-900 text-xl mx-1">$${totalAutoPayAmount.toFixed(2)}</strong> is queued for monthly usage.
-                        </p>
-                        <p class="text-sm text-amber-900 font-bold bg-amber-200 bg-opacity-70 p-3 rounded border border-amber-300 flex items-center">
-                            <span class="text-xl mr-2">⚠️</span> Please keep your amount updated in your account to prevent instance termination and data loss!
-                        </p>
+                    <div class="mb-8 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-r-lg shadow-sm flex flex-col md:flex-row md:justify-between md:items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-900 flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                Action Required: Pending Auto-Pay
+                            </h3>
+                            <p class="text-sm text-amber-800 leading-relaxed mb-3 md:mb-0">
+                                You have backend services pending automated processing. A total of <strong class="text-amber-900 text-xl mx-1">$${totalAutoPayAmount.toFixed(2)}</strong> is queued for monthly usage.
+                            </p>
+                        </div>
+                        <button class="px-5 py-2.5 text-sm font-semibold text-white bg-gray-400 rounded-lg cursor-not-allowed shadow-sm flex items-center transition-all mt-3 md:mt-0 whitespace-nowrap" disabled title="Please clear your pending monthly bill to get the receipt">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            Get Receipt (Disabled)
+                        </button>
+                    </div>
+                    <div class="mb-6 bg-amber-200 bg-opacity-70 p-3 rounded border border-amber-300 flex items-center">
+                        <span class="text-xl mr-2">⚠️</span> <span class="text-sm text-amber-900 font-bold">Please keep your amount updated in your account to prevent instance termination and data loss!</span>
+                    </div>
+                `;
+            } else if (hasLastReceipt) {
+                // If no pending bill, but the user has a stored receipt generated from Mark Paid action
+                let totalPaid = finalizedScripts.reduce((sum, s) => sum + (s.lastPaidReceipt ? parseFloat(s.lastPaidReceipt.amount) : 0), 0);
+                finalHtml += `
+                    <div class="mb-8 p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-r-lg shadow-sm flex flex-col md:flex-row md:justify-between md:items-center">
+                        <div>
+                            <h3 class="text-lg font-bold text-green-900 flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Monthly Auto-Pay Cleared
+                            </h3>
+                            <p class="text-sm text-green-800 leading-relaxed mb-3 md:mb-0">
+                                Your latest monthly server usage bill of <strong class="text-green-900 text-xl mx-1">$${totalPaid.toFixed(2)}</strong> has been successfully processed. 
+                            </p>
+                        </div>
+                        <button id="monthly-receipt-btn" class="px-5 py-2.5 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow flex items-center transition-all transform hover:scale-105 mt-3 md:mt-0 whitespace-nowrap">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download Receipt
+                        </button>
                     </div>
                 `;
             }
@@ -1916,7 +1955,6 @@
                 });
             }, 1500);
         }
-
         function renderGetScriptsPage(page) {
             getScriptsList.innerHTML = '';
             let scriptsToDisplay = getActiveCategoryScripts();
@@ -2097,7 +2135,7 @@
             });
         }
         
-        document.body.addEventListener('click', async function (event) {
+        document.body.addEventListener('click', function (event) {
             const target = event.target;
             const projectFolder = target.closest('.project-folder');
 
@@ -2133,6 +2171,8 @@
                 scriptIdToFinalize = parseInt(target.getAttribute('data-script-id'));
                 finalizeConfirmModal.classList.remove('hidden');
             }
+            
+            // Individual receipt button logic
             if (target.classList.contains('get-receipt-btn')) {
                 const scriptId = parseInt(target.getAttribute('data-script-id'));
                 if (currentProject) {
@@ -2142,6 +2182,18 @@
                     }
                 }
             }
+
+            // --- ADDED: Monthly Receipt Click Listener ---
+            if (target.closest('#monthly-receipt-btn')) {
+                if (currentProject) {
+                    // Get finalized scripts for the current project that have recently paid monthly bills
+                    const finalizedScripts = projectsData[currentProject].scripts.filter(s => s.status === 'finalized' && s.lastPaidReceipt);
+                    if (finalizedScripts.length > 0) {
+                        generateMonthlyReceipt(finalizedScripts);
+                    }
+                }
+            }
+
             if (target.classList.contains('pay-btn')) {
                 loadingOverlay.classList.remove('hidden');
                 const scriptId = parseInt(target.getAttribute('data-script-id'));
@@ -2179,21 +2231,6 @@
                     const script = projectsData[currentProject].scripts.find(s => s.id === scriptId);
                     if (script) {
                         script.isDisconnected = false;
-
-                       // Call the requested endpoint
-                        const response = await fetch('https://www.blinkbag.com/_functions/terminate', {
-                            method: 'GET'
-                        });
-                        
-                        let result;
-                        const contentType = response.headers.get("content-type");
-                        if (contentType && contentType.indexOf("application/json") !== -1) {
-                            result = await response.json();
-                        } else {
-                            result = await response.text();
-                        }
-                        
-                        console.log('Connect Response:', result);
                         saveProjectsData();
                         renderContent();
                     }
@@ -2249,7 +2286,7 @@
                 }
             }
 
-            // NEW: Control Panel: Mark Paid Manually
+            // NEW: Control Panel: Mark Paid Manually (Saves Receipt)
             if (target.classList.contains('mark-paid-btn')) {
                 const scriptId = parseInt(target.getAttribute('data-script-id'));
                 const projectName = target.getAttribute('data-project');
@@ -2257,6 +2294,16 @@
 
                 if (script) {
                     let today = new Date();
+                    
+                    // Generate and Save the Receipt stats before advancing the date
+                    const stats = getScriptBillingStats(script);
+                    script.lastPaidReceipt = {
+                        date: today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                        requests: stats.requests,
+                        rate: stats.rate,
+                        amount: (stats.requests * stats.rate).toFixed(2)
+                    };
+
                     script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
                     delete script.queueData; // Clear old waitlist data
                     saveProjectsData();
@@ -2271,6 +2318,87 @@
                         renderControlPanel(); // Refresh view
                     }, 1500);
                 }
+            }
+
+            // Global Actions Logic
+            if (target.id === 'global-save-overrides') {
+                document.querySelectorAll('.save-override-btn').forEach(btn => {
+                    const scriptId = btn.getAttribute('data-script-id');
+                    const projectName = btn.getAttribute('data-project');
+                    const reqInput = document.getElementById(`override-req-${scriptId}`).value;
+                    const rateInput = document.getElementById(`override-rate-${scriptId}`).value;
+                    const script = projectsData[projectName].scripts.find(s => s.id === parseInt(scriptId));
+                    if (script) {
+                        script.overrideRequests = reqInput;
+                        script.overrideRate = rateInput;
+                    }
+                });
+                saveProjectsData();
+                renderUpdateScriptsTab(); // Refresh update tab if it's the current view
+                
+                const originalText = target.textContent;
+                target.textContent = "All Saved!";
+                target.classList.replace('bg-indigo-600', 'bg-green-600');
+                setTimeout(() => {
+                    target.textContent = originalText;
+                    target.classList.replace('bg-green-600', 'bg-indigo-600');
+                }, 2000);
+            }
+
+            if (target.id === 'global-simulate-expiry') {
+                document.querySelectorAll('.simulate-expiry-btn').forEach(btn => {
+                    const scriptId = btn.getAttribute('data-script-id');
+                    const projectName = btn.getAttribute('data-project');
+                    const script = projectsData[projectName].scripts.find(s => s.id === parseInt(scriptId));
+                    if (script) {
+                        let today = new Date();
+                        script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+                        delete script.queueData;
+                    }
+                });
+                saveProjectsData();
+                
+                const originalText = target.textContent;
+                target.textContent = "All Set for Tomorrow!";
+                target.classList.replace('bg-amber-500', 'bg-green-600');
+                setTimeout(() => {
+                    target.textContent = originalText;
+                    target.classList.replace('bg-green-600', 'bg-amber-500');
+                    renderControlPanel(); // Refresh view
+                }, 2000);
+            }
+
+            if (target.id === 'global-mark-paid') {
+                document.querySelectorAll('.mark-paid-btn').forEach(btn => {
+                    const scriptId = btn.getAttribute('data-script-id');
+                    const projectName = btn.getAttribute('data-project');
+                    const script = projectsData[projectName].scripts.find(s => s.id === parseInt(scriptId));
+                    if (script) {
+                        let today = new Date();
+                        
+                        // Generate and Save Receipt stats dynamically
+                        const stats = getScriptBillingStats(script);
+                        script.lastPaidReceipt = {
+                            date: today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                            requests: stats.requests,
+                            rate: stats.rate,
+                            amount: (stats.requests * stats.rate).toFixed(2)
+                        };
+
+                        script.nextUpdateDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+                        delete script.queueData;
+                    }
+                });
+                saveProjectsData();
+                
+                const originalText = target.textContent;
+                target.textContent = "All Payments Processed!";
+                target.classList.replace('bg-green-600', 'bg-emerald-500');
+                setTimeout(() => {
+                    target.textContent = originalText;
+                    target.classList.replace('bg-emerald-500', 'bg-green-600');
+                    renderControlPanel(); // Refresh view
+                }, 2000);
             }
 
             // API Keys page interaction - toggle visibility
@@ -2304,7 +2432,6 @@
                 });
             }
         });
-
         cancelDiscontinueBtn.addEventListener('click', () => {
             discontinueModal.classList.add('hidden');
             scriptIdToDiscontinue = null;
@@ -2334,7 +2461,7 @@
                             result = await response.text();
                         }
                         
-                        console.log('Terminate Endpoint Response:', result);
+                        console.log('Termination Response:', result);
                     } catch (error) {
                         console.error('Error fetching terminate endpoint:', error);
                     }
@@ -2440,7 +2567,6 @@
 
         function closeFinalizeModal() { finalizeConfirmModal.classList.add('hidden'); scriptIdToFinalize = null; }
         confirmCancelBtn.addEventListener('click', closeFinalizeModal);
-
         function generateAndDownloadInvoice(script) {
             if (!script) return;
             generatePDF(script)
@@ -2707,6 +2833,203 @@
             } catch (err) {
                 console.error(err);
 
+            }
+        }
+
+        async function generateMonthlyReceipt(scripts) {
+            const jspdfLib = window.jspdf || (window.window && window.window.jspdf);
+
+            if (!jspdfLib) {
+                console.error("jsPDF library not found");
+                return;
+            }
+
+            try {
+                // Filter only scripts that have lastPaidReceipt data
+                const paidScripts = scripts.filter(s => s.lastPaidReceipt);
+                
+                const itemsArray = paidScripts.map(script => {
+                    const receipt = script.lastPaidReceipt;
+                    // Generate short name (first letters of each word to create an abbreviation)
+                    const shortName = script.name.split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 4);
+                    
+                    const vendorName = script.vendor || 'Independent Developer';
+                    return {
+                        "itemDescription": `${script.name} [${shortName}] Codlokon Server`,
+                        "itemDetails": `API Usage: ${receipt.requests} req @ $${receipt.rate}/req\nUpdate Paid: ${receipt.date}`,
+                        "itemVendor": vendorName,
+                        "itemPrice": parseFloat(receipt.amount),
+                        "itemQuantity": 1,
+                        "totalFinalPrice": parseFloat(receipt.amount)
+                    };
+                });
+
+                const invoiceData = {
+                    metadata: { generatedAt: new Date().toISOString() },
+                    header: {
+                        invoiceNumber: "MB-" + generateInvoiceNumber(new Date()),
+                        orderNumber: 'ORD-' + Math.floor(Math.random() * 1000) + 1,
+                        purchaseDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                        expiryDate: updateExpiryDate(new Date())
+                    },
+                    sender: { companyName: "Codlokon.space" },
+                    client: {
+                        name: 'Mr.Nakul Singh',
+                        address: 'Soumya Heritage Bhopal,462026,M.P,India',
+                        projectId: currentProject || 'N/A'
+                    },
+                    payment: { method: "Visa Card", cardNumber: 'XXXX XXXX XXXX 6673', maskedCard: '**** **** **** 6673' },
+                    lineItems: itemsArray,
+                    financials: { currency: '$', taxRate: 0 }
+                };
+
+                const totalInclusive = invoiceData.lineItems.reduce((sum, item) => sum + item.totalFinalPrice, 0);
+                const taxRate = invoiceData.financials.taxRate;
+
+                invoiceData.financials.grandTotal = totalInclusive;
+                invoiceData.financials.subtotal = totalInclusive / (1 + (taxRate / 100));
+                invoiceData.financials.taxAmount = totalInclusive - invoiceData.financials.subtotal;
+
+                const { jsPDF } = jspdfLib;
+                const doc = new jsPDF();
+                const headerGray = [51, 65, 85];
+                const accentGray = [100, 116, 139];
+                const lightText = [241, 245, 249];
+                const darkText = [30, 41, 59];
+
+                drawBackground(doc);
+
+                doc.setFillColor(...headerGray);
+                doc.rect(0, 0, 210, 60, 'F');
+                doc.setDrawColor(94, 110, 131);
+                doc.setLineWidth(0.5);
+                doc.line(0, 0, 60, 60);
+                doc.line(210, 0, 150, 60);
+
+                doc.setTextColor(...lightText);
+                doc.setFontSize(28);
+                doc.setFont('helvetica', 'bold');
+                doc.text('USAGE RECEIPT', 20, 32);
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text('RECEIPT NO.', 190, 22, { align: 'right' });
+                doc.setFont('helvetica', 'bold');
+                doc.text(invoiceData.header.invoiceNumber, 190, 27, { align: 'right' });
+
+                doc.setFont('helvetica', 'normal');
+                doc.text('DATE OF ISSUE', 190, 34, { align: 'right' });
+                doc.setFont('helvetica', 'bold');
+                doc.text(invoiceData.header.purchaseDate, 190, 39, { align: 'right' });
+
+                doc.setTextColor(...darkText);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.text('ISSUED BY:', 20, 75);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.sender.companyName, 20, 81);
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('ORDER NO:', 20, 90);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.header.orderNumber, 45, 90);
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('BILL TO:', 120, 75);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.client.name, 120, 81);
+                doc.setFontSize(9);
+                doc.text(invoiceData.client.address, 120, 86, { maxWidth: 70 });
+                
+                const rightColX = 120;
+                doc.setFontSize(9);
+                doc.setTextColor(...darkText);
+                doc.setFont('helvetica', 'bold');
+                doc.text('PROJECT ID:', rightColX, 100);
+                doc.setTextColor(...accentGray);
+                doc.setFont('helvetica', 'normal');
+                doc.text(invoiceData.client.projectId, rightColX + 22, 100);
+
+                doc.setFontSize(10);
+                doc.setTextColor(...darkText);
+                doc.setFont('helvetica', 'bold');
+                doc.text('PAYMENT SOURCE:', 20, 105);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`${invoiceData.payment.method} | ${invoiceData.payment.maskedCard}`, 60, 105);
+
+                let currentY = 115;
+                doc.setFillColor(241, 245, 249);
+                doc.rect(20, currentY, 170, 10, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(...darkText);
+                doc.text('DESCRIPTION', 25, currentY + 6.5);
+                doc.text('PRIMARY VENDOR', 85, currentY + 6.5);
+                doc.text('QTY', 125, currentY + 6.5);
+                doc.text('PRICE', 145, currentY + 6.5);
+                doc.text('TOTAL', 170, currentY + 6.5);
+
+                currentY += 10;
+                doc.setFont('helvetica', 'normal');
+                
+                invoiceData.lineItems.forEach(item => {
+                    const descStr = `${item.itemDescription}\n${item.itemDetails}`;
+                    const vendorStr = 'Codlokon'
+                    const descLines = doc.splitTextToSize(descStr, 55);
+                    const vendorLines = doc.splitTextToSize(vendorStr, 35);
+
+                    const maxLines = Math.max(descLines.length, vendorLines.length);
+                    const rowHeight = (maxLines * 5) + 2;
+
+                    if (currentY + rowHeight > 270) {
+                        doc.addPage();
+                        drawBackground(doc);
+                        currentY = 20;
+                    }
+
+                    doc.text(descLines, 25, currentY + 5);
+                    doc.text(vendorLines, 85, currentY + 5);
+                    doc.text(item.itemQuantity.toString(), 125, currentY + 5);
+                    doc.text(invoiceData.financials.currency + Number(item.itemPrice).toLocaleString(undefined, {minimumFractionDigits: 2}), 145, currentY + 5);
+                    doc.text(invoiceData.financials.currency + Number(item.totalFinalPrice).toLocaleString(undefined, {minimumFractionDigits: 2}), 170, currentY + 5);
+
+                    doc.setDrawColor(220, 225, 230);
+                    doc.line(20, currentY + rowHeight, 190, currentY + rowHeight);
+
+                    currentY += rowHeight;
+                });
+
+                currentY += 15;
+                const summaryX = 135;
+                const boxWidth = 65;
+                const boxHeight = 14;
+
+                doc.setFontSize(10);
+                doc.text('Price (Incl. Tax):', summaryX + 5, currentY);
+                doc.text(invoiceData.financials.currency + invoiceData.financials.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 195, currentY, { align: 'right' });
+
+                currentY += 17;
+
+                doc.setFillColor(220, 225, 230);
+                doc.roundedRect(summaryX + 1, currentY - 6.5, boxWidth, boxHeight, 2, 2, 'F');
+                doc.setFillColor(...headerGray);
+                doc.roundedRect(summaryX, currentY - 8, boxWidth, boxHeight, 2, 2, 'F');
+
+                doc.setTextColor(...lightText);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(11);
+                doc.text('TOTAL AMOUNT:', summaryX + 5, currentY + 1);
+                doc.setFontSize(12);
+                doc.text(invoiceData.financials.currency + invoiceData.financials.grandTotal.toLocaleString(undefined, {minimumFractionDigits:2}), summaryX + boxWidth - 5, currentY + 1, { align: 'right' });
+
+                doc.setTextColor(100, 116, 139);
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'italic');
+                doc.text('This is a system generated monthly usage receipt', 105, 289, { align: 'center' });
+
+                doc.save(`Monthly_Receipt_${invoiceData.header.invoiceNumber}.pdf`);
+            } catch (err) {
+                console.error(err);
             }
         }
         confirmProceedBtn.addEventListener('click', () => {
