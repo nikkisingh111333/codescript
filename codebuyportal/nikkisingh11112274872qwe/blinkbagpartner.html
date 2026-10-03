@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Synergy: Blinkbag x Billboard Operators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',
+                            slate: '#1e293b',
+                            blue: '#2563eb',
+                            indigo: '#4f46e5',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            light: '#f8fafc'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px;
+            max-height: 400px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .partner-glow {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-indigo selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-brand-navy/95 text-white backdrop-blur border-b border-slate-800 shadow-xl">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <a href="https://blinkbag.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                    <div class="bg-white px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xxl shadow-md flex items-center justify-center"  style="background-color:transparent;">
+                        <img id="logo" src="https://static.wixstatic.com/media/bcb9cf_c700482e6ef648fab00a50cb4cda3b56~mv2.png" alt="Blinkbag Logo" style="background-color:transparent;opacity: 1.0" class="h-7 sm:h-20 w-auto object-contain">
+                    </div>
+                </a>
+                <span class="hidden md:inline-block text-[11px] lg:text-xs uppercase tracking-widest text-brand-cyan font-semibold border-l border-slate-700 pl-3 py-1">
+                     Billboard Advertising Partnership Program
+                </span>
+            </div>
+
+            <nav class="hidden lg:flex items-center gap-5 xl:gap-6 text-xs xl:text-sm font-medium text-slate-300">
+                <a href="#macro" class="hover:text-brand-cyan transition-colors">Market Scale</a>
+                <a href="#bottlenecks" class="hover:text-brand-cyan transition-colors">Street Access</a>
+                <a href="#delivery" class="hover:text-brand-cyan transition-colors">Delivery Fleet</a>
+                <a href="#tech" class="hover:text-brand-cyan transition-colors">Geo Tech</a>
+                <a href="#dashboard" class="hover:text-brand-cyan transition-colors">Ad Ops Portal</a>
+                <a href="#yield" class="hover:text-brand-cyan transition-colors">Synergy & Revenue</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <a href="#contact" class="group relative inline-flex items-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-brand-indigo via-brand-blue to-brand-cyan hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 border border-white/20">
+                    <span class="relative z-10 flex items-center gap-1.5">
+                        <span>Partner With Us</span>
+                        <span class="text-xs group-hover:translate-x-0.5 transition-transform duration-200">→</span>
+                    </span>
+                    <span class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                </a>
+
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none transition-colors" aria-label="Toggle Menu">
+                    <span id="menu-icon" class="text-xl font-bold leading-none">☰</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900/95 border-b border-slate-800 px-4 py-4 space-y-3 backdrop-blur text-sm font-medium">
+            <a href="#macro" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">01. Market Scale & Financials</a>
+            <a href="#bottlenecks" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">02. Pedestrian Zone Access</a>
+            <a href="#delivery" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">03. Last-Mile Delivery Fleet</a>
+            <a href="#tech" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">04. Hardware & GPS Intelligence</a>
+            <a href="#dashboard" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">05. Ad Operations Portal</a>
+            <a href="#yield" class="block text-slate-300 hover:text-brand-cyan py-1.5 transition-colors">06. Synergy & Revenue Yield</a>
+        </div>
+    </header>
+
+    <section class="relative bg-brand-navy text-white py-12 sm:py-16 md:py-24 overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
+                    <div class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-slate-800/80 border border-brand-cyan/30 text-brand-cyan text-[11px] sm:text-xs font-semibold uppercase tracking-wider">
+                        <span>⚡ Strategic Partnership Executive Briefing</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight sm:leading-tight">
+                        Elevating Outdoor Media with <span class="bg-gradient-to-r from-brand-cyan via-blue-400 to-brand-emerald bg-clip-text text-transparent">Hyper-Local Street Precision</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed">
+                        UK billboard operators deliver iconic brand stature and high-impact audience reach. Blinkbag partners with media owners to extend that broadcast power onto the street level—giving your clients zero-CapEx campaign expansion, micro-neighborhood precision, and direct mobile lead conversion on a lucrative commission-sharing basis.
+                    </p>
+                    <div class="pt-2 sm:pt-4 flex flex-wrap gap-3 sm:gap-4">
+                        <div class="p-3 sm:p-4 rounded-xl bg-slate-800/90 border border-slate-700/80 flex items-center gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
+                            <span class="text-xl sm:text-2xl">💰</span>
+                            <div>
+                                <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-semibold">UK OOH Market 2025</p>
+                                <p class="text-base sm:text-lg font-bold text-white">£1.44 Billion</p>
+                            </div>
+                        </div>
+                        <div class="p-3 sm:p-4 rounded-xl bg-slate-800/90 border border-slate-700/80 flex items-center gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
+                            <span class="text-xl sm:text-2xl">📊</span>
+                            <div>
+                                <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-semibold">DOOH Share Q2 '26</p>
+                                <p class="text-base sm:text-lg font-bold text-brand-cyan">68% Revenue</p>
+                            </div>
+                        </div>
+                        <div class="p-3 sm:p-4 rounded-xl bg-slate-800/90 border border-slate-700/80 flex items-center gap-3 flex-1 min-w-[140px] sm:min-w-[180px]">
+                            <span class="text-xl sm:text-2xl">🤝</span>
+                            <div>
+                                <p class="text-[10px] sm:text-xs text-slate-400 uppercase font-semibold">Partner Monetization</p>
+                                <p class="text-base sm:text-lg font-bold text-brand-emerald">Commission Earnings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 mt-4 lg:mt-0">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-700 group">
+                        <img src="https://static.wixstatic.com/media/bcb9cf_08fc225f5c794164956de4134dda674d~mv2.jpg" alt="UK Urban City Center Street View" class="w-full h-64 sm:h-80 lg:h-96 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-3.5 sm:p-4 rounded-xl glass-card text-slate-900 border border-white/50 shadow-lg">
+                            <div class="flex items-center justify-between gap-2">
+                                <div>
+                                    <p class="text-[10px] sm:text-xs font-bold uppercase text-brand-indigo tracking-wider">The Win-Win Synergy</p>
+                                    <p class="text-xs sm:text-sm font-extrabold text-slate-900">Macro Billboard Stature × Street-Level Frequency</p>
+                                </div>
+                                <span class="px-2 sm:px-2.5 py-1 bg-brand-emerald text-white text-[10px] sm:text-xs font-bold rounded-full whitespace-nowrap">ACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 sm:py-10 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="text-brand-blue text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">UK Delivery Market</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">£14.3B</div>
+                    <p class="text-[10px] sm:text-xs text-slate-500 mt-1">+87% Expansion since 2019</p>
+                </div>
+                <div class="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="text-brand-indigo text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">Adult Reach</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">60%</div>
+                    <p class="text-[10px] sm:text-xs text-slate-500 mt-1">Regular users of last-mile platforms</p>
+                </div>
+               
+                <div class="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="text-brand-emerald text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">Campaign ROI Boost</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">+35%</div>
+                    <p class="text-[10px] sm:text-xs text-slate-500 mt-1">Proven uplift via hyper-local placements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
+
+        <section id="macro" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-indigo font-bold text-xs uppercase tracking-wider">
+                    <span>01. Market Financials & Growth</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    The UK Digital Out-of-Home Surge
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    The UK OOH advertising market achieved an unprecedented £1.44 billion valuation in 2025, driven heavily by rapid digitization. In Q2 2026 alone, OOH revenues jumped 12.7% YoY to £402.6 million, with Digital Out-of-Home (DOOH) capturing 68% of total market revenue. Advertisers are increasingly shifting spend to dynamic, programmatic platforms (pDOOH).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div class="lg:col-span-7 bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-800">UK OOH Total Revenue vs. DOOH Revenue Share (2022–2026)</h3>
+                        <span class="self-start sm:self-auto text-[10px] sm:text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Source: Outsmart / PwC</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartOOHGrowth"></canvas>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-3 italic text-center">
+                        DOOH revenue has grown from 63% in 2022 to 68% in 2026, demonstrating an irreversible structural shift toward digital screen media.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-blue-50 text-brand-blue rounded-lg font-bold text-base sm:text-lg">📈</div>
+                            <h4 class="text-xs sm:text-sm font-bold text-slate-900">Programmatic Acceleration</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            77% of UK media planners now buy OOH programmatically. Industry leaders like JCDecaux experienced a 30.9% organic growth in programmatic revenue in H1 2026 via SSPs like VIOOH and platforms like The Trade Desk.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-emerald-50 text-brand-emerald rounded-lg font-bold text-base sm:text-lg">🌐</div>
+                            <h4 class="text-xs sm:text-sm font-bold text-slate-900">Universal Weekly Saturation</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Outdoor advertising reaches 98% of the UK population weekly. Billboards deliver irreplaceable scale and prestige across major arterial highways and city centers.
+                        </p>
+                    </div>
+
+                    <div class="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-brand-navy to-brand-slate text-white space-y-2">
+                        <span class="text-brand-cyan text-xs font-bold uppercase tracking-wider">The Strategic Opportunity</span>
+                        <p class="text-xs text-slate-200 leading-relaxed">
+                            To capture additional client budgets, billboard media owners can pair their premium roadside sites with Blinkbag's mobile delivery screens—creating an end-to-end "High Impact + Street Level" campaign bundle.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bottlenecks" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-cyan font-bold text-xs uppercase tracking-wider">
+                    <span>02. Unlocking Urban Zones & Restricted Areas</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    Extending Billboard Reach into Pedestrian & High-Density Corridors
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    While roadside billboards dominate arterial traffic, key pedestrian zones, historic high streets, and residential estates often lack fixed digital infrastructure due to municipal planning guidelines. Blinkbag provides billboard operators with flexible, compliant mobile inventory to reach these active pedestrian audiences.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="p-5 sm:p-6 bg-white rounded-2xl border border-slate-200 shadow-md space-y-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-900">How Blinkbag Complements Fixed Billboard Assets</h3>
+                        
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-100 text-brand-emerald flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">✓</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Pedestrian Precinct Access</h4>
+                                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Riders freely navigate pedestrianized shopping streets, business districts, and residential hubs where fixed screens cannot be constructed.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-100 text-brand-emerald flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">✓</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Zero CapEx Network Expansion</h4>
+                                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Billboard partners expand active ad inventory across prime UK cities without spending capital on hardware, land leases, or power installation.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-100 text-brand-emerald flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">✓</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Compliance & Adaptability</h4>
+                                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">As dynamic mobile displays, Blinkbag screens adapt instantly to client geotargeting requirements, complementing fixed site networks.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 sm:p-5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs leading-relaxed">
+                        <strong class="font-bold block mb-1">Partner Value Precedent:</strong>
+                        When advertisers seek 360-degree urban dominance, billboard operators can offer an integrated package: iconic fixed screens for massive broadcast reach, plus Blinkbag delivery screens for hyper-local street repetition.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-800">Urban Coverage Alignment: Fixed Billboards + Blinkbag Fleet</h3>
+                        <span class="self-start sm:self-auto text-[10px] sm:text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Market Alignment</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartRegulatoryBans"></canvas>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-3 italic text-center">
+                        Combining fixed billboard sites with mobile street networks guarantees 100% campaign continuity across all urban environments.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="delivery" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-emerald font-bold text-xs uppercase tracking-wider">
+                    <span>03. Last-Mile Logistics Powerhouse</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    Capturing High-Attention Audiences via Quick-Commerce
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    The UK food and quick-commerce delivery market has surged to £14.3 billion. Over 60% of the UK population regularly receives deliveries, with Gen Z consumers placing an average of 4.5 orders monthly. The delivery bag sits at the center of high consumer anticipation and eye-level street traffic.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div class="lg:col-span-6 bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-800">UK Delivery Fleet Market Share Breakdown</h3>
+                        <span class="self-start sm:self-auto text-[10px] sm:text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Market Size: £14.3B</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartDeliveryShare"></canvas>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-3 italic text-center">
+                        Delivery riders from Uber Eats, Just Eat, and Deliveroo navigate high-income urban corridors continuously throughout the day.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-6 space-y-4 sm:space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="relative rounded-xl overflow-hidden shadow-md group border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80" alt="Delivery Rider Courier" class="w-full h-36 sm:h-44 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-3">
+                                <span class="text-xs font-bold text-white">Eye-Level Urban Dwell Time</span>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden shadow-md group border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Busy Restaurant Dining Street" class="w-full h-36 sm:h-44 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex items-end p-3">
+                                <span class="text-xs font-bold text-white">High-Commerce Pedestrian Zones</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 sm:p-6 bg-slate-900 text-white rounded-2xl space-y-3">
+                        <h4 class="text-sm sm:text-base font-bold text-brand-cyan">The "Anticipation Effect" in Ambient Media</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            When combined with landmark static billboards that capture consumer attention during commutes, delivery screens arrive as an anticipated, emotionally positive touchpoint. Slow-moving transit in cycle lanes and drop-off corridors drastically increases message recall and brand absorption.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-semibold text-brand-emerald pt-1">
+                            <span>✓ Slow-Transit Exposure</span>
+                            <span>✓ Direct Sidewalk Eye-Level</span>
+                            <span>✓ High-Intent Audience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-blue font-bold text-xs uppercase tracking-wider">
+                    <span>04. Platform Hardware & GPS Intelligence</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    Cloud-Synced Hardware & 5-Step Geo-Fencing
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    Blinkbag equips active riders with 21-inch, anti-glare, high-luminance non-touch LED displays integrated into thermal backpacks. Powered by dynamic GPS telematics, ad assets trigger strictly when riders enter defined client target radiuses.
+                </p>
+            </div>
+
+            <div class="bg-white p-5 sm:p-8 rounded-2xl shadow-md border border-slate-200">
+                <h3 class="text-sm sm:text-base font-bold text-slate-900 mb-6 text-center">Blinkbag Dynamic Geo-Targeting Workflow</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 relative">
+                    <div class="p-4 rounded-xl bg-slate-50 border-2 border-brand-indigo/30 hover:border-brand-indigo transition-all text-center space-y-2">
+                        <div class="w-8 h-8 mx-auto rounded-full bg-brand-indigo text-white font-bold flex items-center justify-center text-xs">1</div>
+                        <h4 class="text-xs font-bold text-slate-800">Select Zone</h4>
+                        <p class="text-[11px] text-slate-500 leading-tight">Media buyer defines target postcode, retail park, or festival area.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border-2 border-brand-cyan/30 hover:border-brand-cyan transition-all text-center space-y-2">
+                        <div class="w-8 h-8 mx-auto rounded-full bg-brand-cyan text-white font-bold flex items-center justify-center text-xs">2</div>
+                        <h4 class="text-xs font-bold text-slate-800">Set Target Area-Radius</h4>
+                        <p class="text-[11px] text-slate-500 leading-tight">Telematics map specific micro-fences and coordinates on Map.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border-2 border-brand-emerald/30 hover:border-brand-emerald transition-all text-center space-y-2">
+                        <div class="w-8 h-8 mx-auto rounded-full bg-brand-emerald text-white font-bold flex items-center justify-center text-xs">3</div>
+                        <h4 class="text-xs font-bold text-slate-800">Auto Playback</h4>
+                        <p class="text-[11px] text-slate-500 leading-tight">Screen automatically plays dynamic creative upon entering the zone.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border-2 border-brand-amber/30 hover:border-brand-amber transition-all text-center space-y-2">
+                        <div class="w-8 h-8 mx-auto rounded-full bg-brand-amber text-white font-bold flex items-center justify-center text-xs">4</div>
+                        <h4 class="text-xs font-bold text-slate-800">Live QR Engagement</h4>
+                        <p class="text-[11px] text-slate-500 leading-tight">Pedestrians scan active QR code for coupons, yielding direct leads.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border-2 border-brand-blue/30 hover:border-brand-blue transition-all text-center space-y-2 sm:col-span-2 lg:col-span-1">
+                        <div class="w-8 h-8 mx-auto rounded-full bg-brand-blue text-white font-bold flex items-center justify-center text-xs">5</div>
+                        <h4 class="text-xs font-bold text-slate-800">Agile Optimization</h4>
+                        <p class="text-[11px] text-slate-500 leading-tight"> adjust target zones on demand.</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl">🔋</span>
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">8-Hour Battery Shift</p>
+                            <p class="text-[11px] text-slate-500">Continuous playback across lunch & dinner rushes</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl">☀️</span>
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">Anti-Glare Daylight Visibility</p>
+                            <p class="text-[11px] text-slate-500">Auto-dimming sensors compliant with UK Highway Code</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl">📡</span>
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">Cloud Sync & Telematics</p>
+                            <p class="text-[11px] text-slate-500">Real-time dynamic creative updating via web portal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-indigo font-bold text-xs uppercase tracking-wider">
+                    <span>05. Centralized Control Platform</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    Dedicated Dashboard & Campaign / Ad Control Management
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    Media buyers and billboard operators 
+                    gain full enterprise control over their campaigns 
+                    through the Blinkbag Partner Management Portal. 
+                    From Uploading Ad Campaign to See leads,Ad PlayBack Tine setting automated geofence Campaign and monitoring riders Activity, our centralized platform ensures complete visibility, dynamic pacing, and automated proof-of-play auditing.
+                </p>
+            </div>
+
+           
+
+                  
+              
+        </section>
+
+        <section id="yield" class="space-y-6">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 text-brand-indigo font-bold text-xs uppercase tracking-wider">
+                    <span>06. Collaborative Yield & Client Value Expansion</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    The "Hub & Spoke" Omnichannel Partnership Model
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    By adding Blinkbag inventory into your existing ad pitch, billboard operators offer clients an integrated "Hub & Spoke" media solution. Your premium static screen acts as the high-stature "Hub" anchor, while a fleet of Blinkbag delivery riders serves as the active "Spoke" swarm—driving high-frequency street impressions and interactive conversions across surrounding target zones on a commission-sharing basis.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <div class="lg:col-span-6 bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-800">Channel Synergy Matrix: Standalone Billboard vs. Combined "Hub & Spoke"</h3>
+                        <span class="self-start sm:self-auto text-[10px] sm:text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Campaign Multiplier</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartRadarComparison"></canvas>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-3 italic text-center">
+                        Billboards provide unmatched stature and impact; combining them with Blinkbag delivers a complete 360° audience funnel from broadcast reach down to street conversion.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-6 bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <h3 class="text-sm sm:text-base font-bold text-slate-800">Incremental Campaign Yield Growth for Billboard Partners</h3>
+                        <span class="self-start sm:self-auto text-[10px] sm:text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Commission Model</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartRevenueYield"></canvas>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-3 italic text-center">
+                        Billboard partners earn lucrative commission revenue by offering Blinkbag street coverage alongside their premium screen packages.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="p-4 sm:p-5 bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                        <h3 class="text-sm sm:text-base font-bold">Partner Value Proposition Matrix</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">Unlocking extra advertising power and revenue for billboard media owners</p>
+                    </div>
+                    <span class="px-2.5 py-1 bg-brand-emerald text-white text-[10px] sm:text-xs font-bold rounded-full whitespace-nowrap">SHARED OPPORTUNITY</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs min-w-[600px]">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 uppercase tracking-wider font-bold">
+                                <th class="p-3.5 sm:p-4">Strategic Pillar</th>
+                                <th class="p-3.5 sm:p-4">Billboard Operator Core Strength</th>
+                                <th class="p-3.5 sm:p-4">Blinkbag Mobile Extension</th>
+                                <th class="p-3.5 sm:p-4 text-brand-indigo font-extrabold">Combined Value for Advertisers</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600">
+                            <tr>
+                                <td class="p-3.5 sm:p-4 font-bold text-slate-800">Brand Reach & Stature</td>
+                                <td class="p-3.5 sm:p-4">Iconic high-impact landmark & arterial presence</td>
+                                <td class="p-3.5 sm:p-4">Eye-level street-level repetition & dwell time</td>
+                                <td class="p-3.5 sm:p-4 text-brand-indigo font-bold">Full-funnel campaign awareness & saturation</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 sm:p-4 font-bold text-slate-800">Audience Targeting</td>
+                                <td class="p-3.5 sm:p-4">Mass metropolitan highway & station corridors</td>
+                                <td class="p-3.5 sm:p-4">Hyper-local neighborhood & venue geofencing</td>
+                                <td class="p-3.5 sm:p-4 text-brand-indigo font-bold">Pinpoint spatial precision across all urban zones</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 sm:p-4 font-bold text-slate-800">Engagement & Action</td>
+                                <td class="p-3.5 sm:p-4">High visual broadcast recall and stature</td>
+                                <td class="p-3.5 sm:p-4">Interactive QR codes & mobile lead capture</td>
+                                <td class="p-3.5 sm:p-4 text-brand-indigo font-bold">Direct digital conversion & trackable performance</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 sm:p-4 font-bold text-slate-800">Commercial Revenue</td>
+                                <td class="p-3.5 sm:p-4">Core Billboard Portfolio Revenue Base</td>
+                                <td class="p-3.5 sm:p-4">Zero-CapEx Revenue Stream</td>
+                                <td class="p-3.5 sm:p-4 text-brand-emerald font-bold">High-Margin Mobile Add-On Revenue</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-brand-navy to-slate-800 text-white rounded-2xl shadow-xl space-y-6 border border-slate-700">
+                <div class="max-w-3xl">
+                    <span class="text-brand-cyan text-xs font-bold uppercase tracking-wider">07. Verification & Data Privacy</span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Route JIC Integration & UK GDPR Compliance</h2>
+                    <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                        To meet rigorous agency standards, Blinkbag GPS telemetry integrates into Route—the UK Joint Industry Currency for OOH measurement—converting bag coordinates into verified "Likelihood to See" (LTS) impressions.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
+                    <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2">
+                        <div class="text-brand-cyan font-bold text-xs sm:text-sm">📍 Route JIC Standard</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            GPS nodes are overlaid with volumetric pedestrian movement counts to output audited impression multipliers for programmatic buying desks.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2">
+                        <div class="text-brand-emerald font-bold text-xs sm:text-sm">📲 Device Retargeting</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Anonymized mobile location partners pass back device IDs in proximity, enabling sequential digital display retargeting 10 minutes post-exposure.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2">
+                        <div class="text-brand-amber font-bold text-xs sm:text-sm">🛡️ ICO & GDPR Compliant</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Operates strictly without tracking PII. QR lead captures are 100% opt-in, guaranteeing full compliance with the Data Protection Act 2018.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-gradient-to-r from-brand-indigo via-brand-blue to-brand-cyan p-6 sm:p-10 lg:p-12 rounded-2xl text-white shadow-2xl relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="lg:col-span-6 space-y-4">
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold tracking-wider uppercase inline-block">Strategic Partnership Invitation</span>
+                    <h2 class="text-2xl sm:text-4xl font-black leading-tight">Ready to Offer Your Clients Complete 360° Outdoor Coverage?</h2>
+                    <p class="text-xs sm:text-base text-blue-100 leading-relaxed">
+                        Partner with Blinkbag to offer high-density mobile delivery screens alongside your billboard network on a lucrative commission basis. Combine your macro screen prestige with our hyper-local street precision.
+                    </p>
+                    
+                    <div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <a href="https://www.blinkbag.com" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-white text-brand-navy font-extrabold text-xs sm:text-sm shadow-lg hover:bg-slate-100 transition-all flex items-center gap-2">
+                            <span>Let's Work Together.</span>
+                            <span>↗</span>
+                        </a>
+                        <div class="text-xs text-blue-100">
+                            <p class="font-bold"> Contact us:</p>
+                            <a href="mailto:blinkme@blinkbag.com" class="hover:underline" style="font-size: 16px;">blinkme@blinkbag.com</a><br>
+                            <a href="tel:+447901267508" class="hover:underline" style="display: block;font-size: 16px;margin-top: 10px;">+44 790 126 7508</a>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+            
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-[180px] font-black pointer-events-none select-none">
+                BLINK
+                BAG
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-navy text-slate-400 py-8 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white px-2 py-1 rounded-lg">
+                    <img src="https://static.wixstatic.com/media/bcb9cf_c700482e6ef648fab00a50cb4cda3b56~mv2.png" alt="Blinkbag Logo" class="h-6 w-auto object-contain">
+                </div>
+                <p>© 2026 Blinkbag.com. All rights reserved. Strategic Partner Briefing.</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                <a href="https://www.blinkbag.com" class="hover:text-white transition-colors">Website</a>
+                <a href="#macro" class="hover:text-white transition-colors">Market Report</a>
+                <a href="#dashboard" class="hover:text-white transition-colors">Ad Portal</a>
+                <a href="#yield" class="hover:text-white transition-colors">Synergy Matrix</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function() {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    if (isHidden) {
+                        mobileMenu.classList.remove('hidden');
+                        menuIcon.textContent = '✕';
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        menuIcon.textContent = '☰';
+                    }
+                });
+
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        menuIcon.textContent = '☰';
+                    });
+                });
+            }
+
+            const partnerForm = document.getElementById('partner-form');
+            const formStatus = document.getElementById('form-status');
+            if (partnerForm && formStatus) {
+                partnerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    formStatus.classList.remove('hidden');
+                    partnerForm.reset();
+                    setTimeout(() => {
+                        formStatus.classList.add('hidden');
+                    }, 5000);
+                });
+            }
+
+            function formatLabels(labels) {
+                return labels.map(label => {
+                    if (typeof label === 'string' && label.length > 16) {
+                        const words = label.split(' ');
+                        const lines = [];
+                        let currentLine = '';
+                        words.forEach(word => {
+                            if ((currentLine + ' ' + word).trim().length > 16) {
+                                if (currentLine) lines.push(currentLine.trim());
+                                currentLine = word;
+                            } else {
+                                currentLine += (currentLine ? ' ' : '') + word;
+                            }
+                        });
+                        if (currentLine) lines.push(currentLine.trim());
+                        return lines;
+                    }
+                    return label;
+                });
+            }
+
+            const commonTooltipConfig = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+            Chart.defaults.color = '#64748b';
+
+            const ctxOOH = document.getElementById('chartOOHGrowth').getContext('2d');
+            const rawLabels1 = ['2022 Annual', '2023 Annual', '2024 Annual', '2025 Annual', '2026 Q2 Est'];
+            new Chart(ctxOOH, {
+                type: 'bar',
+                data: {
+                    labels: formatLabels(rawLabels1),
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: 'DOOH Share of Revenue (%)',
+                            data: [63, 65, 66, 67, 68],
+                            borderColor: '#06b6d4',
+                            borderWidth: 3,
+                            fill: false,
+                            yAxisID: 'yShare',
+                            tension: 0.3,
+                            pointBackgroundColor: '#06b6d4',
+                            pointRadius: 5
+                        },
+                        {
+                            type: 'bar',
+                            label: 'Total UK OOH Revenue (£ Billions)',
+                            data: [1.20, 1.31, 1.40, 1.44, 1.61],
+                            backgroundColor: '#2563eb',
+                            borderRadius: 6,
+                            yAxisID: 'yRev'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        yRev: {
+                            type: 'linear',
+                            position: 'left',
+                            title: { display: true, text: 'Revenue (£B)', font: { size: 10 } },
+                            grid: { color: '#f1f5f9' },
+                            min: 1.0,
+                            max: 1.8
+                        },
+                        yShare: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'DOOH Share (%)', font: { size: 10 } },
+                            grid: { drawOnChartArea: false },
+                            min: 50,
+                            max: 80
+                        }
+                    }
+                }
+            });
+
+            const ctxReg = document.getElementById('chartRegulatoryBans').getContext('2d');
+            const rawLabels2 = [
+                'Arterial Roadways & Highways',
+                'Pedestrian Shopping Streets',
+                'Residential Estates & Hubs',
+                'Transit Centers & Stations',
+                'Hyper-Local Event Radiuses'
+            ];
+            new Chart(ctxReg, {
+                type: 'bar',
+                data: {
+                    labels: formatLabels(rawLabels2),
+                    datasets: [
+                        {
+                            label: 'Fixed Billboard Dominance (%)',
+                            data: [95, 60, 40, 90, 50],
+                            backgroundColor: '#2563eb',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Combined Network Reach (%)',
+                            data: [100, 100, 100, 100, 100],
+                            backgroundColor: '#10b981',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        x: {
+                            max: 100,
+                            title: { display: true, text: 'Urban Market Saturation Level (%)', font: { size: 10 } },
+                            grid: { color: '#f1f5f9' }
+                        }
+                    }
+                }
+            });
+
+            const ctxDelivery = document.getElementById('chartDeliveryShare').getContext('2d');
+            const rawLabels3 = [
+                'Uber Eats Market Share',
+                'Direct Restaurant Apps',
+                'Just Eat Takeaway',
+                'Deliveroo UK'
+            ];
+            new Chart(ctxDelivery, {
+                type: 'doughnut',
+                data: {
+                    labels: formatLabels(rawLabels3),
+                    datasets: [{
+                        data: [27.2, 26.4, 25.2, 16.2],
+                        backgroundColor: [
+                            '#2563eb',
+                            '#06b6d4',
+                            '#4f46e5',
+                            '#10b981'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            
+
+            const ctxRadar = document.getElementById('chartRadarComparison').getContext('2d');
+            const rawLabels4 = [
+                'Mass Stature & Scale',
+                'City Center Impact',
+                'Micro-Geo Precision',
+                'Interactive QR Leads',
+                'Eye-Level Dwell Time',
+                'Street Frequency'
+            ];
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: formatLabels(rawLabels4),
+                    datasets: [
+                        {
+                            label: 'Standalone Billboard Anchor',
+                            data: [95, 95, 45, 30, 50, 40],
+                            backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                            borderColor: '#2563eb',
+                            pointBackgroundColor: '#2563eb',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Combined Hub & Spoke Ecosystem',
+                            data: [100, 100, 95, 90, 92, 95],
+                            backgroundColor: 'rgba(16, 185, 129, 0.25)',
+                            borderColor: '#10b981',
+                            pointBackgroundColor: '#10b981',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#f1f5f9' },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            const ctxYield = document.getElementById('chartRevenueYield').getContext('2d');
+            const rawLabels5 = [
+                '1 Million Impressions',
+                '2.5 Million Impressions',
+                '5 Million Impressions',
+                '10 Million Impressions'
+            ];
+            new Chart(ctxYield, {
+                type: 'bar',
+                data: {
+                    labels: formatLabels(rawLabels5),
+                    datasets: [
+                        {
+                            label: 'Partner Commission Revenue Yield',
+                            data: [3500, 8750, 17500, 35000],
+                            backgroundColor: '#2563eb',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Blinkbag Mobile Fleet Fulfillment',
+                            data: [8500, 21250, 42500, 85000],
+                            backgroundColor: '#10b981',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        x: { stacked: true, grid: { color: '#f1f5f9' } },
+                        y: {
+                            stacked: true,
+                            title: { display: true, text: 'Total Extended Campaign Value (£)', font: { size: 10 } },
+                            grid: { color: '#f1f5f9' }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
